@@ -1,0 +1,3 @@
+rootProject.name = 'epro'
+
+include ':app'
