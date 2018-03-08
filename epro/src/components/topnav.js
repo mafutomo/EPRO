@@ -4,8 +4,8 @@ import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'nativ
 export default class TopNav extends Component {
   render() {
     return (
-      <Container>
-        <Header style={styles.container}>
+      <Container style={styles.container}>
+        <Header style={styles.header}>
           <Left>
             <Button transparent>
               <Icon name='menu' style={styles.icon}/>
@@ -26,6 +26,10 @@ export default class TopNav extends Component {
 
 const styles = StyleSheet.create({
     container: {
+      // marginBottom: 0,
+      height: 75,
+    },
+    header: {
       backgroundColor: '#FEFFFF',
       justifyContent: 'center',
       alignItems: 'center',

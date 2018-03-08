@@ -9,6 +9,7 @@ import Head from  '../components/header';
 import Banner from  '../components/banner';
 import TopNav from '../components/topnav';
 import BottomNav from '../components/bottomnav';
+import ExerciseDetail from '../components/exercisedetail';
 
 
 class Home extends Component {
@@ -22,13 +23,14 @@ class Home extends Component {
   render() {
     return (
         <Container>
-          <TopNav />
+          <Head />
           <Banner />
           <Content>
-              <SmallInputBox />
+            <ExerciseDetail />
+              {/* <SmallInputBox />
               <InputBox />
               <Submit />
-              <SliderVal />
+              <SliderVal /> */}
           </Content>
           <Footer>
             <BottomNav/>
