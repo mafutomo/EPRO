@@ -23,7 +23,7 @@ class Home extends Component {
   render() {
     return (
         <Container>
-          <Head />
+          <TopNav />
           <Banner />
           <Content>
             <ExerciseDetail />
