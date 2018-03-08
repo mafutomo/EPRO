@@ -13,7 +13,7 @@ class Hormones extends Component {
   render() {
     return (
         <Container>
-          <Head />
+  
           <Banner/>
           <Content>
 

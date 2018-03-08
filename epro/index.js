@@ -7,13 +7,14 @@ import History from './src/views/history';
 import Hormones from './src/views/hormones';
 import Login from './src/views/login';
 import Workout from './src/views/workout';
+import SignUp from './src/views/signup';
 
 const App = () => {
 
   return(
     <Container>
 
-        <Workout/>
+        <SignUp/>
 
     </Container>
   )
