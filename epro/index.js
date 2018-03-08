@@ -12,7 +12,9 @@ const App = () => {
 
   return(
     <Container>
+
         <Home/>
+        
     </Container>
   )
 }
