@@ -7,7 +7,9 @@ import SmallInputBox from '../components/smallinputbox';
 import SliderVal from  '../components/slider';
 import Head from  '../components/header';
 import Banner from  '../components/banner';
+import TopNav from '../components/topnav';
 import BottomNav from '../components/bottomnav';
+import ExerciseDetail from '../components/exercisedetail';
 
 
 class Home extends Component {
@@ -21,13 +23,14 @@ class Home extends Component {
   render() {
     return (
         <Container>
-          <Head />
-          <Banner/>
+          <TopNav />
+          <Banner />
           <Content>
-              <SmallInputBox />
+            <ExerciseDetail />
+              {/* <SmallInputBox />
               <InputBox />
               <Submit />
-              <SliderVal />
+              <SliderVal /> */}
           </Content>
           <Footer>
             <BottomNav/>

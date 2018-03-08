@@ -17,7 +17,7 @@ const styles = {
   header: {
     backgroundColor: '#FEFFFF',
     justifyContent: 'center',
-      alignItems: 'center',
+    alignItems: 'center',
     height: 70,
     paddingTop: 15,
     shadowColor: '#000',
@@ -26,8 +26,8 @@ const styles = {
     position: 'relative',
   },
   headerText: {
-    fontSize: 17,
-    fontFamily: 'Montserrat',
+    fontSize: 22,
+    // fontFamily: 'Montserrat',
   },
 }
 
