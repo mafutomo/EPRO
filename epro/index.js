@@ -13,8 +13,8 @@ const App = () => {
   return(
     <Container>
 
-        <Home/>
-        
+        <Workout/>
+
     </Container>
   )
 }
