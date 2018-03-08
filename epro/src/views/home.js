@@ -10,6 +10,7 @@ import Banner from  '../components/banner';
 import TopNav from '../components/topnav';
 import BottomNav from '../components/bottomnav';
 import ExerciseDetail from '../components/exercisedetail';
+import Spinner from '../components/spinner';
 
 
 class Home extends Component {

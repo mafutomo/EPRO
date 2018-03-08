@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Container, Header, Footer, Content } from 'native-base';
+import Banner from  '../components/banner';
+import TopNav from '../components/topnav';
+import BottomNav from '../components/bottomnav';
+import InputBox from '../components/inputbox';
+import Spinner from '../components/spinner';
 
 class Workout extends Component {
 
@@ -11,13 +16,17 @@ class Workout extends Component {
        }
   }
 
+
   render() {
+
     return (
         <Container>
-          <Head />
-          <Banner/>
-          <Content>
 
+          <TopNav />
+
+          <Content>
+    
+          <Spinner/>
           </Content>
           <Footer>
             <BottomNav/>
@@ -27,6 +36,12 @@ class Workout extends Component {
     }
 
 };
+
+const styles = StyleSheet.create({
+  container:{
+
+  }
+});
 
 
 export default Workout;

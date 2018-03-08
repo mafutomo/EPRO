@@ -18,7 +18,6 @@ const styles = {
       justifyContent: 'center',
       alignItems: 'center',
       height: 50,
-      position: 'relative',
   },
   bannerText:{
     fontSize: 20,
