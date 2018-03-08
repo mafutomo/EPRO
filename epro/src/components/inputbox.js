@@ -30,7 +30,7 @@ const styles = {
     fontSize: 18,
     marginTop: 10,
     marginBottom: 10,
-    // fontFamily: 'DidactGothic-Regular',
+    fontFamily: 'DidactGothic-Regular',
     position: 'relative',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2},

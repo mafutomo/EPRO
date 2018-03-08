@@ -19,7 +19,7 @@ const styles = {
     alignSelf: 'center',
     color: 'white',
     fontSize: 20,
-    // fontFamily: 'DidactGothic-Regular',
+    fontFamily: 'DidactGothic-Regular',
   },
   buttonStyle: {
     // flex: 1,
