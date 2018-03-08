@@ -17,11 +17,11 @@ const styles = {
       backgroundColor: '#DEF2F1',
       justifyContent: 'center',
       alignItems: 'center',
-      height: 50,
+      height: 53,
   },
   bannerText:{
     fontSize: 20,
-    // fontFamily: 'DidactGothic-Regular',
+    fontFamily: 'DidactGothic-Regular',
   }
 }
 

@@ -14,7 +14,7 @@ const App = () => {
   return(
     <Container>
 
-        <SignUp/>
+        <Workout/>
 
     </Container>
   )

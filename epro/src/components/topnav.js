@@ -26,8 +26,8 @@ export default class TopNav extends Component {
 
 const styles = StyleSheet.create({
     container: {
-      // marginBottom: 0,
-      height: 75,
+        // marginBottom: 0,
+      height: 12,
     },
     header: {
       backgroundColor: '#FEFFFF',

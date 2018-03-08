@@ -6,6 +6,7 @@ import TopNav from '../components/topnav';
 import BottomNav from '../components/bottomnav';
 import InputBox from '../components/inputbox';
 import Spinner from '../components/spinner';
+import CalendarNav from '../components/calendarnav';
 
 class Workout extends Component {
 
@@ -23,10 +24,11 @@ class Workout extends Component {
         <Container>
 
           <TopNav />
-
+          <Banner />
+          <CalendarNav />
           <Content>
-    
-          <Spinner/>
+
+
           </Content>
           <Footer>
             <BottomNav/>
