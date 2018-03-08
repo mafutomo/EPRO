@@ -1,34 +1,47 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Text, Body, Title, Icon, Right, Left } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Text, Body, Title, Icon, Right, Left, CheckBox, Button } from 'native-base';
+import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 export default class ExerciseDetail extends Component {
   render() {
+
+    const tableHead = ['Sets', 'Reps', 'Weight', 'Time'];
+    const tableData = [
+      ['', '', '', '']
+    ];
+
     return (
       <Container>
-        <Header />
         <Content>
           <Card style={styles.card}>
             <CardItem header>
               <Title>One Arm Pull Ups</Title>
             </CardItem>
             <CardItem>
-              <Left>
-              </Left>
-              <Text>Sets</Text>
-              <Text>Reps</Text>
-              <Text>Weight</Text>
-              <Text>Time</Text>
-
+              <Text style={styles.subText}>Description</Text>
             </CardItem>
             <CardItem>
-              <Icon active name="create" />
-              <Text>Google Plus</Text>
+              <Left></Left>
+              <Table style={styles.table}>
+                <Row data={tableHead} flexArr={[1, 1, 1, 1]} style={styles.head} textStyle={styles.text}/>
+              </Table>
+              <Right></Right>
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Icon name="create" />
+              </Left>
+              <Table style={styles.table} >
+                <Left></Left>
+                <Row data={tableHead} flexArr={[1, 1, 1, 1]} style={styles.head} textStyle={styles.text}/>
+                <Right></Right>
+                <TableWrapper style={{flexDirection: 'row'}}>
+                  <Rows data={tableData} flexArr={[1, 1, 1, 1]} style={styles.row}/>
+                </TableWrapper>
+              </Table>
               <Right>
-                <Icon name="arrow-forward" />
+                <CheckBox checked={true} style={{alignSelf: 'center'}}/>
               </Right>
-             </CardItem>
-            <CardItem footer>
-              <Text>GeekyAnts</Text>
             </CardItem>
          </Card>
         </Content>
@@ -44,14 +57,47 @@ const styles = StyleSheet.create({
     fontSize: 18,
     // fontFamily: 'DidactGothic-Regular',
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
     position: 'relative',
   },
+  titleText: {
+    fontSize: 18,
+    padding: 0,
+    margin: 0,
+
+  },
   subText: {
     fontSize: 16,
+    padding: 0,
+    margin: 0,
     // fontFamily: 'Montserrat',
   },
+  table: {
+    width: '75%',
+    backgroundColor: '#FEFFFF',
+    borderWidth: 0,
+    padding: 0,
+    margin: 0,
+  },
+  head: {
+    height: 30,
+    backgroundColor: '#DEF2F1',
+    borderWidth: 0,
+    padding: 0,
+    margin: 0,
+  },
+  row: {
+    height: 35,
+    borderWidth: 0,
+    padding: 0,
+    margin: 0,
+
+  },
+  text: {
+    textAlign: 'center',
+    color: '#17252A'
+  }
 });
