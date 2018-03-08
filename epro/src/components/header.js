@@ -27,7 +27,7 @@ const styles = {
   },
   headerText: {
     fontSize: 17,
-    // fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat',
   },
 }
 
