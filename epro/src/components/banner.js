@@ -22,7 +22,7 @@ const styles = {
   },
   bannerText:{
     fontSize: 20,
-    fontFamily: 'DidactGothic-Regular',
+    // fontFamily: 'DidactGothic-Regular',
   }
 }
 

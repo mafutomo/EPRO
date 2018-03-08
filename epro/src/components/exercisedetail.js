@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Text, Body, Title } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Text, Body, Title, Icon, Right, Left } from 'native-base';
 export default class ExerciseDetail extends Component {
   render() {
     return (
@@ -12,12 +12,21 @@ export default class ExerciseDetail extends Component {
               <Title>One Arm Pull Ups</Title>
             </CardItem>
             <CardItem>
-              <Body>
-                <Text style={styles.subText}>
-                  //Your text here
-                </Text>
-              </Body>
+              <Left>
+              </Left>
+              <Text>Sets</Text>
+              <Text>Reps</Text>
+              <Text>Weight</Text>
+              <Text>Time</Text>
+
             </CardItem>
+            <CardItem>
+              <Icon active name="create" />
+              <Text>Google Plus</Text>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+             </CardItem>
             <CardItem footer>
               <Text>GeekyAnts</Text>
             </CardItem>
