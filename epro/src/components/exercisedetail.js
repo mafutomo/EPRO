@@ -12,7 +12,6 @@ export default class ExerciseDetail extends Component {
 
     return (
       <Container>
-        <Header />
         <Content>
           <Card style={styles.card}>
             <CardItem header>

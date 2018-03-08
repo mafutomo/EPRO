@@ -10,7 +10,7 @@ import Banner from  '../components/banner';
 import TopNav from '../components/topnav';
 import BottomNav from '../components/bottomnav';
 import ExerciseDetail from '../components/exercisedetail';
-import Test from '../components/test';
+import HistoryTable from '../components/historytable';
 
 
 class Home extends Component {
@@ -24,11 +24,11 @@ class Home extends Component {
   render() {
     return (
         <Container>
-          {/* <TopNav /> */}
+          <TopNav />
           {/* <Banner /> */}
           <Content>
             {/* <ExerciseDetail /> */}
-            <Test />
+            <HistoryTable />
               {/* <SmallInputBox />
               <InputBox />
               <Submit />
