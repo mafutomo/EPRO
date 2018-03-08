@@ -2,49 +2,34 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Text, Body, Title, Icon, Right, Left, CheckBox, Button } from 'native-base';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
-export default class ExerciseDetail extends Component {
+export default class Test extends Component {
   render() {
-
-    const tableHead = ['Sets', 'Reps', 'Weight', 'Time'];
-    const tableData = [
-      ['', '', '', '']
-    ];
-
     return (
       <Container>
         <Header />
         <Content>
-          <Card style={styles.card}>
-            <CardItem header>
-              <Title>One Arm Pull Ups</Title>
-            </CardItem>
-            <CardItem>
-              <Text style={styles.subText}>Description</Text>
-            </CardItem>
-            <CardItem>
-              <Left></Left>
-              <Table style={styles.table}>
-                <Row data={tableHead} flexArr={[1, 1, 1, 1]} style={styles.head} textStyle={styles.text}/>
-              </Table>
-              <Right></Right>
-            </CardItem>
+          <Card>
             <CardItem>
               <Left>
                 <Icon name="create" />
               </Left>
-              <Table style={styles.table} >
-                <Left></Left>
-                <Row data={tableHead} flexArr={[1, 1, 1, 1]} style={styles.head} textStyle={styles.text}/>
-                <Right></Right>
-                <TableWrapper style={{flexDirection: 'row'}}>
-                  <Rows data={tableData} flexArr={[1, 1, 1, 1]} style={styles.row}/>
-                </TableWrapper>
-              </Table>
+              <Body>
+                <Text>Sets</Text>
+              </Body>
+              <Body>
+                <Text>Reps</Text>
+              </Body>
+              <Body>
+                <Text>Weight</Text>
+              </Body>
+              <Body>
+                <Text>Time</Text>
+              </Body>
               <Right>
-                <CheckBox checked={true} style={{alignSelf: 'center'}}/>
+                <CheckBox checked={true} style={{alignSelf: 'center'}} />
               </Right>
-            </CardItem>
-         </Card>
+             </CardItem>
+           </Card>
         </Content>
       </Container>
     );

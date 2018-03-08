@@ -10,6 +10,7 @@ import Banner from  '../components/banner';
 import TopNav from '../components/topnav';
 import BottomNav from '../components/bottomnav';
 import ExerciseDetail from '../components/exercisedetail';
+import Test from '../components/test';
 
 
 class Home extends Component {
@@ -23,10 +24,11 @@ class Home extends Component {
   render() {
     return (
         <Container>
-          <TopNav />
-          <Banner />
+          {/* <TopNav /> */}
+          {/* <Banner /> */}
           <Content>
-            <ExerciseDetail />
+            {/* <ExerciseDetail /> */}
+            <Test />
               {/* <SmallInputBox />
               <InputBox />
               <Submit />
