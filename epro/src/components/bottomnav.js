@@ -4,20 +4,20 @@ import { Container, Footer, FooterTab, Button, Icon, StyleProvider } from 'nativ
 export default class BottomNav extends Component {
   render() {
     return (
-        <Container style={styles.container}>
-          <Footer>
+        <Container>
+          <Footer style={styles.container}>
             <FooterTab>
-              <Button active tyle={styles.container}>
-                <Icon active name="home" />
+              <Button>
+                <Icon name="home" style={styles.icons}/>
               </Button>
               <Button>
-                <Icon name="calendar" />
+                <Icon name="calendar" style={styles.icons}/>
               </Button>
               <Button>
-                <Icon name="stats" />
+                <Icon name="stats" style={styles.icons}/>
               </Button>
               <Button>
-                <Icon name="person" />
+                <Icon name="person" style={styles.icons}/>
               </Button>
             </FooterTab>
           </Footer>
@@ -28,10 +28,9 @@ export default class BottomNav extends Component {
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: 'green',
+      backgroundColor: '#17252A',
     },
-    textContent: {
-      fontSize: 20,
-      color: 'red',
+    icons: {
+      color: '#FEFFFF',
     },
   });
