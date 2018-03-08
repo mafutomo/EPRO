@@ -1,0 +1,48 @@
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
+export default class TopNav extends Component {
+  render() {
+    return (
+      <Container>
+        <Header style={styles.container}>
+          <Left>
+            <Button transparent>
+              <Icon name='menu' style={styles.icon}/>
+            </Button>
+          </Left>
+          <Body>
+            <Title style={styles.topNavText}>E/PRO</Title>
+          </Body>
+          <Right>
+            <Button transparent>
+            </Button>
+          </Right>
+        </Header>
+      </Container>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#FEFFFF',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 70,
+      paddingTop: 15,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2},
+      shadowOpacity: 0.2,
+      position: 'relative',
+    },
+    topNavText: {
+      color: '#17252A',
+      // fontFamily: 'Montserrat',
+      fontSize: 22,
+      alignSelf: 'center',
+    },
+    icon: {
+      color: '#17252A',
+    }
+  });
