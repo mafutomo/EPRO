@@ -7,6 +7,7 @@ const App = () => {
   return(
     <Container>
       <Header>
+      <Text>E/PRO</Text>
 
       </Header>
 
