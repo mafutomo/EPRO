@@ -12,7 +12,7 @@ import BottomNav from '../components/bottomnav';
 import ExerciseDetail from '../components/exercisedetail';
 
 import HistoryTable from '../components/historytable';
-
+import DatePicker from '../components/dropdown';
 
 
 class Home extends Component {
@@ -27,9 +27,10 @@ class Home extends Component {
     return (
         <Container>
           <TopNav />
-          {/* <Banner /> */}
+          <Banner />
           <Content>
-            {/* <ExerciseDetail /> */}
+            <DatePicker />
+            <ExerciseDetail />
             <HistoryTable />
               {/* <SmallInputBox />
               <InputBox />

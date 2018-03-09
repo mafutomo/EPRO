@@ -14,7 +14,7 @@ const Banner = () => {
 
 const styles = {
   bannerStyle: {
-      backgroundColor: '#DEF2F1',
+      backgroundColor: '#2B7A78',
       justifyContent: 'center',
       alignItems: 'center',
       height: 53,
@@ -22,6 +22,7 @@ const styles = {
   bannerText:{
     fontSize: 20,
     fontFamily: 'DidactGothic-Regular',
+    color: '#FEFFFF'
   }
 }
 
