@@ -14,9 +14,7 @@ export default class ExerciseDetail extends Component {
       <Container>
         <Content>
           <Card style={styles.card}>
-            <CardItem header>
-              <Title>One Arm Pull Ups</Title>
-            </CardItem>
+             
             <CardItem>
               <Text style={styles.subText}>Description</Text>
             </CardItem>

@@ -11,7 +11,7 @@ import TopNav from '../components/topnav';
 import BottomNav from '../components/bottomnav';
 import ExerciseDetail from '../components/exercisedetail';
 import HistoryTable from '../components/historytable';
-
+import Dropdown from '../components/dropdown';
 
 class Home extends Component {
   constructor(props) {
@@ -28,6 +28,7 @@ class Home extends Component {
           {/* <Banner /> */}
           <Content>
             {/* <ExerciseDetail /> */}
+            <Dropdown />
             <HistoryTable />
               {/* <SmallInputBox />
               <InputBox />
