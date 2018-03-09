@@ -7,20 +7,18 @@ export default class ExerciseDetail extends Component {
 
     const tableHead = ['Sets', 'Reps', 'Weight', 'Time'];
     const tableData = [
-      ['', '', '', '']
+      ['3', '10', '50lbs', '-']
     ];
 
     return (
-      <Container>
         <Content>
           <Card style={styles.card}>
-             
             <CardItem>
-              <Text style={styles.subText}>Description</Text>
+              <Text style={styles.subText}>Bench Press</Text>
             </CardItem>
             <CardItem>
               <Left></Left>
-              <Table style={styles.table}>
+              <Table style={styles.table} borderStyle={{borderWidth: 0, borderColor: 'black'}}>
                 <Row data={tableHead} flexArr={[1, 1, 1, 1]} style={styles.head} textStyle={styles.text}/>
               </Table>
               <Right></Right>
@@ -29,12 +27,9 @@ export default class ExerciseDetail extends Component {
               <Left>
                 <Icon name="create" />
               </Left>
-              <Table style={styles.table} >
-                <Left></Left>
-                <Row data={tableHead} flexArr={[1, 1, 1, 1]} style={styles.head} textStyle={styles.text}/>
-                <Right></Right>
-                <TableWrapper style={{flexDirection: 'row'}}>
-                  <Rows data={tableData} flexArr={[1, 1, 1, 1]} style={styles.row}/>
+              <Table style={styles.table} borderStyle={{borderWidth: 0, borderColor: 'black'}}>
+                <TableWrapper style={{flexDirection: 'row', alignItems: 'center'}} >
+                  <Rows data={tableData} flexArr={[1, 1, 1, 1]} style={styles.row} textStyle={styles.text}/>
                 </TableWrapper>
               </Table>
               <Right>
@@ -42,8 +37,7 @@ export default class ExerciseDetail extends Component {
               </Right>
             </CardItem>
          </Card>
-        </Content>
-      </Container>
+      </Content>
     );
   }
 }
@@ -53,13 +47,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#FEFFFF',
     color: '#17252A',
     fontSize: 18,
-    // fontFamily: 'DidactGothic-Regular',
+    fontFamily: 'DidactGothic-Regular',
+    width: '95%',
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
-    position: 'relative',
+    // position: 'relative',
   },
   titleText: {
     fontSize: 18,
@@ -78,7 +74,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FEFFFF',
     borderWidth: 0,
     padding: 0,
-    margin: 0,
+    margin: 5,
   },
   head: {
     height: 30,

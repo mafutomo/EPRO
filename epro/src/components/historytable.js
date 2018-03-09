@@ -11,7 +11,6 @@ export default class HistoryTable extends Component {
       ['1/2', '3', '1', '8lbs', '10s'],
     ];
     return (
-      <Container>
         <Content>
           <Card style={styles.card}>
             <CardItem header>
@@ -28,7 +27,6 @@ export default class HistoryTable extends Component {
             </CardItem>
           </Card>
         </Content>
-      </Container>
     )
   }
 }

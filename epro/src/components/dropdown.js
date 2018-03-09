@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
 
   },
   text: {
-    // textAlign: 'center',
     fontFamily: 'DidactGothic-Regular',
   }
 })

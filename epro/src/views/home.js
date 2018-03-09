@@ -25,10 +25,10 @@ class Home extends Component {
     return (
         <Container>
           <TopNav />
-          {/* <Banner /> */}
+          <Banner />
           <Content>
-            {/* <ExerciseDetail /> */}
             <DatePicker />
+            <ExerciseDetail />
             <HistoryTable />
               {/* <SmallInputBox />
               <InputBox />
