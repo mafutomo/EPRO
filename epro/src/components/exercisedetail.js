@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Text, Body, Title, Icon, Right, Left, CheckBox, Button } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Text, Body, Title, Right, Left, CheckBox, Button } from 'native-base';
+import Icon from 'react-native-ionicons'
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 export default class ExerciseDetail extends Component {
   render() {
@@ -25,7 +26,9 @@ export default class ExerciseDetail extends Component {
             </CardItem>
             <CardItem>
               <Left>
-                <Icon name="create" />
+                <Icon
+                  name="create"
+                  color={'#501F3A'}/>
               </Left>
               <Table style={styles.table} borderStyle={{borderWidth: 0, borderColor: 'black'}}>
                 <TableWrapper style={{flexDirection: 'row', alignItems: 'center'}} >
@@ -33,7 +36,8 @@ export default class ExerciseDetail extends Component {
                 </TableWrapper>
               </Table>
               <Right>
-                <CheckBox checked={true} style={{alignSelf: 'center'}}/>
+                <CheckBox checked={true} style={{alignSelf: 'center'}}
+                color={'#501F3A'}/>
               </Right>
             </CardItem>
          </Card>
