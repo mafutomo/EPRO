@@ -26,8 +26,8 @@ class Workout extends Component {
         <Container>
           <TopNav />
           <Content>
-          <Banner />
-          <CalendarNav />
+            <Banner />
+            <CalendarNav />
             <ExerciseDetail />
           </Content>
           <View style={styles.iconContainer}>

@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { Container, Header, Footer, Content } from 'native-base';
 import TopNav from '../components/topnav';
+import Banner from '../components/banner';
+import Hormones from '../components/hormones';
 import BottomNav from '../components/bottomnav';
 
-class Hormones extends Component {
+class Profile extends Component {
   constructor(props) {
      super(props)
      this.state = {
@@ -17,7 +19,13 @@ class Hormones extends Component {
         <Container>
             <TopNav />
           <Content>
+            <Banner />
+            <View>
+              <Hormones />
+            </View>
+            <View>
 
+            </View>
           </Content>
           <Footer>
             <BottomNav/>
@@ -28,4 +36,4 @@ class Hormones extends Component {
 };
 
 
-export default Hormones;
+export default Profile;
