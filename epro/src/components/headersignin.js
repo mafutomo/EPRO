@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Subtitle } from 'native-base';
-export default class HeaderExample extends Component {
+export default class HeaderSignIn extends Component {
   render() {
     return (
       <Container>
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     },
     header: {
       height: 200,
-      backgroundColor: '#3AAFA9'
+      backgroundColor: '#17252A'
     },
     titleText: {
       fontFamily: 'Montserrat',

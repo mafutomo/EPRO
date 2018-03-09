@@ -4,7 +4,8 @@ import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'nativ
 export default class TopNav extends Component {
   render() {
     return (
-        <Header style={[styles.header, styles.container]}>
+      // <Container style={styles.container}>
+        <Header style={styles.container} >
           <Left>
             <Button transparent>
               <Icon name='menu' style={styles.icon}/>
@@ -18,16 +19,13 @@ export default class TopNav extends Component {
             </Button>
           </Right>
         </Header>
+      //<{/* </Container> */}>
     );
   }
 }
 
 const styles = StyleSheet.create({
     container: {
-        // marginBottom: 0,
-      height: 12,
-    },
-    header: {
       backgroundColor: '#FEFFFF',
       justifyContent: 'center',
       alignItems: 'center',

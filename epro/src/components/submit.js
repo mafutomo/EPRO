@@ -8,7 +8,7 @@ const Submit = () => {
   return (
     <TouchableOpacity style={buttonStyle}>
       <Text style={textStyle}>
-        Login
+        LOGIN
       </Text>
     </TouchableOpacity>
   )
@@ -18,8 +18,8 @@ const styles = {
   textStyle: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 20,
-    fontFamily: 'DidactGothic-Regular',
+    fontSize: 14,
+    fontFamily: 'Montserrat',
   },
   buttonStyle: {
     // flex: 1,

@@ -25,10 +25,9 @@ class Workout extends Component {
     return (
         <Container>
           <TopNav />
+          <Content>
           <Banner />
           <CalendarNav />
-          <Content>
-            <Spinner />
             <ExerciseDetail />
           </Content>
           <View style={styles.iconContainer}>

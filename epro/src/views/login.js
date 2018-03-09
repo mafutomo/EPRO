@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Container, Header, Footer, Content } from 'native-base';
+import HeaderSignIn from '../components/headersignin';
+import InputBox from '../components/inputbox';
+import Submit from '../components/submit';
 
 class Login extends Component {
 
@@ -35,20 +38,33 @@ class Login extends Component {
   render() {
     return (
         <Container>
-          <Head />
+          <HeaderSignIn />
           <Content>
-            <SmallInputBox />
             <InputBox />
+            <InputBox />
+            <View style={styles.viewStyle}>
+              <Text style={styles.textStyle}>Don't have an account? Sign up here.</Text>
+            </View>
             <Submit />
-            <SliderVal />
           </Content>
-          <Footer>
-          </Footer>
         </Container>
       )
   }
 
 };
+
+const styles = StyleSheet.create({
+  viewStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+  },
+  textStyle: {
+    color: '#17252A',
+    fontSize: 14,
+    fontFamily: 'DidactGothic-Regular',
+  }
+})
 
 
 export default Login;
