@@ -12,6 +12,7 @@ import BottomNav from '../components/bottomnav';
 import ExerciseDetail from '../components/exercisedetail';
 import HistoryTable from '../components/historytable';
 import DatePicker from '../components/dropdown';
+import LoginProgress from '../components/loginprogress';
 
 class Home extends Component {
   constructor(props) {
@@ -27,13 +28,7 @@ class Home extends Component {
           <TopNav />
           <Banner />
           <Content>
-            <DatePicker />
-            <ExerciseDetail />
-            <HistoryTable />
-              {/* <SmallInputBox />
-              <InputBox />
-              <Submit />
-              <SliderVal /> */}
+            <LoginProgress />
           </Content>
           <Footer>
             <BottomNav/>
