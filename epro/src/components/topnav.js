@@ -4,10 +4,12 @@ import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'nativ
 export default class TopNav extends Component {
   render() {
     return (
-      <Container style={styles.container}>
-        <Header style={styles.header}>
+
+        <Header style={[styles.header, styles.container]}>
           <Left>
-            <Button transparent>
+            <Button
+            transparent
+             onPress={() => this.props.navigation.navigate("DrawerOpen")}>
               <Icon name='menu' style={styles.icon}/>
             </Button>
           </Left>
@@ -19,15 +21,15 @@ export default class TopNav extends Component {
             </Button>
           </Right>
         </Header>
-      </Container>
+
     );
   }
 }
 
 const styles = StyleSheet.create({
     container: {
-        // marginBottom: 0,
-      height: 12,
+      // marginBottom: 0,
+      height: 75,
     },
     header: {
       backgroundColor: '#FEFFFF',

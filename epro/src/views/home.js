@@ -27,7 +27,7 @@ class Home extends Component {
     return (
         <Container>
           <TopNav />
-          {/* <Banner /> */}
+            <Banner />
           <Content>
             {/* <ExerciseDetail /> */}
             <HistoryTable />
