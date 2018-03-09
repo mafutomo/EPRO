@@ -14,8 +14,8 @@ export default class HistoryTable extends Component {
       <Container>
         <Content>
           <Card style={styles.card}>
-            <CardItem>
-              <Title style={styles.date}>Exercise</Title>
+            <CardItem header>
+                <Text>Exercise</Text>
             </CardItem>
             <CardItem>
               <Table style={styles.table} borderStyle={{borderWidth: 0, borderColor: 'black'}}>
@@ -26,7 +26,7 @@ export default class HistoryTable extends Component {
                 </TableWrapper>
               </Table>
             </CardItem>
-         </Card>
+          </Card>
         </Content>
       </Container>
     )
@@ -37,31 +37,30 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: '#FEFFFF',
     width: '95%',
+    padding: 5,
     color: '#17252A',
     fontSize: 18,
-    // fontFamily: 'DidactGothic-Regular',
+    fontFamily: 'DidactGothic-Regular',
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
-    position: 'relative',
+    // position: 'relative',
   },
   date: {
     fontSize: 16,
     marginTop: 10,
     color: '#17252A',
-    // height: 20,
     justifyContent: 'center',
   },
   table: {
     width: '100%',
-    height: '90%',
+    height: '80%',
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: 'white'
   },
   head: {
     height: 40,
@@ -77,10 +76,12 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
+    fontFamily: 'DidactGothic-Regular',
     color: '#17252A'
   },
   subText: {
     textAlign: 'center',
+    fontFamily: 'DidactGothic-Regular',
     color: '#17252A',
     fontWeight: '600',
   }
