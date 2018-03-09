@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { Container, Header, Footer, Content } from 'native-base';
+import TopNav from '../components/topnav';
+import Banner from '../components/banner';
 
 class Workout extends Component {
 
@@ -16,7 +18,6 @@ class Workout extends Component {
         <Container>
           <TopNav />
           <Banner/>
-          <Calendar
           <Content>
 
           </Content>
