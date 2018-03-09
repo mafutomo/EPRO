@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
+
 import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 export default class TopNav extends Component {
   render() {
@@ -9,7 +10,7 @@ export default class TopNav extends Component {
           <Left>
             <Button
             transparent
-             onPress={() => this.props.navigation.navigate("DrawerOpen")}>
+             onPress={() => this.props.navigation.navigate("ExampleDrawer")}>
               <Icon name='menu' style={styles.icon}/>
             </Button>
           </Left>

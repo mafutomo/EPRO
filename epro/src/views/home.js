@@ -9,11 +9,12 @@ import Head from  '../components/header';
 import Banner from  '../components/banner';
 import TopNav from '../components/topnav';
 import BottomNav from '../components/bottomnav';
+import SideBar from '../components/sidebar';
+import Hormones from '../views/hormones';
 import ExerciseDetail from '../components/exercisedetail';
+import { StackNavigator } from 'react-navigation';
 
 import HistoryTable from '../components/historytable';
-
-
 
 class Home extends Component {
   constructor(props) {
@@ -23,19 +24,17 @@ class Home extends Component {
        }
   }
 
+  static navigationOptions = {
+    tabBarLabel: "Home",
+
+  }
+
   render() {
     return (
         <Container>
           <TopNav />
-            <Banner />
-          <Content>
-            {/* <ExerciseDetail /> */}
-            <HistoryTable />
-              {/* <SmallInputBox />
-              <InputBox />
-              <Submit />
-              <SliderVal /> */}
-          </Content>
+          <Banner />
+          <HistoryTable />
           <Footer>
             <BottomNav/>
           </Footer>
@@ -44,6 +43,5 @@ class Home extends Component {
   }
 
 };
-
 
 export default Home;

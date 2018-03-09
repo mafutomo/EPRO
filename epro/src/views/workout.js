@@ -17,31 +17,28 @@ class Workout extends Component {
        }
   }
 
+  static navigationOptions = {
+    tabBarLabel: "Workout",
+
+  }
 
   render() {
 
     return (
         <Container>
-
           <TopNav />
           <Banner />
           <CalendarNav />
-          <Content>
-
-
-          </Content>
           <Footer>
             <BottomNav/>
           </Footer>
         </Container>
       )
     }
-
 };
 
 const styles = StyleSheet.create({
   container:{
-
   }
 });
 

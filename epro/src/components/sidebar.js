@@ -1,7 +1,7 @@
 import React from "react";
 import { AppRegistry, StyleSheet, Image, StatusBar, View } from "react-native";
 import { Container, Content, Text, List, ListItem } from "native-base";
-const routes = ["Home", "History", "Hormones", 'Workout', 'Login'];
+const routes = ["Home", "History", "Hormones", "Workout"];
 
 export default class SideBar extends React.Component {
   render() {
@@ -18,7 +18,7 @@ export default class SideBar extends React.Component {
               justifyContent: "center",
               alignItems: "center"
             }}>
-          
+
           </Image>
           <List
             dataArray={routes}
