@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
-import { Container, Header, Footer, Content } from 'native-base';
+import { Container, Footer, Content } from 'native-base';
+import TopNav from '../components/topnav';
+import Banner from '../components/banner';
+import DatePicker from '../components/dropdown';
+import HistoryTable from '../components/historytable';
+import BottomNav from '../components/bottomnav';
 
 class History extends Component {
   constructor(props) {
@@ -13,10 +18,11 @@ class History extends Component {
   render() {
     return (
         <Container>
-          <Head />
+          <TopNav />
           <Banner/>
           <Content>
-
+            <DatePicker />
+            <HistoryTable />
           </Content>
           <Footer>
             <BottomNav/>

@@ -13,8 +13,8 @@ const App = () => {
   return(
     <Container>
 
-        <Home/>
-        
+        <History />
+
     </Container>
   )
 }

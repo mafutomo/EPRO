@@ -14,8 +14,9 @@ class Workout extends Component {
   render() {
     return (
         <Container>
-          <Head />
+          <TopNav />
           <Banner/>
+          <Calendar
           <Content>
 
           </Content>
