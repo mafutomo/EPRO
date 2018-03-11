@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { Container, Footer, FooterTab, Button, Icon, StyleProvider } from 'native-base';
+const routes = ["Home", "Workout","History","Hormones"];
 export default class BottomNav extends Component {
+
   render() {
+    
     return (
         <Container>
           <Footer style={styles.container}>
             <FooterTab>
-              <Button>
+              <Button
+
+              onPress={() => this.props.navigation.navigate("Home")}
+              >
                 <Icon name="home" style={styles.icons}/>
               </Button>
-              <Button>
+              <Button
+
+              onPress={() => this.props.navigation.navigate("Workout")}
+              >
                 <Icon name="calendar" style={styles.icons}/>
               </Button>
               <Button>
@@ -22,7 +31,7 @@ export default class BottomNav extends Component {
             </FooterTab>
           </Footer>
         </Container>
-    );
+    )
   }
 }
 

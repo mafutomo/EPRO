@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import {NavigationActions} from 'react-navigation';
-
+import { NavigationActions  } from 'react-navigation';
 import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 
-export default class TopNav extends Component {
+const TopNav = ({props}) => {
 
-  render() {
     return (
-
-        <Header style={[styles.header, styles.container]}>
+        <Header style={styles.header}>
           <Left>
             <Button
             transparent
-             onPress={() => this.props.navigation.navigate("DrawerOpen")}>
-              <Icon name='menu' style={styles.icon}/>
+             onPress={() => navigate("DrawerOpen")}>
+              <Icon name='menu' style={styles.headerIcon}/>
             </Button>
           </Left>
           <Body>
@@ -25,16 +22,11 @@ export default class TopNav extends Component {
             </Button>
           </Right>
         </Header>
-
     );
   }
-}
+
 
 const styles = StyleSheet.create({
-    container: {
-      // marginBottom: 0,
-      height: 75,
-    },
     header: {
       backgroundColor: '#FEFFFF',
       justifyContent: 'center',
@@ -45,6 +37,7 @@ const styles = StyleSheet.create({
       shadowOffset: { width: 0, height: 2},
       shadowOpacity: 0.2,
       position: 'relative',
+      height: 75,
     },
     topNavText: {
       color: '#17252A',
@@ -52,7 +45,10 @@ const styles = StyleSheet.create({
       fontSize: 22,
       alignSelf: 'center',
     },
-    icon: {
+    headerIcon: {
       color: '#17252A',
     }
   });
+
+
+export default TopNav;

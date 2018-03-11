@@ -1,25 +1,14 @@
 import React from "react";
 import { AppRegistry, StyleSheet, Image, StatusBar, View } from "react-native";
 import { Container, Content, Text, List, ListItem } from "native-base";
-const routes = ["Home", "History", "Hormones", "Workout"];
+const routes = ["ABOUT E/PRO", "LOGOUT"];
 
 export default class SideBar extends React.Component {
   render() {
     return (
       <Container>
-        <Content>
-          <Image
-            source={{
-              uri: "https://github.com/GeekyAnts/NativeBase-KitchenSink/raw/react-navigation/img/drawer-cover.png"
-            }}
-            style={{
-              height: 120,
-              alignSelf: "stretch",
-              justifyContent: "center",
-              alignItems: "center"
-            }}>
+        <Content style={styles.body}>
 
-          </Image>
           <List
             dataArray={routes}
             renderRow={data => {
@@ -27,7 +16,8 @@ export default class SideBar extends React.Component {
                 <ListItem
                   button
                   onPress={() => this.props.navigation.navigate(data)}>
-                  <Text>{data}</Text>
+                  <Text
+                  style={styles.textStyle}>{data}</Text>
                 </ListItem>
               );
             }}
@@ -39,5 +29,13 @@ export default class SideBar extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  body: {
+    backgroundColor: '#3AAFA9',
 
+  },
+  textStyle: {
+    fontFamily:'DidactGothic-Regular',
+    color: '#FEFFFF',
+    fontSize:15,
+  }
 })
