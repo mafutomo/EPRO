@@ -57,11 +57,31 @@ const data = [
 class HormoneChart extends Component {
   constructor(props) {
      super(props)
-     this.state = {}
+     this.state = {
+       isLoading: true,
+       data: [],
+       estrogen: [],
+       progesterone: [],
+       day: [],
+     }
+     // this.getData = this.getData.bind(this);
      this.createBarChart = this.createBarChart.bind(this);
      this.drawLine = this.drawLine.bind(this);
      this.getRandomColor = this.getRandomColor.bind(this);
    };
+
+   async componentDidMount() {
+    const response = await fetch('https://e-pro-api.herokuapp.com/hormones/non_hormonal')
+    const json = await response.json()
+    console.log(json);
+    this.setState({
+      data: json,
+      estrogen: json.map(el => el.estrogen),
+      progesterone: json.map(el => el.progesterone),
+      day: json.map(el => el.day),
+    })
+    console.log(this.state.data);
+  }
 
      getRandomColor() {
         return '#' + Math.random().toString(16).substr(-6);
@@ -97,7 +117,7 @@ class HormoneChart extends Component {
             .rangeRound([height, 0])
             .domain([0, maxFrequency])
 
-    const y0 = d3.scale.scaleLinear()
+    const y1 = d3.scale.scaleLinear()
             .rangeRound([height, 0])
             .domain([0, maxFrequency])
 
@@ -119,6 +139,14 @@ class HormoneChart extends Component {
                         .x(() => bottomAxis[0] + labelDx)
                         .y(d => y0(d) - height)
                         (leftAxis)
+
+    const rightAxis = ticks(0, maxFrequency, 5)
+
+    const rightAxisD = d3.shape.line()
+                        .x(() => bottomAxis[1] + labelDx)
+                        .y(d => y1(d) - height)
+                        (rightAxis)
+
     const notch = 5
     const labelDistance = 9
     const emptySpace = "";
@@ -133,7 +161,7 @@ class HormoneChart extends Component {
                               {
                                 data.map((d, i) =>(
                                     <Group
-                                        x={x(d.letter) + labelDx}
+                                        x={x(d.frequency) + labelDx}
                                         y={0}
                                         key={i + 1}
                                     >
@@ -143,7 +171,7 @@ class HormoneChart extends Component {
                                           fill={colors.black}
                                           font="18px helvetica"
                                         >
-                                          {d.letter}
+                                          {d.frequency}
                                         </Text>
                                     </Group>
                                 ))
@@ -154,6 +182,24 @@ class HormoneChart extends Component {
                             {
                                 leftAxis.map((d, i) => (
                                     <Group x={0} y={y0(d)-height} key={i + 1}>
+                                        <Shape d={this.drawLine(notch, 0)} stroke={colors.black}/>
+                                        <Text
+                                            fill={colors.black}
+                                            x={-15}
+                                            y={-labelDistance}
+                                            font="18px helvetica"
+                                        >
+                                            {d + emptySpace}
+                                        </Text>
+                                    </Group>
+                                ))
+                            }
+                        </Group>
+                        <Group key={-3} >
+                            <Shape stroke={colors.black} d={rightAxisD} key="-1"/>
+                            {
+                                rightAxis.map((d, i) => (
+                                    <Group x={0} y={y1(d)-height} key={i + 1}>
                                         <Shape d={this.drawLine(notch, 0)} stroke={colors.black}/>
                                         <Text
                                             fill={colors.black}
