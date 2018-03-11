@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ART, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import { Container, Header, Footer, Content } from 'native-base';
+import Spinner from './spinner';
 
 const {
   Surface,
@@ -45,14 +46,14 @@ const colors = {
     brown: 'brown'
 }
 
-const data = [
-    {frequency: 5, letter: 'a'},
-    {frequency: 6, letter: 'b'},
-    {frequency: 4, letter: 'c'},
-    {frequency: 1, letter: 'd'},
-    {frequency: 2, letter: 'e'},
-    {frequency: 3, letter: 'f'}
-];
+// const data = [
+//     {frequency: 5, letter: 'a'},
+//     {frequency: 6, letter: 'b'},
+//     {frequency: 4, letter: 'c'},
+//     {frequency: 1, letter: 'd'},
+//     {frequency: 2, letter: 'e'},
+//     {frequency: 3, letter: 'f'}
+// ];
 
 class HormoneChart extends Component {
   constructor(props) {
@@ -64,7 +65,6 @@ class HormoneChart extends Component {
        progesterone: [],
        day: [],
      }
-     // this.getData = this.getData.bind(this);
      this.createBarChart = this.createBarChart.bind(this);
      this.drawLine = this.drawLine.bind(this);
      this.getRandomColor = this.getRandomColor.bind(this);
@@ -79,8 +79,9 @@ class HormoneChart extends Component {
       estrogen: json.map(el => el.estrogen),
       progesterone: json.map(el => el.progesterone),
       day: json.map(el => el.day),
+      isLoading: false,
     })
-    console.log(this.state.data);
+    console.log('yes', this.state.data);
   }
 
      getRandomColor() {
@@ -101,6 +102,14 @@ class HormoneChart extends Component {
 
 
   render() {
+    if (this.state.isLoading === true) {
+            return (
+                <Spinner  />
+            );
+        }
+    const data = this.state.data;
+    // console.log(data);
+    // console.log("the state ==" ,this.state.data);
     const screen = Dimensions.get('window');
     const margin = {top: 50, right: 25, bottom: 250, left: 25}
     const width = screen.width - margin.left - margin.right
@@ -160,20 +169,20 @@ class HormoneChart extends Component {
                             <Shape d={bottomAxisD} stroke={colors.black} key="-1"/>
                               {
                                 data.map((d, i) =>(
-                                    <Group
-                                        x={x(d.frequency) + labelDx}
-                                        y={0}
-                                        key={i + 1}
-                                    >
-                                        <Shape d={this.drawLine(0, notch)} y2={notch} stroke={colors.black}/>
-                                        <Text
-                                          y={labelDistance}
-                                          fill={colors.black}
-                                          font="18px helvetica"
-                                        >
-                                          {d.frequency}
-                                        </Text>
-                                    </Group>
+                                  <Group
+                                      x={x(d.letter) + labelDx}
+                                      y={0}
+                                      key={i + 1}
+                                  >
+                                      <Shape d={this.drawLine(0, notch)} y2={notch} stroke={colors.black}/>
+                                      <Text
+                                        y={labelDistance}
+                                        fill={colors.black}
+                                        font="18px helvetica"
+                                      >
+                                        {d.letter}
+                                      </Text>
+                                  </Group>
                                 ))
                               }
                         </Group>
