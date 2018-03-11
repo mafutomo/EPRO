@@ -43,7 +43,7 @@ class Login extends Component {
             <InputBox />
             <InputBox />
             <View style={styles.viewStyle}>
-              <Text style={styles.textStyle}>Don't have an account? Sign up here.</Text>
+              <Text style={styles.textStyle}>Dont have an account? Sign up here.</Text>
             </View>
             <Submit />
           </Content>
