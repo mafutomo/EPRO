@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, TextInput } from 'react-native';
 
 
-const SmallInputBox = ({onChangeText}) => {
+const SmallInputBox = (props) => {
 
   const { inputStyle, } = styles;
 
@@ -11,7 +11,7 @@ const SmallInputBox = ({onChangeText}) => {
       <TextInput
       style = {styles.inputStyle}
       autoCapitalize = "none"
-      onChangeText={onChangeText}/>
+      onChangeText={props.onChangeText}/>
     </View>
   )
 

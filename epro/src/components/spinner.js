@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, TextInput, ActivityIndicator } from 'react-native';
 
 
-const Spinner = ({onChangeText}) => {
+const Spinner = (props) => {
 
   return (
     <View style={[styles.container, styles.horizontal]}>

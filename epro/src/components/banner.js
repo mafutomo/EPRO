@@ -1,13 +1,13 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-const Banner = () => {
+const Banner = (props) => {
 
   const {bannerStyle, bannerText} = styles;
 
   return (
     <View style = {styles.bannerStyle}>
-      <Text style = {styles.bannerText}>Hello Ali</Text>
+      <Text style = {styles.bannerText}>{props.bannerText}</Text>
     </View>
   )
 }

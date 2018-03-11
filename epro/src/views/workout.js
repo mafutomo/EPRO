@@ -14,7 +14,7 @@ class Workout extends Component {
   constructor(props) {
      super(props)
      this.state = {
-
+       bannerText: "Performace Phase"
        }
   }
 
@@ -38,7 +38,8 @@ class Workout extends Component {
               </Right>
             </Header>
           <Content>
-            <Banner />
+            <Banner
+              bannerText = {this.state.bannerText}/>
             <CalendarNav />
             <ExerciseDetail />
           </Content>

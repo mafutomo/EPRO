@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { Container, Header, Footer, Content } from 'native-base';
-import HeaderSignIn from '../components/headersignin';
+import CoverHeader from '../components/coverheader';
 import InputBox from '../components/inputbox';
 import Submit from '../components/submit';
 
@@ -36,8 +36,8 @@ class Login extends Component {
   render() {
     return (
         <Container>
-          <HeaderSignIn />
-          <Content>
+          <CoverHeader />
+          <Content style = {styles.contentStyle}>
             <InputBox
             value={this.state.email}
             onChangeText={(text) => this.setState({email:text})}/>
@@ -47,7 +47,8 @@ class Login extends Component {
             onChangeText={(text) => this.setState({password:text})}/>
 
             <View style={styles.viewStyle}>
-              <Text style={styles.textStyle}>{`Don't have an account? Sign up here.`}</Text>
+              <Text style={styles.textStyle}
+              onPress={console.log("hello!")}>{`Don't have an account? Sign up here.`}</Text>
             </View>
             <Submit
             onPress={this.loginUser}
@@ -70,6 +71,9 @@ const styles = StyleSheet.create({
     color: '#17252A',
     fontSize: 14,
     fontFamily: 'DidactGothic-Regular',
+  },
+  contentStyle:{
+    paddingTop: 30,
   }
 })
 

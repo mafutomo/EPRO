@@ -10,7 +10,7 @@ const TopNav = (props) => {
           <Left>
             <Button
             transparent
-             onPress={() => navigate("DrawerOpen")}>
+             onPress={() => props.navigate("DrawerOpen")}>
               <Icon name='menu' style={styles.headerIcon}/>
             </Button>
           </Left>

@@ -19,6 +19,13 @@ import LoginProgress from '../components/loginprogress';
 
 export default class Home extends Component {
 
+  constructor(props) {
+     super(props)
+     this.state = {
+       bannerText: "Hello Ali"
+       }
+  }
+
   render() {
     return (
         <Container>
@@ -38,7 +45,8 @@ export default class Home extends Component {
             </Button>
           </Right>
         </Header>
-          <Banner />
+          <Banner
+          bannerText = {this.state.bannerText}/>
         </Container>
       )
   }

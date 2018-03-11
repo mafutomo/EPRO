@@ -2,14 +2,14 @@ import React from 'react';
 import Slider from 'react-native-slider';
 import { Text, View, StyleSheet } from 'react-native';
 
-const SliderVal = ({onValueChange}) => {
+const SliderVal = (props) => {
   //
   const { track , thumb, body} = customStyles2;
 
   return (
     <View style = {customStyles2.body}>
       <Slider
-        onValueChange={onValueChange}
+        onValueChange={props.onValueChange}
         trackStyle={customStyles2.track}
         thumbStyle={customStyles2.thumb}
         minimumTrackTintColor='#3AAFA9'

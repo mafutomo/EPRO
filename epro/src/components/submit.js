@@ -24,7 +24,7 @@ const styles = {
     fontFamily: 'Montserrat',
   },
   buttonStyle: {
-    width: '75%',
+    width: '68%',
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
