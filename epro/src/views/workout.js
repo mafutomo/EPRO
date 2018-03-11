@@ -17,7 +17,7 @@ class Workout extends Component {
 
        }
   }
-  
+
   render() {
     return (
         <Container>
@@ -49,9 +49,6 @@ class Workout extends Component {
               color={'#FFBA49'}
             />
           </View>
-          <Footer>
-            <BottomNav/>
-          </Footer>
         </Container>
       )
     }
