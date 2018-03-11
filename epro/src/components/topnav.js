@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
+import { NavigationActions  } from 'react-navigation';
 import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
-export default class TopNav extends Component {
-  render() {
+
+const TopNav = ({props}) => {
+
     return (
-      // <Container style={styles.container}>
-        <Header style={styles.container} >
+        <Header style={styles.header}>
           <Left>
-            <Button transparent>
-              <Icon name='menu' style={styles.icon}/>
+            <Button
+            transparent
+             onPress={() => navigate("DrawerOpen")}>
+              <Icon name='menu' style={styles.headerIcon}/>
             </Button>
           </Left>
           <Body>
@@ -19,13 +22,12 @@ export default class TopNav extends Component {
             </Button>
           </Right>
         </Header>
-      //<{/* </Container> */}>
     );
   }
-}
+
 
 const styles = StyleSheet.create({
-    container: {
+    header: {
       backgroundColor: '#FEFFFF',
       justifyContent: 'center',
       alignItems: 'center',
@@ -35,14 +37,18 @@ const styles = StyleSheet.create({
       shadowOffset: { width: 0, height: 2},
       shadowOpacity: 0.2,
       position: 'relative',
+      height: 75,
     },
     topNavText: {
       color: '#17252A',
-      // fontFamily: 'Montserrat',
+      fontFamily: 'Montserrat',
       fontSize: 22,
       alignSelf: 'center',
     },
-    icon: {
+    headerIcon: {
       color: '#17252A',
     }
   });
+
+
+export default TopNav;
