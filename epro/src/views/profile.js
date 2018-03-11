@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { Container, Header, Footer, Content } from 'native-base';
 import TopNav from '../components/topnav';
 import Banner from '../components/banner';
-import Hormones from '../components/hormones';
+import HormoneChart from '../components/hormonechart';
 import BottomNav from '../components/bottomnav';
 
 class Profile extends Component {
@@ -20,12 +20,7 @@ class Profile extends Component {
             <TopNav />
           <Content>
             <Banner />
-            <View>
-              <Hormones />
-            </View>
-            <View>
-
-            </View>
+            <HormoneChart />
           </Content>
           <Footer>
             <BottomNav/>

@@ -8,6 +8,13 @@
     "react-devtools": "react-devtools"
   },
   "dependencies": {
+    "art": "^0.10.1",
+    "d3": "^4.13.0",
+    "d3-axis": "^1.0.8",
+    "d3-format": "^1.2.2",
+    "d3-path": "^1.0.5",
+    "d3-scale": "^2.0.0",
+    "d3-shape": "^1.2.0",
     "native-base": "^2.3.9",
     "react": "^16.3.0-alpha.1",
     "react-native": "0.54.0",
