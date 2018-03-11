@@ -12,11 +12,11 @@ class Login extends Component {
        this.state = {
            email: "",
            password: "",
-
+           buttonName: "LOGIN",
          }
    }
 
-   loginUser = async (method) => {
+   loginUser = async () => {
       const response = await fetch('https://e-pro-api.herokuapp.com/login', {
         method: 'POST',
         headers: {
@@ -30,8 +30,6 @@ class Login extends Component {
         }),
       })
       const responseJson = await response.json()
-      console.log(this.state.email);
-      console.log(this.state.password);
       console.log(responseJson)
   }
 
@@ -40,12 +38,21 @@ class Login extends Component {
         <Container>
           <HeaderSignIn />
           <Content>
-            <InputBox />
-            <InputBox />
+            <InputBox
+            value={this.state.email}
+            onChangeText={(text) => this.setState({email:text})}/>
+
+            <InputBox
+            value={this.state.password}
+            onChangeText={(text) => this.setState({password:text})}/>
+
             <View style={styles.viewStyle}>
-              <Text style={styles.textStyle}>Don't have an account? Sign up here.</Text>
+              <Text style={styles.textStyle}>{`Don't have an account? Sign up here.`}</Text>
             </View>
-            <Submit />
+            <Submit
+            onPress={this.loginUser}
+            buttonName = {this.state.buttonName}
+            />
           </Content>
         </Container>
       )

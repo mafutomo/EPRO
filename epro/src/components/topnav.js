@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { NavigationActions  } from 'react-navigation';
 import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 
-const TopNav = ({props}) => {
+const TopNav = (props) => {
 
     return (
         <Header style={styles.header}>

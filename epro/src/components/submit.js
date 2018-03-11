@@ -1,14 +1,16 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-const Submit = () => {
+const Submit = (props) => {
 
   const { textStyle, buttonStyle } = styles;
 
   return (
-    <TouchableOpacity style={buttonStyle}>
+    <TouchableOpacity
+    style={buttonStyle}
+    onPress={props.onPress}>
       <Text style={textStyle}>
-        LOGIN
+        {props.buttonName}
       </Text>
     </TouchableOpacity>
   )
@@ -22,7 +24,6 @@ const styles = {
     fontFamily: 'Montserrat',
   },
   buttonStyle: {
-    // flex: 1,
     width: '75%',
     alignSelf: 'center',
     alignItems: 'center',

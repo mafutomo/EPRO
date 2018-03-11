@@ -14,7 +14,7 @@ import TabRouter from './src/router/tabrouter';
 const App = () => {
     return (
       <Container>
-        <DrawerRouter />
+        <Login />
       </Container>
     )
 }
