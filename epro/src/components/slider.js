@@ -3,7 +3,7 @@ import Slider from 'react-native-slider';
 import { Text, View, StyleSheet } from 'react-native';
 
 const SliderVal = (props) => {
-  //
+
   const { track , thumb, body} = customStyles2;
 
   return (
@@ -28,7 +28,7 @@ var customStyles2 = StyleSheet.create({
     marginRight: 10,
     paddingBottom: 20,
     paddingTop: 20,
-    width: 200,
+    width: 250,
     justifyContent: 'center',
     alignItems: 'stretch',
     alignSelf: 'center',
