@@ -9,7 +9,7 @@ const LoginProgress = (props) => {
   return (
     <View style={styles.container}>
       <Progress.Bar
-        progress={0.3}
+        progress={props.progress}
         width={300}
         height={12}
         color={'#FFBA49'}

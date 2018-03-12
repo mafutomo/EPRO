@@ -8,14 +8,17 @@ import Profile from './src/views/profile';
 import Login from './src/views/login';
 import Workout from './src/views/workout';
 import SignUp from './src/views/signup';
+import SignUp2 from './src/views/signup2';
 import DrawerRouter from './src/router/drawerrouter';
 import TabRouter from './src/router/tabrouter';
 import SignUpRouter from './src/router/signuprouter';
 
+
 const App = () => {
     return (
       <Container>
-        <SignUpRouter />
+      <SignUp2/>
+
       </Container>
     )
 }

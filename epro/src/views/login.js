@@ -42,7 +42,7 @@ export default class Login extends React.Component {
 
   render() {
     return (
-        <Container>
+        <Container style = {styles.background}>
           <CoverHeader />
           <Content style = {styles.contentStyle}>
             <InputBox
@@ -74,6 +74,9 @@ export default class Login extends React.Component {
 };
 
 const styles = StyleSheet.create({
+  background: {
+    backgroundColor: '#f9f9f9',
+  },
   viewStyle: {
     justifyContent: 'center',
     alignItems: 'center',
