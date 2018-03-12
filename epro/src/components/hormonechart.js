@@ -46,15 +46,6 @@ const colors = {
     brown: 'brown'
 }
 
-// const data = [
-//     {frequency: 5, letter: 'a'},
-//     {frequency: 6, letter: 'b'},
-//     {frequency: 4, letter: 'c'},
-//     {frequency: 1, letter: 'd'},
-//     {frequency: 2, letter: 'e'},
-//     {frequency: 3, letter: 'f'}
-// ];
-
 class HormoneChart extends Component {
   constructor(props) {
      super(props)
@@ -73,7 +64,6 @@ class HormoneChart extends Component {
    async componentDidMount() {
     const response = await fetch('https://e-pro-api.herokuapp.com/hormones/non_hormonal')
     const json = await response.json()
-    console.log(json);
     this.setState({
       data: json,
       estrogen: json.map(el => el.estrogen),
@@ -109,7 +99,7 @@ class HormoneChart extends Component {
         }
     const data = this.state.data;
     // console.log(data);
-    // console.log("the state ==" ,this.state.data);
+    console.log("the state ==" ,this.state.data);
     const screen = Dimensions.get('window');
     const margin = {top: 50, right: 25, bottom: 250, left: 25}
     const width = screen.width - margin.left - margin.right
@@ -118,9 +108,9 @@ class HormoneChart extends Component {
     const x = d3.scale.scaleBand()
             .rangeRound([0, width])
             .padding(0.1)
-            .domain(data.map(d => d.letter))
+            .domain(data.map(d => d.day))
 
-    const maxFrequency = max(data, d => d.frequency)
+    const maxFrequency = max(data, d => d.estrogen)
 
     const y0 = d3.scale.scaleLinear()
             .rangeRound([height, 0])
@@ -130,9 +120,9 @@ class HormoneChart extends Component {
             .rangeRound([height, 0])
             .domain([0, maxFrequency])
 
-    const firstLetterX = x(data[0].letter)
-    const secondLetterX = x(data[1].letter)
-    const lastLetterX = x(data[data.length - 1].letter)
+    const firstLetterX = x(data[0].day)
+    const secondLetterX = x(data[1].day)
+    const lastLetterX = x(data[data.length - 1].day)
     const labelDx = (secondLetterX - firstLetterX) / 2
 
     const bottomAxis = [firstLetterX - labelDx, lastLetterX + labelDx]
@@ -170,7 +160,7 @@ class HormoneChart extends Component {
                               {
                                 data.map((d, i) =>(
                                   <Group
-                                      x={x(d.letter) + labelDx}
+                                      x={x(d.day) + labelDx}
                                       y={0}
                                       key={i + 1}
                                   >
@@ -180,7 +170,7 @@ class HormoneChart extends Component {
                                         fill={colors.black}
                                         font="18px helvetica"
                                       >
-                                        {d.letter}
+                                        {d.day}
                                       </Text>
                                   </Group>
                                 ))
@@ -226,7 +216,7 @@ class HormoneChart extends Component {
                             data.map((d, i) => (
                                 <TouchableWithoutFeedback key={i} >
                                     <Shape
-                                        d={this.createBarChart(x(d.letter), y0(d.frequency) - height, x.bandwidth(), height - y0(d.frequency))}
+                                        d={this.createBarChart(x(d.day), y0(d.estrogen) - height, x.bandwidth(), height - y0(d.estrogen))}
                                         fill={this.getRandomColor()}
                                         >
                                     </Shape>
