@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, ART, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import { Container, Header, Footer, Content } from 'native-base';
 import Spinner from './spinner';
+import LoginProgress from './loginprogress';
 
 const {
   Surface,
@@ -52,22 +53,44 @@ class HormoneChart extends Component {
      this.state = {
        isLoading: true,
        data: [],
-       estrogen: [],
-       progesterone: [],
-       day: [],
+       userId: null,
+       contraceptive: "non_hormonal",
+       cycleLength: 28,
      }
      this.createBarChart = this.createBarChart.bind(this);
      this.drawLine = this.drawLine.bind(this);
    };
+   //Get the user id
+   async componentDidMount() {
+     const response = await fetch('https://e-pro-api.herokuapp.com/login')
+     const json = await response.json()
+     console.log("user id:", json);
+   }
+
+   //get the user info
+   async componentDidMount() {
+     const response = await fetch(`https://e-pro-api.herokuapp.com/users/${this.state.userId}`)
+     const json = await response.json()
+     console.log("this is the user info: ", json);
+
+     // if (user.monophasic === true){
+     //   this.setState({ contraceptive = "monophasic" })
+     // } else if (user.non_hormonal === true){
+     //   this.setState({ contraceptive = "non_hormonal" })
+     // } else if (user.progestin === true){
+     //   this.setState({ contraceptive = "progestin" })
+     // } else if (user.triphasic === true){
+     //   this.setState({ contraceptive = "triphasic" })
+     // } else {
+     //   this.setState({ contraceptive = "non_hormonal" })
+     // }
+   }
 
    async componentDidMount() {
-    const response = await fetch('https://e-pro-api.herokuapp.com/hormones/non_hormonal')
+    const response = await fetch(`https://e-pro-api.herokuapp.com/hormones/${this.state.contraceptive}`)
     const json = await response.json()
     this.setState({
       data: json,
-      estrogen: json.map(el => el.estrogen),
-      progesterone: json.map(el => el.progesterone),
-      day: json.map(el => el.day),
       isLoading: false,
     })
   }
@@ -92,19 +115,21 @@ class HormoneChart extends Component {
             );
         }
     const data = this.state.data;
+    const progesterone = data.map(el => el.progesterone/10);
     console.log("the state ==" ,this.state.data);
+    console.log('prog =', progesterone);
     const screen = Dimensions.get('window');
-    const margin = {top: 50, right: 25, bottom: 250, left: 30}
+    const margin = {top: 50, right: 35, bottom: 350, left: 35}
     const width = screen.width - margin.left - margin.right
     const height = screen.height - margin.top - margin.bottom
 
     const x = d3.scale.scaleBand()
             .rangeRound([0, width])
-            .padding(0.1)
+            .padding(0)
             .domain(data.map(d => d.day))
 
     const maxEstrogen = max(data, d => d.estrogen)
-    // const maxProgesterone = max(data, d => d.progesterone)
+    const maxProgesterone = max(progesterone, d => d)
 
     const y0 = d3.scale.scaleLinear()
             .rangeRound([height, 0])
@@ -112,7 +137,7 @@ class HormoneChart extends Component {
 
     const y1 = d3.scale.scaleLinear()
             .rangeRound([height, 0])
-            .domain([0, maxEstrogen])
+            .domain([0, maxProgesterone])
 
     const firstDay = x(data[0].day)
     const secondDay = x(data[1].day)
@@ -126,14 +151,14 @@ class HormoneChart extends Component {
                             .y(() => 0)
                             (bottomAxis)
 
-    const leftAxis = ticks(0, maxEstrogen, 5)
+    const leftAxis = ticks(0, maxEstrogen+25, 5)
 
     const leftAxisD = d3.shape.line()
                         .x(() => bottomAxis[0] + labelDx)
                         .y(d => y0(d) - height)
                         (leftAxis)
 
-    const rightAxis = ticks(0, maxEstrogen, 5)
+    const rightAxis = ticks(0, maxProgesterone, 5)
 
     const rightAxisD = d3.shape.line()
                         .x(() => bottomAxis[1] + labelDx)
@@ -142,11 +167,13 @@ class HormoneChart extends Component {
 
     const notch = 5
     const labelDistance = 9
+    const labelDistanceR = 11
     const emptySpace = "";
+    const leftAxisTitle = new Transform().rotate(-90);
 
     return (
         <View>
-        <Surface width={screen.width} height={screen.height}>
+        <Surface style={styles.container} width={screen.width} height={screen.height}>
           <Group x={margin.left} y={margin.top}>
                     <Group x={0} y={height}>
                         <Group key={-1}>
@@ -174,13 +201,14 @@ class HormoneChart extends Component {
                             <Shape stroke={colors.black} d={leftAxisD} key="-1"/>
                             {
                                 leftAxis.map((d, i) => (
-                                    <Group x={0} y={y0(d)-height} key={i + 1}>
+                                    <Group x={5} y={y0(d)-height} key={i + 1}>
                                         <Shape d={this.drawLine(notch, 0)} stroke={colors.black}/>
                                         <Text
                                             fill={colors.black}
-                                            x={-15}
+                                            x={-25}
                                             y={-labelDistance}
-                                            font="18px helvetica"
+                                            font="12px helvetica"
+                                            // style={styles.yAxisText}
                                         >
                                             {d + emptySpace}
                                         </Text>
@@ -189,16 +217,34 @@ class HormoneChart extends Component {
                             }
                         </Group>
                         <Group key={-3} >
+                          <Text
+                              style={styles.textStyle}
+                              x={0}
+                              y={-height/2}
+                              font = {{
+                                 fontFamily:'Helvetica, Neue Helvetica, Arial',
+                                 fontSize:13,
+                                 fontWeight:"normal", // or "normal"
+                                 fontStyle:"normal" // or "normal"
+                               }}
+                               rotate={"45"}
+                               textAnchor={"middle"}
+                               fill = "#000000"
+                              // alignment = { leftAxisTitle }
+                            >
+                              Hello World
+                            </Text>
                             <Shape stroke={colors.black} d={rightAxisD} key="-1"/>
                             {
                                 rightAxis.map((d, i) => (
-                                    <Group x={0} y={y1(d)-height} key={i + 1}>
+                                    <Group x={width-10} y={y1(d)-height} key={i + 1}>
                                         <Shape d={this.drawLine(notch, 0)} stroke={colors.black}/>
                                         <Text
                                             fill={colors.black}
-                                            x={-15}
-                                            y={-labelDistance}
-                                            font="18px helvetica"
+                                            x={15}
+                                            y={-labelDistanceR}
+                                            font="12px helvetica"
+                                            alignment="center"
                                         >
                                             {d + emptySpace}
                                         </Text>
@@ -221,7 +267,7 @@ class HormoneChart extends Component {
                             data.map((d, i) => (
                                 <TouchableWithoutFeedback key={i} >
                                     <Shape
-                                        d={this.createBarChart(x(d.day), y1(d.progesterone) - height, x.bandwidth()/2, height - y1(d.progesterone))}
+                                        d={this.createBarChart(x(d.day) + x.bandwidth()/2, y1(d.progesterone/10) - height, x.bandwidth()/2, height - y1(d.progesterone/10))}
                                         fill={colors.progesterone}
                                         >
                                     </Shape>
@@ -231,22 +277,27 @@ class HormoneChart extends Component {
                     </Group>
                 </Group>
 
-        </Surface>
+          </Surface>
         </View>
       )
   }
 };
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
-    margin: 20,
+    // margin: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   label: {
     fontSize: 15,
     marginTop: 5,
     fontWeight: 'normal',
+  },
+  textStyle: {
+    transform: [{ rotate: '-90deg' }]
   }
-};
+});
 
 
 export default HormoneChart;
