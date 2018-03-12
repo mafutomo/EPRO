@@ -15,7 +15,9 @@ class SignUp extends Component {
   render() {
     return (
         <Container>
-          <HeaderSignIn/>
+          <HeaderSignIn
+          onPress={() => this.props.navigation.goBack()}
+          />
           <Content>
 
           </Content>

@@ -8,7 +8,9 @@ const HeaderSignIn = (props) => {
       <Container>
         <Header style = {styles.header}>
           <Left>
-            <Button transparent>
+            <Button
+            transparent
+            onPress={props.onPress}>
               <Icon name='arrow-back'
               style ={styles.iconStyle} />
             </Button>
