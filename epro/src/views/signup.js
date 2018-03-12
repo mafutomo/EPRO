@@ -19,8 +19,7 @@ class SignUp extends Component {
           <Content>
 
           </Content>
-          <Footer>
-          </Footer>
+
         </Container>
       )
   }

@@ -6,7 +6,8 @@ import InputBox from '../components/inputbox';
 import Submit from '../components/submit';
 import { StackNavigator } from "react-navigation";
 
-export default class Login extends Component {
+export default class Login extends React.Component {
+
 
     constructor(props) {
        super(props)
@@ -14,8 +15,11 @@ export default class Login extends Component {
            email: "",
            password: "",
            buttonName: "LOGIN",
+           placeholderEmail: "youremail@example.com",
+           placeholderPassword: "password",
          }
    }
+
 
    loginUser = async () => {
       const response = await fetch('https://e-pro-api.herokuapp.com/login', {
@@ -34,18 +38,21 @@ export default class Login extends Component {
       console.log(responseJson)
   }
 
+
+
   render() {
-    console.log(this.props);
     return (
         <Container>
           <CoverHeader />
           <Content style = {styles.contentStyle}>
             <InputBox
             value={this.state.email}
+            placeholder={this.state.placeholderEmail}
             onChangeText={(text) => this.setState({email:text})}/>
 
             <InputBox
             value={this.state.password}
+            placeholder={this.state.placeholderPassword}
             onChangeText={(text) => this.setState({password:text})}/>
 
             <View style={styles.viewStyle}>
@@ -84,6 +91,6 @@ const styles = StyleSheet.create({
     fontFamily: 'DidactGothic-Regular',
   },
   contentStyle:{
-    paddingTop: 30,
+    paddingTop: 25,
   }
 })

@@ -15,7 +15,7 @@ import SignUpRouter from './src/router/signuprouter';
 const App = () => {
     return (
       <Container>
-        <Login />
+        <SignUpRouter />
       </Container>
     )
 }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Subtitle } from 'native-base';
-export default class HeaderSignIn extends Component {
-  render() {
+
+const HeaderSignIn = (props) => {
+
     return (
       <Container>
         <Header style = {styles.header}>
@@ -21,7 +22,6 @@ export default class HeaderSignIn extends Component {
         </Header>
       </Container>
     );
-  }
 }
 
 const styles = StyleSheet.create({
@@ -49,3 +49,5 @@ const styles = StyleSheet.create({
     }
 
   });
+
+export default HeaderSignIn;

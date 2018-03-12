@@ -7,12 +7,12 @@ import { StackNavigator } from "react-navigation";
 const SignUpRouter = StackNavigator (
 
   {
-    Login: { screen: props => <Login {...props} /> },
-    SignUp: { screen: props => <SignUp {...props} /> },
+    Login: { screen: Login },
+    SignUp: { screen: SignUp },
 
   },
   {
-    initialRouteName: "Login"
+    headerMode: 'none',
   }
 );
 
