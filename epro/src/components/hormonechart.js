@@ -42,8 +42,8 @@ import {
 
 const colors = {
     black: 'black',
-    blue: 'steelblue',
-    brown: 'brown'
+    estrogen: '#501F3A',
+    progesterone: '#FFBA49'
 }
 
 class HormoneChart extends Component {
@@ -58,7 +58,6 @@ class HormoneChart extends Component {
      }
      this.createBarChart = this.createBarChart.bind(this);
      this.drawLine = this.drawLine.bind(this);
-     this.getRandomColor = this.getRandomColor.bind(this);
    };
 
    async componentDidMount() {
@@ -71,12 +70,7 @@ class HormoneChart extends Component {
       day: json.map(el => el.day),
       isLoading: false,
     })
-    console.log('yes', this.state.data);
   }
-
-     getRandomColor() {
-        return '#' + Math.random().toString(16).substr(-6);
-      }
 
       drawLine(startPoint, endPoint) {
           var path = d3.path.path();
@@ -84,9 +78,9 @@ class HormoneChart extends Component {
           return path;
       }
 
-      createBarChart(x, y, w, h) {
+      createBarChart(x, y0, y1, w, h) {
           var path = d3.path.path();
-          path.rect(x, y, w, h);
+          path.rect(x, y0, y1, w, h);
           return path;
       }
 
@@ -98,10 +92,9 @@ class HormoneChart extends Component {
             );
         }
     const data = this.state.data;
-    // console.log(data);
     console.log("the state ==" ,this.state.data);
     const screen = Dimensions.get('window');
-    const margin = {top: 50, right: 25, bottom: 250, left: 25}
+    const margin = {top: 50, right: 25, bottom: 250, left: 30}
     const width = screen.width - margin.left - margin.right
     const height = screen.height - margin.top - margin.bottom
 
@@ -110,36 +103,37 @@ class HormoneChart extends Component {
             .padding(0.1)
             .domain(data.map(d => d.day))
 
-    const maxFrequency = max(data, d => d.estrogen)
+    const maxEstrogen = max(data, d => d.estrogen)
+    // const maxProgesterone = max(data, d => d.progesterone)
 
     const y0 = d3.scale.scaleLinear()
             .rangeRound([height, 0])
-            .domain([0, maxFrequency])
+            .domain([0, maxEstrogen])
 
     const y1 = d3.scale.scaleLinear()
             .rangeRound([height, 0])
-            .domain([0, maxFrequency])
+            .domain([0, maxEstrogen])
 
-    const firstLetterX = x(data[0].day)
-    const secondLetterX = x(data[1].day)
-    const lastLetterX = x(data[data.length - 1].day)
-    const labelDx = (secondLetterX - firstLetterX) / 2
+    const firstDay = x(data[0].day)
+    const secondDay = x(data[1].day)
+    const cycleLength = x(data[data.length - 1].day)
+    const labelDx = (secondDay - firstDay) / 2
 
-    const bottomAxis = [firstLetterX - labelDx, lastLetterX + labelDx]
+    const bottomAxis = [firstDay- labelDx, cycleLength + labelDx]
 
     const bottomAxisD = d3.shape.line()
                             .x(d => d + labelDx)
                             .y(() => 0)
                             (bottomAxis)
 
-    const leftAxis = ticks(0, maxFrequency, 5)
+    const leftAxis = ticks(0, maxEstrogen, 5)
 
     const leftAxisD = d3.shape.line()
                         .x(() => bottomAxis[0] + labelDx)
                         .y(d => y0(d) - height)
                         (leftAxis)
 
-    const rightAxis = ticks(0, maxFrequency, 5)
+    const rightAxis = ticks(0, maxEstrogen, 5)
 
     const rightAxisD = d3.shape.line()
                         .x(() => bottomAxis[1] + labelDx)
@@ -216,8 +210,19 @@ class HormoneChart extends Component {
                             data.map((d, i) => (
                                 <TouchableWithoutFeedback key={i} >
                                     <Shape
-                                        d={this.createBarChart(x(d.day), y0(d.estrogen) - height, x.bandwidth(), height - y0(d.estrogen))}
-                                        fill={this.getRandomColor()}
+                                        d={this.createBarChart(x(d.day), y0(d.estrogen) - height, x.bandwidth()/2, height - y0(d.estrogen))}
+                                        fill={colors.estrogen}
+                                        >
+                                    </Shape>
+                                </TouchableWithoutFeedback>
+                            ))
+                        }
+                        {
+                            data.map((d, i) => (
+                                <TouchableWithoutFeedback key={i} >
+                                    <Shape
+                                        d={this.createBarChart(x(d.day), y1(d.progesterone) - height, x.bandwidth()/2, height - y1(d.progesterone))}
+                                        fill={colors.progesterone}
                                         >
                                     </Shape>
                                 </TouchableWithoutFeedback>
