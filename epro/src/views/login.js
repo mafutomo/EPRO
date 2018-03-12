@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { Container, Header, Footer, Content } from 'native-base';
+import { Text, View, StyleSheet} from 'react-native';
+import { Container, Header, Footer, Content, Button } from 'native-base';
 import CoverHeader from '../components/coverheader';
 import InputBox from '../components/inputbox';
 import Submit from '../components/submit';
+import { StackNavigator } from "react-navigation";
 
-class Login extends Component {
+export default class Login extends Component {
 
     constructor(props) {
        super(props)
@@ -34,6 +35,7 @@ class Login extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
         <Container>
           <CoverHeader />
@@ -47,8 +49,11 @@ class Login extends Component {
             onChangeText={(text) => this.setState({password:text})}/>
 
             <View style={styles.viewStyle}>
-              <Text style={styles.textStyle}
-              onPress={console.log("hello!")}>{`Don't have an account? Sign up here.`}</Text>
+              <Button
+              style={styles.buttonStyle}
+              onPress={() => this.props.navigation.navigate("SignUp")}>
+              <Text style={styles.textStyle}>{`Don't have an account? Sign up here.`}</Text>
+              </Button>
             </View>
             <Submit
             onPress={this.loginUser}
@@ -67,15 +72,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
   },
+  buttonStyle: {
+    backgroundColor: 'transparent',
+    marginTop: -12,
+    marginBottom: -5,
+    alignSelf: 'center',
+  },
   textStyle: {
-    color: '#17252A',
-    fontSize: 14,
+    color: '#EF5B5B',
+    fontSize: 16,
     fontFamily: 'DidactGothic-Regular',
   },
   contentStyle:{
     paddingTop: 30,
   }
 })
-
-
-export default Login;

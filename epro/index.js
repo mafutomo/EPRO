@@ -10,6 +10,7 @@ import Workout from './src/views/workout';
 import SignUp from './src/views/signup';
 import DrawerRouter from './src/router/drawerrouter';
 import TabRouter from './src/router/tabrouter';
+import SignUpRouter from './src/router/signuprouter';
 
 const App = () => {
     return (
