@@ -18,7 +18,7 @@ class PersonalRecords extends Component {
                 <Text style={styles.text}>My Workouts</Text>
                 <Text style={styles.text}>24</Text>
               </Col>
-              <Col style={{ backgroundColor: '#DEF2F1', height: '100%' }}>
+              <Col style={{ backgroundColor: '#cccccc', height: '100%' }}>
                 <Text style={styles.text}>Personal Records</Text>
                 <Text style={styles.text}>24</Text>
               </Col>

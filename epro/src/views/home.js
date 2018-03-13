@@ -61,8 +61,8 @@ export default class Home extends Component {
           <Banner
           bannerText = {this.state.bannerText}/>
           <PersonalRecords />
-          
           <HomeChart />
+          <Submit />
         </Container>
       )
   }
