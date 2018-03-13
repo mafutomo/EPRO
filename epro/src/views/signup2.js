@@ -49,7 +49,7 @@ class SignUp2 extends Component {
   }
 
   signUpUser = async () => {
-    const response = await fetch('http://localhost:3001/users/', {
+    const response = await fetch('https://epro-fitness-api.herokuapp.com/users/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -139,11 +139,11 @@ class SignUp2 extends Component {
           <View style = {styles.ageAndWeight}>
             <Text>Age: </Text>
             <SmallInputBox
-             onChangeText={(val) => {this.setState({age:val})}}/>
+             onChangeText={(val) => {this.setState({age:parseInt(val)})}}/>
             <View style={styles.padding}/>
             <Text>Weight: </Text>
             <SmallInputBox
-            onChangeText={(val) => {this.setState({weight:val})}} />
+            onChangeText={(val) => {this.setState({weight:parseInt(val)})}} />
           </View>
 
           <Submit
