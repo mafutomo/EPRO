@@ -25,6 +25,10 @@ class SignUp extends Component {
   }
 
   render() {
+    console.log(this.state.firstName)
+    console.log(this.state.lastName)
+    console.log(this.state.email)
+    console.log(this.state.password)
     return (
         <Container style = {styles.background}>
 
@@ -55,9 +59,15 @@ class SignUp extends Component {
           value={this.state.passwordRetype}
           placeholder={this.state.placeholderRetypePassword}
           onChangeText={(text) => this.setState({passwordRetype:text})}/>
+
           <Submit
             buttonName = {this.state.buttonName}
-            onPress={() => this.props.navigation.navigate("SignUp2")}
+            onPress={() => this.props.navigation.navigate("SignUp2",{
+              firstName: this.state.firstName,
+              lastName: this.state.lastName,
+              email: this.state.email,
+              password: this.state.password
+              })}
             />
             </Content>
 

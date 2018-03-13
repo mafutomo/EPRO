@@ -18,10 +18,10 @@ const App = () => {
     return (
       <Container>
         <SignUpRouter/>
-
       </Container>
     )
 }
 
+console.disableYellowBox = true;
 
 AppRegistry.registerComponent('epro', () => App);

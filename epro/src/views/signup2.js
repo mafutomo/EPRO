@@ -1,20 +1,34 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, DatePickerIOS } from 'react-native';
-import { Container, Header, Footer, Content } from 'native-base';
+import { View, StyleSheet, DatePickerIOS } from 'react-native';
+import { Container, Text, Header, Footer, Content, ListItem, Radio, Right } from 'native-base';
 import HeaderSignIn from '../components/headersignin';
 import Submit from '../components/submit';
 import InputBox from '../components/inputbox';
 import LoginProgress from '../components/loginprogress';
-// import Slider from '../components/slider';
+import SmallInputBox from '../components/smallinputbox';
 import Slider from 'react-native-slider';
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+
+const radio_props = [
+  {label: 'Non-Hormonal', value: "non_hormonal" },
+  {label: 'Triphasic', value: "triphasic" },
+  {label: 'Monophasic', value: "monophasic" },
+  {label: 'Progestin', value: "progestin" }
+];
+
 
 class SignUp2 extends Component {
   constructor(props) {
      super(props)
      this.state = {
        buttonName: "SIGN UP",
+       firstName: this.props.navigation.state.params.firstName,
+       lastName: this.props.navigation.state.params.lastName,
+       email: this.props.navigation.state.params.email,
+       password: this.props.navigation.state.params.password,
        chosenDate: new Date(),
        chosenCycleLength: 25,
+       chosenBCType:"",
        }
      this.setDate = this.setDate.bind(this);
   }
@@ -27,8 +41,38 @@ class SignUp2 extends Component {
    this.setState({chosenDate: newDate})
   }
 
+
+
+  signUpUser = async () => {
+    const response = await fetch('https://e-pro-api.herokuapp.com/users/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body : JSON.stringify({
+       firstName: this.state.firstName,
+       lastName: this.state.lastName,
+       password: this.state.password,
+       age: 25,
+       weight: 150,
+       cycleLength: this.state.chosenCycleLength,
+       lastDay: this.state.chosenDate,
+       email: this.state.email,
+       isTrainer: false,
+       isPublic: false,
+       isNonHormonal: true,
+       isTriphasic: false,
+       isMonophasic: false,
+       isProgestin: false
+     }),
+    })
+    const responseJson = await response.json()
+    console.log("CREATE USER RESPONSE = ",responseJson)
+  }
+
   render() {
-    console.log("this.state.date = ",this.state.chosenDate);
+    console.log(this.state);
     return (
         <Container style={styles.background} >
           <HeaderSignIn
@@ -66,11 +110,27 @@ class SignUp2 extends Component {
                </Text>
           </View>
 
+          <View style={styles.radioForm}>
+          <RadioForm
+          radio_props={radio_props}
+          initial={"non_hormonal"}
+          buttonColor={'#3AAFA9'}
+          buttonInnerColor={'#FFBA49'}
+          onPress={(value) => {this.setState({chosenBCType:value})}}
           />
+          </View>
+
+          <View style = {styles.ageAndWeight}>
+            <Text>Age: </Text>
+            <SmallInputBox />
+            <View style={styles.padding}/>
+            <Text>Weight: </Text>
+            <SmallInputBox />
+          </View>
 
           <Submit
             buttonName = {this.state.buttonName}
-            onPress={() => console.log("stuff for login!")}
+            onPress={this.signUpUser}
             />
           </Content>
 
@@ -124,6 +184,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontFamily: 'DidactGothic-Regular',
     fontSize: 17,
+  },
+  ageAndWeight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  padding: {
+    paddingRight: 25,
   }
 })
 
