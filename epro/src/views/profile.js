@@ -4,6 +4,8 @@ import { Text, View, StyleSheet } from 'react-native';
 import { Container, Header, Footer, Content, Left, Button, Icon, Body, Title, Right } from 'native-base';
 import TopNav from '../components/topnav';
 import Banner from '../components/banner';
+import HormoneChart from '../components/hormonechart';
+import BubbleChart from '../components/homechart';
 import Hormones from '../components/hormones';
 import BottomNav from '../components/bottomnav';
 
