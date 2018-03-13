@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, DatePickerIOS } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Container, Text, Header, Footer, Content, ListItem, Radio, Right } from 'native-base';
 import HeaderSignIn from '../components/headersignin';
 import Submit from '../components/submit';
@@ -8,6 +8,7 @@ import LoginProgress from '../components/loginprogress';
 import SmallInputBox from '../components/smallinputbox';
 import Slider from 'react-native-slider';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
 const radio_props = [
   {label: 'Non-Hormonal', value: "non_hormonal" },
@@ -16,19 +17,25 @@ const radio_props = [
   {label: 'Progestin', value: "progestin" }
 ];
 
-
 class SignUp2 extends Component {
   constructor(props) {
      super(props)
+
+     const propsNav = this.props.navigation.state.params
+
      this.state = {
+       isDateTimePickerVisible: false,
+       datePickerName: "Choose Date",
        buttonName: "SIGN UP",
-       firstName: this.props.navigation.state.params.firstName,
-       lastName: this.props.navigation.state.params.lastName,
-       email: this.props.navigation.state.params.email,
-       password: this.props.navigation.state.params.password,
+       firstName: propsNav.firstName,
+       lastName: propsNav.lastName,
+       email: propsNav.email,
+       password: propsNav.password,
        chosenDate: new Date(),
        chosenCycleLength: 25,
        chosenBCType:"",
+       age: 0,
+       weight: 0,
        }
      this.setDate = this.setDate.bind(this);
   }
@@ -41,10 +48,8 @@ class SignUp2 extends Component {
    this.setState({chosenDate: newDate})
   }
 
-
-
   signUpUser = async () => {
-    const response = await fetch('https://e-pro-api.herokuapp.com/users/', {
+    const response = await fetch('http://localhost:3001/users/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -54,41 +59,52 @@ class SignUp2 extends Component {
        firstName: this.state.firstName,
        lastName: this.state.lastName,
        password: this.state.password,
-       age: 25,
-       weight: 150,
+       age: this.state.age,
+       weight: this.state.weight,
        cycleLength: this.state.chosenCycleLength,
        lastDay: this.state.chosenDate,
        email: this.state.email,
        isTrainer: false,
        isPublic: false,
-       isNonHormonal: true,
-       isTriphasic: false,
-       isMonophasic: false,
-       isProgestin: false
+       birthControlType:this.state.chosenBCType,
      }),
     })
     const responseJson = await response.json()
     console.log("CREATE USER RESPONSE = ",responseJson)
   }
 
+  showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+
+  hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+
+  handleDatePicked = (date) => {
+    this.setState({chosenDate:date})
+    this.hideDateTimePicker();
+  };
+
   render() {
     console.log(this.state);
     return (
-        <Container style={styles.background} >
+        <Container style={styles.background}>
           <HeaderSignIn
           onPress={() => this.props.navigation.goBack()}
           />
           <Content style = {styles.content}>
+
           <LoginProgress
           progress={0.90}/>
 
           <Text style={styles.headerText}>Date of Last Period</Text>
-          <View style={styles.datePickerStyle}>
-            <DatePickerIOS
-            date={this.state.chosenDate}
-            onDateChange={this.setDate}
-            maximumDate={new Date()}
-            mode="date"
+          <View style={styles.datePicker}>
+            <Submit
+              buttonName = {this.state.datePickerName}
+              onPress={this.showDateTimePicker}
+              />
+            <DateTimePicker
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this.handleDatePicked}
+              onCancel={this.hideDateTimePicker}
+              maximumDate={new Date()}
             />
           </View>
 
@@ -122,10 +138,12 @@ class SignUp2 extends Component {
 
           <View style = {styles.ageAndWeight}>
             <Text>Age: </Text>
-            <SmallInputBox />
+            <SmallInputBox
+             onChangeText={(val) => {this.setState({age:val})}}/>
             <View style={styles.padding}/>
             <Text>Weight: </Text>
-            <SmallInputBox />
+            <SmallInputBox
+            onChangeText={(val) => {this.setState({weight:val})}} />
           </View>
 
           <Submit
@@ -151,9 +169,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 20,
   },
-  datePickerStyle:{
-    width: 250,
-    alignSelf: 'center',
+  datePicker:{
+    paddingBottom: 20,
+  },
+  datePickerButton: {
+    marginLeft: -20,
+    marginRight: -20,
   },
   slider:{
     marginLeft: 10,
