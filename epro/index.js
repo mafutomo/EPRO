@@ -13,10 +13,12 @@ const App = () => {
   return(
     <Container>
 
-        <Profile />
+        <Login />
 
     </Container>
   )
 }
+
+console.disableYellowBox = true;
 
 AppRegistry.registerComponent('epro', () => App);

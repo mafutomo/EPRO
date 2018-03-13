@@ -4,6 +4,7 @@ import { Container, Header, Footer, Content } from 'native-base';
 import TopNav from '../components/topnav';
 import Banner from '../components/banner';
 import HormoneChart from '../components/hormonechart';
+import BubbleChart from '../components/homechart';
 import Hormones from '../components/hormones';
 import BottomNav from '../components/bottomnav';
 
@@ -21,7 +22,7 @@ class Profile extends Component {
             <TopNav />
           <Content>
             <Banner />
-            <HormoneChart />
+            <BubbleChart />
           </Content>
           <Footer>
             <BottomNav/>

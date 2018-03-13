@@ -62,7 +62,7 @@ class HormoneChart extends Component {
    };
    //Get the user id
    async componentDidMount() {
-     const response = await fetch('https://e-pro-api.herokuapp.com/login')
+     const response = await fetch('https://epro-fitness-api.herokuapp.com/login')
      const json = await response.json()
      console.log("user id:", json);
    }
