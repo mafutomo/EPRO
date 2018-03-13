@@ -26,6 +26,18 @@ export default class Home extends Component {
        }
   }
 
+  async componentDidMount() {
+    const response = await fetch('http://localhost:3001/auth/status', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': AsyncStorage.getItem('token')
+      }
+    })
+    console.log(response);
+  }
+
   render() {
     return (
         <Container>

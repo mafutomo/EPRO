@@ -33,6 +33,7 @@ export default class Login extends React.Component {
         }),
       })
       const responseJson = await response.json()
+      console.log(responseJson);
       if (responseJson.token) {
         try {
           await AsyncStorage.setItem('token', responseJson.token)
