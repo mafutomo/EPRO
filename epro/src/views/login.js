@@ -8,7 +8,6 @@ import { StackNavigator } from "react-navigation";
 
 export default class Login extends React.Component {
 
-
     constructor(props) {
        super(props)
        this.state = {

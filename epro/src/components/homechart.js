@@ -55,7 +55,7 @@ const data = [
   {day: "Friday", number: 10},
 ];
 
-class BubbleChart extends Component {
+class HomeChart extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -63,7 +63,7 @@ class BubbleChart extends Component {
     }
 
 
-  this.createAreaChart = this.createAreaChart.bind(this);
+  this.createBarChart = this.createBarChart.bind(this);
   this.drawLine = this.drawLine.bind(this);
   }
 
@@ -73,34 +73,34 @@ class BubbleChart extends Component {
       return path;
   }
 
-  // createAreaChart(x, y, w, h) {
-  //     var path = d3.path.path();
-  //     path.rect(x, y, w, h );
-  //     return path;
-  // }
-
-  createAreaChart() {
-    var area = d3.shape.area()
-        .x(function(d) { return x(d.day); })
-        .y0(height)
-        .y1(function(d) { return y(d.number); })
-        .curve(d3.shape.curveNatural)
-        (data)
-
-    console.debug(`area: ${JSON.stringify(area)}`);
-
-    return { path : area };
+  createBarChart(x, y, w, h) {
+      var path = d3.path.path();
+      path.rect(x, y, w, h );
+      return path;
   }
+
+  // createAreaChart() {
+  //   var area = d3.shape.area()
+  //       .x(function(d) { return x(d.day); })
+  //       .y0(height)
+  //       .y1(function(d) { return y(d.number); })
+  //       .curve(d3.shape.curveNatural)
+  //       (data)
+  //
+  //   console.debug(`area: ${JSON.stringify(area)}`);
+  //
+  //   return { path : area };
+  // }
 
   render () {
     const screen = Dimensions.get('window');
-    const margin = {top: 50, right: 35, bottom: 350, left: 35}
+    const margin = {top: 75, right: 35, bottom: 400, left: 35}
     const width = screen.width - margin.left - margin.right
     const height = screen.height - margin.top - margin.bottom
 
     const x = d3.scale.scaleBand()
             .rangeRound([0, width])
-            .padding(0)
+            .padding(0.1)
             .domain(data.map(d => d.day))
 
     const maxVolume = max(data, d => d.number)
@@ -121,7 +121,7 @@ class BubbleChart extends Component {
                             .y(() => 0)
                             (bottomAxis)
 
-    const leftAxis = ticks(0, maxVolume + 25, 5)
+    const leftAxis = ticks(0, maxVolume, 5)
 
     const leftAxisD = d3.shape.line()
                         .x(() => bottomAxis[0] + labelDx)
@@ -177,16 +177,17 @@ class BubbleChart extends Component {
                               ))
                           }
                       </Group>
-                      {/* {
-                        data.map((d, i) => (
-                          <Group x={x} y={y}>
-                           <Shape
-                             color={'black'}
-                             d={() => this.createAreaChart()} */}
-                              {/* />
-                         </Group> */}
-                        ))}
-
+                      {
+                          data.map((d, i) => (
+                              <TouchableWithoutFeedback key={i} >
+                                  <Shape
+                                      d={this.createBarChart(x(d.day), y(d.number) - height, x.bandwidth(), height - y(d.number))}
+                                      fill={'#DEF2F1'}
+                                      >
+                                  </Shape>
+                              </TouchableWithoutFeedback>
+                          ))
+                      }
 
                   </Group>
               </Group>
@@ -214,4 +215,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default BubbleChart;
+export default HomeChart;

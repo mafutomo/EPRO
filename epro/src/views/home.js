@@ -12,7 +12,8 @@ import BottomNav from '../components/bottomnav';
 import SideBar from '../components/sidebar';
 import ExerciseDetail from '../components/exercisedetail';
 import { StackNavigator } from 'react-navigation';
-
+import PersonalRecords from '../components/personalrecords';
+import HomeChart from '../components/homechart';
 import HistoryTable from '../components/historytable';
 import DatePicker from '../components/dropdown';
 import LoginProgress from '../components/loginprogress';
@@ -25,6 +26,18 @@ export default class Home extends Component {
        bannerText: "Hello Ali"
        }
   }
+
+  // async componentDidMount() {
+  //   const response = await fetch('http://localhost:3001/auth/status', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json',
+  //       'Authorization': AsyncStorage.getItem('token')
+  //     }
+  //   })
+  //   console.log(response);
+  // }
 
   render() {
     return (
@@ -47,6 +60,9 @@ export default class Home extends Component {
         </Header>
           <Banner
           bannerText = {this.state.bannerText}/>
+          <PersonalRecords />
+          
+          <HomeChart />
         </Container>
       )
   }

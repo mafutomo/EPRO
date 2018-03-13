@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, AsyncStorage } from 'react-native';
 import { Container, Header, Footer, Content, Left, Button, Icon, Body, Title, Right } from 'native-base';
 import TopNav from '../components/topnav';
 import Banner from '../components/banner';
@@ -13,9 +13,7 @@ class Profile extends Component {
 
   constructor(props) {
      super(props)
-     this.state = {
-
-       }
+     this.state = {}
   }
 
   render() {
@@ -40,7 +38,7 @@ class Profile extends Component {
           <Content>
             <Banner />
             <View>
-              <Hormones />
+              <HormoneChart />
             </View>
           </Content>
         </Container>
