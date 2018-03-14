@@ -77,6 +77,9 @@ export default class Login extends React.Component {
             <Submit
             onPress={this.loginUser}
             buttonName = {this.state.buttonName}
+            onPress={() => this.props.navigation.navigate("Home",{
+              userId: this.state.userId
+              })}
             />
           </Content>
         </Container>

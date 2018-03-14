@@ -61,35 +61,35 @@ class HormoneChart extends Component {
      this.createBarChart = this.createBarChart.bind(this);
      this.drawLine = this.drawLine.bind(this);
    };
-   // //Get the user id
-   // async componentDidMount() {
-   //   const response = await fetch('https://epro-fitness-api.herokuapp.com/login')
-   //   const json = await response.json()
-   //   console.log("user id:", json);
-   // }
 
    //get the user info
    async componentDidMount() {
-     const response = await fetch(`https://e-pro-api.herokuapp.com/users/${this.state.userId}`)
+     const response = await fetch(`https://epro-fitness-api.herokuapp.com/users/1`, {
+       method: 'GET',
+       headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+       },
+     })
      const json = await response.json()
      console.log("this is the user info: ", json);
-
-     // if (user.monophasic === true){
-     //   this.setState({ contraceptive = "monophasic" })
-     // } else if (user.non_hormonal === true){
-     //   this.setState({ contraceptive = "non_hormonal" })
-     // } else if (user.progestin === true){
-     //   this.setState({ contraceptive = "progestin" })
-     // } else if (user.triphasic === true){
-     //   this.setState({ contraceptive = "triphasic" })
-     // } else {
-     //   this.setState({ contraceptive = "non_hormonal" })
-     // }
+     console.log("this is the cycleLength", json[0].cycle_length);
+     this.setState({
+       contraceptive: json[0].birth_control_type,
+       cycleLength: json[0].cycle_length,
+     })
    }
 
    async componentDidMount() {
-    const response = await fetch(`https://e-pro-api.herokuapp.com/hormones/${this.state.contraceptive}`)
+    const response = await fetch(`https://epro-fitness-api.herokuapp.com/hormones/${this.state.contraceptive}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
     const json = await response.json()
+    console.log("this is the hormone data", json);
     this.setState({
       data: json,
       isLoading: false,

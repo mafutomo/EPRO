@@ -13,7 +13,9 @@ class Profile extends Component {
 
   constructor(props) {
      super(props)
-     this.state = {}
+     this.state = {
+       userId: this.props.userId
+     }
   }
 
 
@@ -39,7 +41,9 @@ class Profile extends Component {
           <Content>
             <Banner />
             <View>
-              <HormoneChart />
+              <HormoneChart
+                userId={this.state.userId}
+              />
             </View>
           </Content>
         </Container>
