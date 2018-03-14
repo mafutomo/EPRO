@@ -14,10 +14,41 @@ class Profile extends Component {
   constructor(props) {
      super(props)
      this.state = {
-       userId: this.props.userId
+       token: null,
+       userId: null,
+       isUpdated: false
      }
   }
 
+  async componentDidMount() {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (token !== null){
+
+        this.setState({
+          token: token
+        })
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    const response = await fetch('https://epro-fitness-api.herokuapp.com/auth/status', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        token: this.state.token
+      })
+    })
+    const responseJson = await response.json();
+    console.log(responseJson);
+    this.setState({
+      userId: responseJson.userId,
+      isUpdated: true
+    })
+  }
 
   render() {
     return (
@@ -39,11 +70,17 @@ class Profile extends Component {
           </Right>
         </Header>
           <Content>
-            <Banner />
+          { this.state.isUpdated ?
+            <Banner
+              userId={this.state.userId}
+            /> : null
+            }
             <View>
-              <HormoneChart
-                userId={this.state.userId}
-              />
+          { this.state.isUpdated ?
+            <HormoneChart
+              userId={this.state.userId}
+            /> : null
+            }
             </View>
           </Content>
         </Container>

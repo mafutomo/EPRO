@@ -48,25 +48,24 @@ const colors = {
 }
 
 class HormoneChart extends Component {
+
   constructor(props) {
      super(props)
-      console.log('these are da props', props);
      this.state = {
        isLoading: true,
        data: [],
-       userId: null,
        contraceptive: "non_hormonal",
        cycleLength: 28,
        userId: this.props.userId
      }
      this.createBarChart = this.createBarChart.bind(this);
      this.drawLine = this.drawLine.bind(this);
-     // this.prepDataForChart = this.prepDataForChart.bind(this);
    };
 
    //get the user info
    async componentDidMount() {
-       const response = await fetch(`https://epro-fitness-api.herokuapp.com/users/2`, {
+      console.log(this.state.userId);
+       const response = await fetch(`https://epro-fitness-api.herokuapp.com/users/${this.state.userId}`, {
        method: 'GET',
        headers: {
          'Accept': 'application/json',
@@ -75,7 +74,6 @@ class HormoneChart extends Component {
      })
      const json = await response.json()
      const user = json[0]
-     console.log("this is the user info: ", user);
      this.setState({
        contraceptive: user.birth_control_type,
        cycleLength: user.cycle_length,
@@ -89,8 +87,6 @@ class HormoneChart extends Component {
        },
      })
      const rawHormoneData = await hormoneResponse.json()
-     console.log("this is the hormone data", rawHormoneData);
-
      let individualData = this.prepDataForChart(rawHormoneData, user);
      this.setState({
        isLoading: false,
@@ -110,13 +106,13 @@ class HormoneChart extends Component {
        return intData;
      } else if (user.birth_control_type === 'progestin'){
        let newData = [];
-      for(let i = 1; i < user.cycle_length +1; i++){
-        newData.push({
-          "day": i,
-          "estrogen": 50,
-          "progesterone": 2
-        })
-      }
+        for(let i = 1; i < user.cycle_length +1; i++){
+          newData.push({
+            "day": i,
+            "estrogen": 50,
+            "progesterone": 2
+          })
+        }
       return newData;
     }else{
       if (user.cycle_length === 28) {
@@ -179,8 +175,6 @@ class HormoneChart extends Component {
             );
         }
     const data = this.state.data;
-    console.log("the state ==" ,this.state);
-    console.log('prog =', this.state.data[15].progesterone);
     const screen = Dimensions.get('window');
     const margin = {top: 50, right: 35, bottom: 350, left: 35}
     const width = screen.width - margin.left - margin.right

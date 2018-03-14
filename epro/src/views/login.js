@@ -47,6 +47,7 @@ export default class Login extends React.Component {
         loggedIn: true,
         userId: responseJson.claim.user_id,
       })
+
       this.props.navigation.navigate("Home",{
         userId: this.state.userId
         })

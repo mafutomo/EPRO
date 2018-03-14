@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, AsyncStorage } from 'react-native';
 import { Container, Header, Footer, Content, Left, Button, Icon, Body, Title, Right } from 'native-base';
 import Submit from '../components/submit';
 import InputBox from '../components/inputbox';
@@ -21,26 +21,41 @@ import LoginProgress from '../components/loginprogress';
 export default class Home extends Component {
 
   constructor(props) {
-
      super(props)
-     const propsNav = this.props.navigation.state.params;
-     console.log('these are the home props', propsNav);
      this.state = {
        bannerText: "Hello Ali",
-       userId: propsNav.userId,
+       token: null,
+       userId: null,
+       isUpdated: false
        }
   }
 
   async componentDidMount() {
-    const response = await fetch('http://localhost:3001/auth/status', {
-      method: 'GET',
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (token !== null){
+        this.setState({
+          token: token
+        })
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    const response = await fetch('https://epro-fitness-api.herokuapp.com/auth/status', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': AsyncStorage.getItem('token')
-      }
+      },
+      body: JSON.stringify({
+        token: this.state.token
+      })
     })
-    console.log(response);
+    const responseJson = await response.json();
+    this.setState({
+      userId: responseJson.userId,
+      isUpdated: true
+    })
   }
 
   render() {
@@ -63,10 +78,21 @@ export default class Home extends Component {
             </Button>
           </Right>
         </Header>
+        { this.state.isUpdated ?
           <Banner
-          bannerText = {this.state.bannerText}/>
-          <PersonalRecords />
-          <HomeChart />
+            userId={this.state.userId}
+          /> : null
+          }
+        { this.state.isUpdated ?
+          <PersonalRecords
+            userId={this.state.userId}
+          /> : null
+          }
+        { this.state.isUpdated ?
+          <HomeChart
+            userId={this.state.userId}
+          /> : null
+          }
           <Submit />
         </Container>
       )
