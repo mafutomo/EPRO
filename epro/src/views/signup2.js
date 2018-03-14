@@ -36,6 +36,7 @@ class SignUp2 extends Component {
        chosenBCType:"",
        age: 0,
        weight: 0,
+       token: "hoorah!",
        }
      this.setDate = this.setDate.bind(this);
   }

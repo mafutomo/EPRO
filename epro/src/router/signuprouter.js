@@ -4,6 +4,10 @@ import SignUp from '../views/signup';
 import SignUp2 from '../views/signup2';
 import { StackNavigator } from "react-navigation";
 import DrawerRouter from './drawerrouter';
+<<<<<<< HEAD
+=======
+
+>>>>>>> popUp
 
 const SignUpRouter = StackNavigator (
 

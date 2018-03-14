@@ -44,6 +44,7 @@ export default class Home extends Component {
   }
 
   render() {
+    console.log("props from sign in", this.props.navigation.state.params);
     return (
         <Container>
         <Header style={styles.header}>
