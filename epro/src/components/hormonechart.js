@@ -48,6 +48,7 @@ const colors = {
 }
 
 class HormoneChart extends Component {
+
   constructor(props) {
      super(props)
       console.log('these are da props', props);
@@ -61,18 +62,31 @@ class HormoneChart extends Component {
      }
      this.createBarChart = this.createBarChart.bind(this);
      this.drawLine = this.drawLine.bind(this);
-     // this.prepDataForChart = this.prepDataForChart.bind(this);
+
+
    };
+
+   componentWillReceiveProps(data){
+      this.setState({userId: data.userId})
+    }
 
    //get the user info
    async componentDidMount() {
-       const response = await fetch(`https://epro-fitness-api.herokuapp.com/users/2`, {
+
+
+
+      console.log(this.state.userId);
+       const response = await fetch(`https://epro-fitness-api.herokuapp.com/users/${this.state.userId}`, {
        method: 'GET',
        headers: {
          'Accept': 'application/json',
          'Content-Type': 'application/json',
        },
      })
+
+
+     console.log("this is the hormone chart", this.state.userId);
+
      const json = await response.json()
      const user = json[0]
      console.log("this is the user info: ", user);

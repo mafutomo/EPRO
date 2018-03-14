@@ -14,10 +14,39 @@ class Profile extends Component {
   constructor(props) {
      super(props)
      this.state = {
-       userId: this.props.userId
+       token: null,
+       userId: null
      }
   }
 
+  async componentDidMount() {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (token !== null){
+        console.log(token);
+        this.setState({
+          token: token
+        })
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    const response = await fetch('http://localhost:3001/auth/status', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        token: this.state.token
+      })
+    })
+    const responseJson = await response.json();
+    console.log(responseJson);
+    this.setState({
+      userId: responseJson.userId,
+    })
+  }
 
   render() {
     return (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, AsyncStorage } from 'react-native';
 import { Container, Header, Footer, Content, Left, Button, Icon, Body, Title, Right } from 'native-base';
 import Submit from '../components/submit';
 import InputBox from '../components/inputbox';
@@ -21,26 +21,39 @@ import LoginProgress from '../components/loginprogress';
 export default class Home extends Component {
 
   constructor(props) {
-
      super(props)
-     const propsNav = this.props.navigation.state.params;
-     console.log('these are the home props', propsNav);
      this.state = {
        bannerText: "Hello Ali",
-       userId: propsNav.userId,
+       token: null,
+       userId: null
        }
   }
 
   async componentDidMount() {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (token !== null){
+        this.setState({
+          token: token
+        })
+      }
+    } catch (error) {
+      console.log(error);
+    }
     const response = await fetch('http://localhost:3001/auth/status', {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': AsyncStorage.getItem('token')
-      }
+      },
+      body: JSON.stringify({
+        token: this.state.token
+      })
     })
-    console.log(response);
+    const responseJson = await response.json();
+    this.setState({
+      userId: responseJson.userId,
+    })
   }
 
   render() {
@@ -63,9 +76,15 @@ export default class Home extends Component {
           </Right>
         </Header>
           <Banner
-          bannerText = {this.state.bannerText}/>
-          <PersonalRecords />
-          <HomeChart />
+          bannerText ={this.state.bannerText}
+          userId={this.state.userId}
+        />
+          <PersonalRecords
+           userId={this.state.userId}
+         />
+          <HomeChart
+            userId={this.state.userId}
+          />
           <Submit />
         </Container>
       )
