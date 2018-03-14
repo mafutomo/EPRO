@@ -21,10 +21,10 @@ import {
 
 const TabRouter = TabNavigator(
   {
-    Home: { screen: props => <Home {...props} /> },
+    Home: { screen: props => <Home {...props}/> },
     Workout: { screen: props => <Workout {...props} /> },
     History: { screen: props => <History {...props} /> },
-    Profile: { screen: props => <Profile {...props} /> }
+    Profile: { screen: props => <Profile {...props} />}
   },
   {
     initialRouteName: 'Home',

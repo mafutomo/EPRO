@@ -47,7 +47,6 @@ export default class Login extends React.Component {
         loggedIn: true,
         userId: responseJson.claim.user_id,
       })
-      // console.log(this.state);
       this.props.navigation.navigate("Home",{
         userId: this.state.userId
         })
@@ -80,7 +79,6 @@ export default class Login extends React.Component {
             <Submit
             onPress={this.loginUser}
             buttonName = {this.state.buttonName}
-
             />
           </Content>
         </Container>
