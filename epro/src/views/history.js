@@ -11,8 +11,40 @@ class History extends Component {
   constructor(props) {
      super(props)
      this.state = {
-      
-       }
+       token: null,
+       userId: null,
+       isUpdated: false
+     }
+  }
+
+  async componentDidMount() {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (token !== null){
+        console.log(token);
+        this.setState({
+          token: token
+        })
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    const response = await fetch('https://epro-fitness-api.herokuapp.com/auth/status', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        token: this.state.token
+      })
+    })
+    const responseJson = await response.json();
+    console.log(responseJson);
+    this.setState({
+      userId: responseJson.userId,
+      isUpdated: true
+    })
   }
 
   render() {
@@ -34,10 +66,22 @@ class History extends Component {
                 </Button>
               </Right>
             </Header>
-          <Banner/>
+          { this.state.isUpdated ?
+            <Banner
+              userId={this.state.userId}
+            /> : null
+            }
           <Content>
-            <DatePicker />
-            <HistoryTable />
+            { this.state.isUpdated ?
+              <DatePicker
+                userId={this.state.userId}
+              /> : null
+              }
+            { this.state.isUpdated ?
+              <HistoryTable
+                userId={this.state.userId}
+              /> : null
+              }
           </Content>
         </Container>
       )

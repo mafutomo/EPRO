@@ -25,7 +25,8 @@ export default class Home extends Component {
      this.state = {
        bannerText: "Hello Ali",
        token: null,
-       userId: null
+       userId: null,
+       isUpdated: false
        }
   }
 
@@ -40,7 +41,7 @@ export default class Home extends Component {
     } catch (error) {
       console.log(error);
     }
-    const response = await fetch('http://localhost:3001/auth/status', {
+    const response = await fetch('https://epro-fitness-api.herokuapp.com/auth/status', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -53,6 +54,7 @@ export default class Home extends Component {
     const responseJson = await response.json();
     this.setState({
       userId: responseJson.userId,
+      isUpdated: true
     })
   }
 
@@ -75,16 +77,21 @@ export default class Home extends Component {
             </Button>
           </Right>
         </Header>
+        { this.state.isUpdated ?
           <Banner
-          bannerText ={this.state.bannerText}
-          userId={this.state.userId}
-        />
+            userId={this.state.userId}
+          /> : null
+          }
+        { this.state.isUpdated ?
           <PersonalRecords
-           userId={this.state.userId}
-         />
+            userId={this.state.userId}
+          /> : null
+          }
+        { this.state.isUpdated ?
           <HomeChart
             userId={this.state.userId}
-          />
+          /> : null
+          }
           <Submit />
         </Container>
       )

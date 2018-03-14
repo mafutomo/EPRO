@@ -24,7 +24,7 @@ class Profile extends Component {
     try {
       const token = await AsyncStorage.getItem('token');
       if (token !== null){
-        console.log(token);
+
         this.setState({
           token: token
         })
@@ -32,7 +32,7 @@ class Profile extends Component {
     } catch (error) {
       console.log(error);
     }
-    const response = await fetch('http://localhost:3001/auth/status', {
+    const response = await fetch('https://epro-fitness-api.herokuapp.com/auth/status', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -70,13 +70,17 @@ class Profile extends Component {
           </Right>
         </Header>
           <Content>
-            <Banner />
+          { this.state.isUpdated ?
+            <Banner
+              userId={this.state.userId}
+            /> : null
+            }
             <View>
-              { this.state.isUpdated ?
-              <HormoneChart
-                userId={this.state.userId}
-              /> : null
-              }
+          { this.state.isUpdated ?
+            <HormoneChart
+              userId={this.state.userId}
+            /> : null
+            }
             </View>
           </Content>
         </Container>

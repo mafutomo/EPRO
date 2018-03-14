@@ -22,7 +22,7 @@ export default class Login extends React.Component {
    }
 
    loginUser = async () => {
-      const response = await fetch('http://localhost:3001/login', {
+      const response = await fetch('https://epro-fitness-api.herokuapp.com/login', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
