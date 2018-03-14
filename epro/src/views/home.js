@@ -21,9 +21,13 @@ import LoginProgress from '../components/loginprogress';
 export default class Home extends Component {
 
   constructor(props) {
+
      super(props)
+     const propsNav = this.props.navigation.state.params;
+     console.log('these are the home props', propsNav);
      this.state = {
-       bannerText: "Hello Ali"
+       bannerText: "Hello Ali",
+       userId: propsNav.userId,
        }
   }
 

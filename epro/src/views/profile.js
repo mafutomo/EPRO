@@ -13,6 +13,7 @@ class Profile extends Component {
 
   constructor(props) {
      super(props)
+     console.log('these are the profile props', this.props.screenProps);
      this.state = {
        userId: this.props.userId
      }

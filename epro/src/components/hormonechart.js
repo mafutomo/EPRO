@@ -50,6 +50,7 @@ const colors = {
 class HormoneChart extends Component {
   constructor(props) {
      super(props)
+      console.log('these are da props', props);
      this.state = {
        isLoading: true,
        data: [],
