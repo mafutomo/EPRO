@@ -15,7 +15,8 @@ class Profile extends Component {
      super(props)
      this.state = {
        token: null,
-       userId: null
+       userId: null,
+       isUpdated: false
      }
   }
 
@@ -45,6 +46,7 @@ class Profile extends Component {
     console.log(responseJson);
     this.setState({
       userId: responseJson.userId,
+      isUpdated: true
     })
   }
 
@@ -70,9 +72,11 @@ class Profile extends Component {
           <Content>
             <Banner />
             <View>
+              { this.state.isUpdated ?
               <HormoneChart
                 userId={this.state.userId}
-              />
+              /> : null
+              }
             </View>
           </Content>
         </Container>

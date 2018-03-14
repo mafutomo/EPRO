@@ -55,26 +55,17 @@ class HormoneChart extends Component {
      this.state = {
        isLoading: true,
        data: [],
-       userId: null,
        contraceptive: "non_hormonal",
        cycleLength: 28,
        userId: this.props.userId
      }
      this.createBarChart = this.createBarChart.bind(this);
      this.drawLine = this.drawLine.bind(this);
-
-
    };
 
-   componentWillReceiveProps(data){
-      this.setState({userId: data.userId})
-    }
 
    //get the user info
    async componentDidMount() {
-
-
-
       console.log(this.state.userId);
        const response = await fetch(`https://epro-fitness-api.herokuapp.com/users/${this.state.userId}`, {
        method: 'GET',
