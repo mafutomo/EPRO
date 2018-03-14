@@ -56,16 +56,17 @@ class HormoneChart extends Component {
        userId: null,
        contraceptive: "non_hormonal",
        cycleLength: 28,
+       userId: this.props.userId
      }
      this.createBarChart = this.createBarChart.bind(this);
      this.drawLine = this.drawLine.bind(this);
    };
    //Get the user id
-   async componentDidMount() {
-     const response = await fetch('https://epro-fitness-api.herokuapp.com/login')
-     const json = await response.json()
-     console.log("user id:", json);
-   }
+   // async componentDidMount() {
+   //   const response = await fetch('https://epro-fitness-api.herokuapp.com/login')
+   //   const json = await response.json()
+   //   console.log("user id:", json);
+   // }
 
    //get the user info
    async componentDidMount() {

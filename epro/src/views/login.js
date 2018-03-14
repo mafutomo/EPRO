@@ -17,11 +17,12 @@ export default class Login extends React.Component {
            placeholderEmail: "youremail@example.com",
            placeholderPassword: "password",
            loggedIn: false,
+           userId: null
          }
    }
 
    loginUser = async () => {
-      const response = await fetch('http://localhost:3001/login', {
+      const response = await fetch('https://epro-fitness-api.herokuapp.com/login', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -33,7 +34,6 @@ export default class Login extends React.Component {
         }),
       })
       const responseJson = await response.json()
-      console.log(responseJson);
       if (responseJson.token) {
         try {
           await AsyncStorage.setItem('token', responseJson.token)
@@ -43,7 +43,11 @@ export default class Login extends React.Component {
         }
       }
       const token = await AsyncStorage.getItem('token')
-      console.log(token);
+      this.setState({
+        loggedIn: true,
+        userId: responseJson.claim.user_id,
+      })
+      console.log(this.state);
   }
 
 
