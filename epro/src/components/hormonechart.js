@@ -60,12 +60,12 @@ class HormoneChart extends Component {
      this.createBarChart = this.createBarChart.bind(this);
      this.drawLine = this.drawLine.bind(this);
    };
-   //Get the user id
-   async componentDidMount() {
-     const response = await fetch('https://epro-fitness-api.herokuapp.com/login')
-     const json = await response.json()
-     console.log("user id:", json);
-   }
+   // //Get the user id
+   // async componentDidMount() {
+   //   const response = await fetch('https://epro-fitness-api.herokuapp.com/login')
+   //   const json = await response.json()
+   //   console.log("user id:", json);
+   // }
 
    //get the user info
    async componentDidMount() {
