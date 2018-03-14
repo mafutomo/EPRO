@@ -61,11 +61,12 @@ class HormoneChart extends Component {
      }
      this.createBarChart = this.createBarChart.bind(this);
      this.drawLine = this.drawLine.bind(this);
+     // this.prepDataForChart = this.prepDataForChart.bind(this);
    };
 
    //get the user info
    async componentDidMount() {
-     const response = await fetch(`https://epro-fitness-api.herokuapp.com/users/1`, {
+       const response = await fetch(`https://epro-fitness-api.herokuapp.com/users/2`, {
        method: 'GET',
        headers: {
          'Accept': 'application/json',
@@ -73,29 +74,90 @@ class HormoneChart extends Component {
        },
      })
      const json = await response.json()
-     console.log("this is the user info: ", json);
-     console.log("this is the cycleLength", json[0].cycle_length);
+     const user = json[0]
+     console.log("this is the user info: ", user);
      this.setState({
-       contraceptive: json[0].birth_control_type,
-       cycleLength: json[0].cycle_length,
+       contraceptive: user.birth_control_type,
+       cycleLength: user.cycle_length,
+     })
+
+     const hormoneResponse = await fetch(`https://epro-fitness-api.herokuapp.com/hormones/${user.birth_control_type}`, {
+       method: 'GET',
+       headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+       },
+     })
+     const rawHormoneData = await hormoneResponse.json()
+     console.log("this is the hormone data", rawHormoneData);
+
+     let individualData = this.prepDataForChart(rawHormoneData, user);
+     this.setState({
+       isLoading: false,
+       data: individualData
      })
    }
 
-   async componentDidMount() {
-    const response = await fetch(`https://epro-fitness-api.herokuapp.com/hormones/${this.state.contraceptive}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-    const json = await response.json()
-    console.log("this is the hormone data", json);
-    this.setState({
-      data: json,
-      isLoading: false,
-    })
-  }
+   prepDataForChart(rawData, user){
+     var intData = rawData.map(ele => {
+       return{
+         "day": ele.day,
+         "estrogen":  ele.estrogen,
+         "progesterone": (ele.progesterone/10)
+       }
+     })
+       if (user.birth_control_type === 'monophasic' || user.birth_control_type === 'monophasic'){
+       return intData;
+     } else if (user.birth_control_type === 'progestin'){
+       let newData = [];
+      for(let i = 1; i < user.cycle_length +1; i++){
+        newData.push({
+          "day": i,
+          "estrogen": 50,
+          "progesterone": 2
+        })
+      }
+      return newData;
+    }else{
+      if (user.cycle_length === 28) {
+        var intData = rawData.map(ele => {
+          return {
+            "day": ele.day,
+            "estrogen": ele.estrogen,
+            "progesterone": (ele.progesterone/10)
+          }
+        })
+        intData.pop();
+        return intData;
+      } else if (user.cycle_length > 28) {
+        let dupArr = [26, 25, 23, 22, 21, 19, 15, 11];
+        let loop = user.cycle_length - 28;
+        for (let i = 1; i < loop; i++){
+          let dupObj = rawData[dupArr[i]];
+          let copyObj = {
+            "day": dupObj.day,
+            "estrogen": dupObj.estrogen,
+            "progesterone": dupObj.progesterone/10
+          }
+          intData.splice(dupArr[i], 0, copyObj);
+        }
+        for (let i = 0; i < intData.length; i++){
+          intData[i].day = i + 1;
+        }
+        return intData;
+      } else {
+        let delArr = [27, 15, 8, 3, 21, 1, 6];
+        let loop = 28 - user.cycle_length;
+        for (let i = 0; i <= loop; i++) {
+          intData.splice(delArr[i], 1)
+        }
+        for (let i = 0; i < intData.length; i++){
+          intData[i].day = i + 1;
+        }
+        return intData;
+      }
+    }
+   }
 
       drawLine(startPoint, endPoint) {
           var path = d3.path.path();
@@ -117,9 +179,8 @@ class HormoneChart extends Component {
             );
         }
     const data = this.state.data;
-    const progesterone = data.map(el => el.progesterone/10);
-    console.log("the state ==" ,this.state.data);
-    console.log('prog =', progesterone);
+    console.log("the state ==" ,this.state);
+    console.log('prog =', this.state.data[15].progesterone);
     const screen = Dimensions.get('window');
     const margin = {top: 50, right: 35, bottom: 350, left: 35}
     const width = screen.width - margin.left - margin.right
@@ -131,7 +192,8 @@ class HormoneChart extends Component {
             .domain(data.map(d => d.day))
 
     const maxEstrogen = max(data, d => d.estrogen)
-    const maxProgesterone = max(progesterone, d => d)
+    const maxProgesterone = max(data, d => d.progesterone)
+    console.log(maxProgesterone);
 
     const y0 = d3.scale.scaleLinear()
             .rangeRound([height, 0])
@@ -269,7 +331,7 @@ class HormoneChart extends Component {
                             data.map((d, i) => (
                                 <TouchableWithoutFeedback key={i} >
                                     <Shape
-                                        d={this.createBarChart(x(d.day) + x.bandwidth()/2, y1(d.progesterone/10) - height, x.bandwidth()/2, height - y1(d.progesterone/10))}
+                                        d={this.createBarChart(x(d.day) + x.bandwidth()/2, y1(d.progesterone) - height, x.bandwidth()/2, height - y1(d.progesterone))}
                                         fill={colors.progesterone}
                                         >
                                     </Shape>
