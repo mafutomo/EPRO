@@ -19,6 +19,7 @@ class CalendarNav extends Component {
        }
   }
 
+
   async componentWillMount(){
     const response = await fetch('https://epro-fitness-api.herokuapp.com/users/2/workouts/03-05-18', {
       method: 'GET',
@@ -29,7 +30,7 @@ class CalendarNav extends Component {
     })
     const responseJson = await response.json()
     this.setState({exercises: responseJson[0].exercises})
-
+    setTimeout(this._tabs.goToPage.bind(this._tabs,2))
   }
 
   renderExercises(){
@@ -51,6 +52,7 @@ class CalendarNav extends Component {
         <Tabs
         tabBarUnderlineStyle = {{backgroundColor: '#CB2D6F'}}
         renderTabBar={()=> <ScrollableTab tabsContainerStyle={{color: '#DEF2F1'}}/>}
+        ref={component => this._tabs = component}
         >
           <Tab
           tabStyle={{backgroundColor: '#17252A'}}
@@ -93,7 +95,7 @@ class CalendarNav extends Component {
           activeTabStyle={{backgroundColor: '#17252A'}}
           activeTextStyle={{color: '#DEF2F1'}}
           heading="Fri 16">
-            <Spinner />
+
           </Tab>
         </Tabs>
       </Container>

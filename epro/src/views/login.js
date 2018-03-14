@@ -16,12 +16,8 @@ export default class Login extends React.Component {
            buttonName: "LOGIN",
            placeholderEmail: "youremail@example.com",
            placeholderPassword: "password",
-<<<<<<< HEAD
            loggedIn: false,
            userId: null
-=======
-           token:"woo!",
->>>>>>> popUp
          }
    }
 
@@ -54,10 +50,11 @@ export default class Login extends React.Component {
       this.props.navigation.navigate("Home",{
         userId: this.state.userId
         })
+      
   }
 
 
-  
+
 
   render() {
     return (
@@ -84,9 +81,7 @@ export default class Login extends React.Component {
             <Submit
             onPress={this.loginUser}
             buttonName = {this.state.buttonName}
-            onPress={() => this.props.navigation.navigate("Home",{
-              token: this.state.token
-              })}
+
             />
           </Content>
         </Container>
