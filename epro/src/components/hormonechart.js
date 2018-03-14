@@ -56,6 +56,7 @@ class HormoneChart extends Component {
        userId: null,
        contraceptive: "non_hormonal",
        cycleLength: 28,
+       userId: this.props.userId
      }
      this.createBarChart = this.createBarChart.bind(this);
      this.drawLine = this.drawLine.bind(this);
