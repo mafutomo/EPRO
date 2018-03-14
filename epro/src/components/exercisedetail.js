@@ -1,50 +1,58 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Text, Body, Title, Right, Left, CheckBox, Button } from 'native-base';
 import Icon from 'react-native-ionicons'
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
-export default class ExerciseDetail extends Component {
-  render() {
 
-    const tableHead = ['Sets', 'Reps', 'Weight', 'Time'];
-    const tableData = [
-      ['3', '10', '50lbs', '-']
-    ];
+const ExerciseDetail = (props) => {
+
+  const tableHead = ['Sets', 'Reps', 'Weight', 'Time'];
+
 
     return (
-        <Content>
+
           <Card style={styles.card}>
+
+          {/* Exercise Label */}
             <CardItem>
-              <Text style={styles.subText}>Bench Press</Text>
+              <Text style={styles.subText}>{props.exerciseName}</Text>
             </CardItem>
+
+            {/* Table Header */}
             <CardItem>
-              <Left></Left>
-              <Table style={styles.table} borderStyle={{borderWidth: 0, borderColor: 'black'}}>
+              <Table style={[styles.table,styles.borderStyle]} borderStyle={{borderWidth: 0, borderColor: 'black'}}>
                 <Row data={tableHead} flexArr={[1, 1, 1, 1]} style={styles.head} textStyle={styles.text}/>
               </Table>
-              <Right></Right>
             </CardItem>
+
+            {/* Row */}
             <CardItem>
               <Left>
+              {/* Edit Icon */}
                 <Icon
                   name="create"
                   color={'#501F3A'}/>
+
               </Left>
+
               <Table style={styles.table} borderStyle={{borderWidth: 0, borderColor: 'black'}}>
                 <TableWrapper style={{flexDirection: 'row', alignItems: 'center'}} >
-                  <Rows data={tableData} flexArr={[1, 1, 1, 1]} style={styles.row} textStyle={styles.text}/>
+                  <Rows data={props.data} flexArr={[1, 1, 1, 1]} style={styles.row} textStyle={styles.text}/>
                 </TableWrapper>
               </Table>
+
               <Right>
+                {/* Done Icon */}
                 <CheckBox checked={true} style={{alignSelf: 'center'}}
                 color={'#501F3A'}/>
               </Right>
+
             </CardItem>
+
          </Card>
-      </Content>
     );
   }
-}
+
 
 const styles = StyleSheet.create({
   card: {
@@ -59,13 +67,12 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
-    // position: 'relative',
+
   },
   titleText: {
     fontSize: 18,
     padding: 0,
     margin: 0,
-
   },
   subText: {
     fontSize: 16,
@@ -99,3 +106,5 @@ const styles = StyleSheet.create({
     color: '#17252A'
   }
 });
+
+export default ExerciseDetail;

@@ -25,10 +25,6 @@ class SignUp extends Component {
   }
 
   render() {
-    console.log(this.state.firstName)
-    console.log(this.state.lastName)
-    console.log(this.state.email)
-    console.log(this.state.password)
     return (
         <Container style = {styles.background}>
 

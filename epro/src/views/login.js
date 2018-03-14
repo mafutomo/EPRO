@@ -17,6 +17,7 @@ export default class Login extends React.Component {
            buttonName: "LOGIN",
            placeholderEmail: "youremail@example.com",
            placeholderPassword: "password",
+           token:"woo!",
          }
    }
 
@@ -38,6 +39,7 @@ export default class Login extends React.Component {
   }
 
 
+  
 
   render() {
     return (
@@ -64,6 +66,9 @@ export default class Login extends React.Component {
             <Submit
             onPress={this.loginUser}
             buttonName = {this.state.buttonName}
+            onPress={() => this.props.navigation.navigate("Home",{
+              token: this.state.token
+              })}
             />
           </Content>
         </Container>
