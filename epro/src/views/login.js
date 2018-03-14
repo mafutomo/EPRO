@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet} from 'react-native';
+import { Text, View, StyleSheet, AsyncStorage} from 'react-native';
 import { Container, Header, Footer, Content, Button } from 'native-base';
 import CoverHeader from '../components/coverheader';
 import InputBox from '../components/inputbox';
@@ -16,12 +16,12 @@ export default class Login extends React.Component {
            buttonName: "LOGIN",
            placeholderEmail: "youremail@example.com",
            placeholderPassword: "password",
+           loggedIn: false,
          }
    }
 
-
    loginUser = async () => {
-      const response = await fetch('https://epro-fitness-api.herokuapp.com/login', {
+      const response = await fetch('http://localhost:3001/login', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -33,7 +33,17 @@ export default class Login extends React.Component {
         }),
       })
       const responseJson = await response.json()
-      console.log(responseJson)
+      console.log(responseJson);
+      if (responseJson.token) {
+        try {
+          await AsyncStorage.setItem('token', responseJson.token)
+        }
+        catch (error){
+          console.log(error);
+        }
+      }
+      const token = await AsyncStorage.getItem('token')
+      console.log(token);
   }
 
 
