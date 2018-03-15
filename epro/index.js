@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppRegistry, View, StyleSheet, ScrollView, Text } from 'react-native';
-import { Container, List, ListItem, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
+import { Container, List, ListItem, Header, Content, Footer, FooterTab, Button, Icon, Root } from 'native-base';
 import SideBar from './src/components/sidebar'
 import Home from './src/views/home';
 import History from './src/views/history';
@@ -16,9 +16,9 @@ import SignUpRouter from './src/router/signuprouter';
 
 const App = () => {
     return (
-      <Container>
+      <Root>
         <SignUpRouter />
-      </Container>
+      </Root>
     )
 }
 

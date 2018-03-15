@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, AsyncStorage, TouchableOpacity } from 'react-native';
 import { Container, Text, Header, Footer, Content, ListItem, Radio, Right } from 'native-base';
 import HeaderSignIn from '../components/headersignin';
 import Submit from '../components/submit';
@@ -37,6 +37,8 @@ class SignUp2 extends Component {
        age: 0,
        weight: 0,
        token: "hoorah!",
+       loggedIn: false,
+       userId: null
        }
      this.setDate = this.setDate.bind(this);
   }
@@ -72,6 +74,36 @@ class SignUp2 extends Component {
     })
     const responseJson = await response.json()
     console.log("CREATE USER RESPONSE = ",responseJson)
+
+    const loginResponse = await fetch('https://epro-fitness-api.herokuapp.com/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email:this.state.email,
+        password:this.state.password
+      }),
+    })
+    const loginJson = await loginResponse.json()
+    if (loginJson.token) {
+      try {
+        await AsyncStorage.setItem('token', loginJson.token)
+      }
+      catch (error){
+        console.log(error);
+      }
+    }
+    const token = await AsyncStorage.getItem('token')
+    this.setState({
+      loggedIn: true,
+      userId: loginJson.claim.user_id,
+    })
+
+    this.props.navigation.navigate("Home",{
+      userId: this.state.userId
+      })
   }
 
   showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
