@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, TextInput } from 'react-native';
 import { Container, Header, Footer, Content } from 'native-base';
 import HeaderSignIn from '../components/headersignin';
 import Submit from '../components/submit';
@@ -47,14 +47,20 @@ class SignUp extends Component {
           value={this.state.email}
           placeholder={this.state.placeholderEmail}
           onChangeText={(text) => this.setState({email:text})}/>
-          <InputBox
-          value={this.state.password}
-          placeholder={this.state.placeholderPassword}
-          onChangeText={(text) => this.setState({password:text})}/>
-          <InputBox
-          value={this.state.passwordRetype}
-          placeholder={this.state.placeholderRetypePassword}
-          onChangeText={(text) => this.setState({passwordRetype:text})}/>
+          <TextInput
+            secureTextEntry={true}
+            style = {styles.inputStyle}
+            autoCapitalize = "none"
+            value={this.state.password}
+            placeholder={this.state.placeholderPassword}
+            onChangeText={(text) => this.setState({password:text})}/>
+          <TextInput
+            secureTextEntry={true}
+            style = {styles.inputStyle}
+            autoCapitalize = "none"
+            value={this.state.passwordRetype}
+            placeholder={this.state.placeholderRetypePassword}
+            onChangeText={(text) => this.setState({passwordRetype:text})}/>
 
           <Submit
             buttonName = {this.state.buttonName}
@@ -78,7 +84,26 @@ const styles = StyleSheet.create({
   },
   content: {
     marginTop: -225,
-  }
+  },
+  inputStyle: {
+    backgroundColor: '#FEFFFF',
+    borderRadius: 27,
+    height: 45,
+    width:  250,
+    borderColor: 'rgba(58,175,169,0.5)',
+    borderWidth: 2.5,
+    color: '#17252A',
+    textAlign: 'center',
+    fontSize: 18,
+    marginTop: 10,
+    marginBottom: 10,
+    fontFamily: 'DidactGothic-Regular',
+    position: 'relative',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2},
+    shadowOpacity: 0.2,
+    alignSelf: 'center',
+  },
 })
 
 

@@ -68,7 +68,6 @@ export default class Login extends React.Component {
             placeholder={this.state.placeholderEmail}
             onChangeText={(text) => this.setState({email:text})}/>
 
-
             <TextInput
               secureTextEntry={true}
               style = {styles.inputStyle}
