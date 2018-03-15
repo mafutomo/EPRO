@@ -9,10 +9,10 @@ const InputBox = (props) => {
   return (
     <View>
       <TextInput
-      style = {styles.inputStyle}
-      autoCapitalize = "none"
-      onChangeText={props.onChangeText}
-      placeholder = {props.placeholder}/>
+        style = {styles.inputStyle}
+        autoCapitalize = "none"
+        onChangeText={props.onChangeText}
+        placeholder = {props.placeholder}/>
     </View>
   )
 
