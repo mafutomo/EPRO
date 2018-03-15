@@ -8,8 +8,6 @@ import ExerciseDetail from '../components/exercisedetail';
 import Icon from 'react-native-ionicons';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
-
-
 class CalendarNav extends Component {
 
   constructor(props) {
@@ -19,7 +17,6 @@ class CalendarNav extends Component {
        todayISODate:'',
        usersCurrentTab:'',
        dateTabs:[],
-       exercises:[],
        selectedExercises:[],
        }
   }
@@ -43,11 +40,11 @@ class CalendarNav extends Component {
     const responseJson = await response.json()
 
     //set execises state with today's workouts
-    this.setState({exercises: responseJson[0].exercises})
+    this.setState({selectedExercises: responseJson[0].exercises})
 
     //have tab automatically navigate to the current date
-    let currentDayIndex = parseInt(this.state.todayDate.toISOString().slice(8,10))-1
-    setTimeout(this._tabs.goToPage.bind(this._tabs,currentDayIndex))
+    let currentDayTabIndex = parseInt(this.state.todayDate.toISOString().slice(8,10))-1
+    setTimeout(this._tabs.goToPage.bind(this._tabs,currentDayTabIndex))
   }
 
 //to create an array of all the days of current month
@@ -70,40 +67,40 @@ class CalendarNav extends Component {
   renderTabs(){
     return this.state.dateTabs.map(tab => {
 
-      let stringTab = tab.toString()
-      let tabName = stringTab.substr(0, 10)
+      let tabName = tab.toString().substr(0, 10)
+      let usersCurrentTab = this.state.usersCurrentTab
+      let splitDate = usersCurrentTab.split('-')
+      let comparisonDate = `${splitDate[2]}-${splitDate[0].padStart(2,0)}-${splitDate[1]}`
 
-      if(tab.toISOString().split('T')[0] == this.state.todayISODate){
 
-        //if it is the current date, then render the exercises in this tab
+      if(tab.toISOString().split('T')[0] === comparisonDate){
+    
         return <Tab
                 tabStyle={{backgroundColor: '#17252A'}}
                 activeTabStyle={{backgroundColor: '#17252A'}}
                 activeTextStyle={{color: '#DEF2F1'}}
                 heading={`${tabName}`}
                 style = {styles.tabBody}>
-
-                {this.renderExercises()}
-
+                  {this.renderExercises()}
                 </Tab>
-      } else {
+          } else {
+            console.log("This is the else");
+            return <Tab
+                    tabStyle={{backgroundColor: '#17252A'}}
+                    activeTabStyle={{backgroundColor: '#17252A'}}
+                    activeTextStyle={{color: '#DEF2F1'}}
+                    heading={`${tabName}`}
+                    style = {styles.tabBody}>
 
-        //if not, do not render any exercises in this tab
-        return <Tab
-                tabStyle={{backgroundColor: '#17252A'}}
-                activeTabStyle={{backgroundColor: '#17252A'}}
-                activeTextStyle={{color: '#DEF2F1'}}
-                heading={`${tabName}`}
-                style = {styles.tabBody}>
-
-                </Tab>
-      }
+                    </Tab>
+          }
     })
   }
 
 //render the exercise cards based on the this.state.exercises
   renderExercises() {
-    return this.state.exercises.map( exercise => {
+    console.log("from renderExercises()",this.state.selectedExercises);
+    return this.state.selectedExercises.map( exercise => {
       return <ExerciseDetail
       key = {exercise.exercise_id}
       exerciseName= {exercise.name}
@@ -115,6 +112,7 @@ class CalendarNav extends Component {
   setCurrentTabState(params) {
     //get the chosen date in ISO format based on the index of the tab user clicked on
     //'params' passes the tab index user clicked on
+    console.log("PARAMS = ",params);
     let newState = `${this.state.todayDate.getMonth()+1}-${params.i+1}-${this.state.todayDate.getFullYear()}`
 
     this.setState({usersCurrentTab:newState})
@@ -124,10 +122,20 @@ class CalendarNav extends Component {
         return response.json()
       })
       .then(responseJson => {
-        console.log(responseJson);
-        if(responseJson.length == 1){
-          this.setState({selectedExercises:responseJson})
-        }
+
+
+          if(responseJson.length === 0) {
+            this.setState({
+              todayDate:new Date(newState),
+              selectedExercises:[],
+            })
+          } else {
+            this.setState({
+            todayDate: new Date(newState),
+            selectedExercises:responseJson[0].exercises})
+          }
+
+
       })
 
   }
@@ -146,6 +154,7 @@ class CalendarNav extends Component {
         onChangeTab={(i) => {this.setCurrentTabState(i)}}
         >
           {this.renderTabs()}
+
         </Tabs>
       </Container>
     );
