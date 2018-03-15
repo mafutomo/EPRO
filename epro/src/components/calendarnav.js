@@ -20,6 +20,7 @@ class CalendarNav extends Component {
        usersCurrentTab:'',
        dateTabs:[],
        exercises:[],
+       selectedExercises:[],
        }
   }
 //'https://epro-fitness-api.herokuapp.com/users/2/workouts/03-05-18'
@@ -73,7 +74,7 @@ class CalendarNav extends Component {
       let tabName = stringTab.substr(0, 10)
 
       if(tab.toISOString().split('T')[0] == this.state.todayISODate){
-        
+
         //if it is the current date, then render the exercises in this tab
         return <Tab
                 tabStyle={{backgroundColor: '#17252A'}}
@@ -111,23 +112,28 @@ class CalendarNav extends Component {
   }
 
 //initiated by onChangeTab, this updates the state tracking date user is currently viewing
-  setCurrentTabState(i) {
-    console.log(i);
-    let newState = `${this.state.todayDate.getMonth()+1}-${i.i+1}-${this.state.todayDate.getFullYear()}`
-    console.log("newState == ",newState);
+  setCurrentTabState(params) {
+    //get the chosen date in ISO format based on the index of the tab user clicked on
+    //'params' passes the tab index user clicked on
+    let newState = `${this.state.todayDate.getMonth()+1}-${params.i+1}-${this.state.todayDate.getFullYear()}`
+
     this.setState({usersCurrentTab:newState})
-    if(newState) {
-      fetch(`http://localhost:3001/users/1/workouts/${this.state.usersCurrentTab}`)
+
+      fetch(`http://localhost:3001/users/1/workouts/${newState}`)
       .then(response => {
         return response.json()
       })
       .then(responseJson => {
-        console.log("response == ", responseJson);
+        console.log(responseJson);
+        if(responseJson.length == 1){
+          this.setState({selectedExercises:responseJson})
+        }
       })
-    }
+
   }
 
   render() {
+
     return (
       <Container>
         <Header hasTabs
