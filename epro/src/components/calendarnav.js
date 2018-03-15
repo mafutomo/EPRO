@@ -8,20 +8,29 @@ import ExerciseDetail from '../components/exercisedetail';
 import Icon from 'react-native-ionicons';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
-
-
 class CalendarNav extends Component {
 
   constructor(props) {
      super(props)
      this.state = {
-       exercises:[],
+       todayDate: new Date(),
+       todayISODate:'',
+       usersCurrentTab:'',
+       dateTabs:[],
+       selectedExercises:[],
        }
   }
-
-
+//'https://epro-fitness-api.herokuapp.com/users/2/workouts/03-05-18'
   async componentWillMount(){
-    const response = await fetch('https://epro-fitness-api.herokuapp.com/users/2/workouts/03-05-18', {
+
+    //create the array of dates
+    this.getDateTabsArray()
+
+    //create the value to fetch for exercises on current date
+    let currentISODate = this.state.todayDate.toISOString().split('T')[0]
+    this.setState({todayISODate:currentISODate})
+
+    const response = await fetch(`http://localhost:3001/users/1/workouts/${currentISODate}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -29,12 +38,69 @@ class CalendarNav extends Component {
       }
     })
     const responseJson = await response.json()
-    this.setState({exercises: responseJson[0].exercises})
-    setTimeout(this._tabs.goToPage.bind(this._tabs,2))
+
+    //set execises state with today's workouts
+    this.setState({selectedExercises: responseJson[0].exercises})
+
+    //have tab automatically navigate to the current date
+    let currentDayTabIndex = parseInt(this.state.todayDate.toISOString().slice(8,10))-1
+    setTimeout(this._tabs.goToPage.bind(this._tabs,currentDayTabIndex))
   }
 
-  renderExercises(){
-    return this.state.exercises.map( exercise => {
+//to create an array of all the days of current month
+  getDateTabsArray () {
+    let currentMonth = this.state.todayDate.getMonth()
+    let currentYear = this.state.todayDate.getFullYear()
+
+     let date = new Date(currentYear, currentMonth, 1)
+     let days = []
+     while (date.getMonth() === currentMonth) {
+       let dateElement = new Date(date)
+        days.push(dateElement)
+        date.setDate(date.getDate() + 1)
+     }
+     this.setState({dateTabs:days})
+     return days
+   }
+
+//to render tabs showing all dates in the dateTabs array as individual tabs
+  renderTabs(){
+    return this.state.dateTabs.map(tab => {
+
+      let tabName = tab.toString().substr(0, 10)
+      let usersCurrentTab = this.state.usersCurrentTab
+      let splitDate = usersCurrentTab.split('-')
+      let comparisonDate = `${splitDate[2]}-${splitDate[0].padStart(2,0)}-${splitDate[1]}`
+
+
+      if(tab.toISOString().split('T')[0] === comparisonDate){
+    
+        return <Tab
+                tabStyle={{backgroundColor: '#17252A'}}
+                activeTabStyle={{backgroundColor: '#17252A'}}
+                activeTextStyle={{color: '#DEF2F1'}}
+                heading={`${tabName}`}
+                style = {styles.tabBody}>
+                  {this.renderExercises()}
+                </Tab>
+          } else {
+            console.log("This is the else");
+            return <Tab
+                    tabStyle={{backgroundColor: '#17252A'}}
+                    activeTabStyle={{backgroundColor: '#17252A'}}
+                    activeTextStyle={{color: '#DEF2F1'}}
+                    heading={`${tabName}`}
+                    style = {styles.tabBody}>
+
+                    </Tab>
+          }
+    })
+  }
+
+//render the exercise cards based on the this.state.exercises
+  renderExercises() {
+    console.log("from renderExercises()",this.state.selectedExercises);
+    return this.state.selectedExercises.map( exercise => {
       return <ExerciseDetail
       key = {exercise.exercise_id}
       exerciseName= {exercise.name}
@@ -42,8 +108,40 @@ class CalendarNav extends Component {
     })
   }
 
+//initiated by onChangeTab, this updates the state tracking date user is currently viewing
+  setCurrentTabState(params) {
+    //get the chosen date in ISO format based on the index of the tab user clicked on
+    //'params' passes the tab index user clicked on
+    console.log("PARAMS = ",params);
+    let newState = `${this.state.todayDate.getMonth()+1}-${params.i+1}-${this.state.todayDate.getFullYear()}`
+
+    this.setState({usersCurrentTab:newState})
+
+      fetch(`http://localhost:3001/users/1/workouts/${newState}`)
+      .then(response => {
+        return response.json()
+      })
+      .then(responseJson => {
+
+
+          if(responseJson.length === 0) {
+            this.setState({
+              todayDate:new Date(newState),
+              selectedExercises:[],
+            })
+          } else {
+            this.setState({
+            todayDate: new Date(newState),
+            selectedExercises:responseJson[0].exercises})
+          }
+
+
+      })
+
+  }
+
   render() {
-    console.log("state of exercises", this.state.exercises);
+
     return (
       <Container>
         <Header hasTabs
@@ -53,50 +151,10 @@ class CalendarNav extends Component {
         tabBarUnderlineStyle = {{backgroundColor: '#CB2D6F'}}
         renderTabBar={()=> <ScrollableTab tabsContainerStyle={{color: '#DEF2F1'}}/>}
         ref={component => this._tabs = component}
+        onChangeTab={(i) => {this.setCurrentTabState(i)}}
         >
-          <Tab
-          tabStyle={{backgroundColor: '#17252A'}}
-          activeTabStyle={{backgroundColor: '#17252A'}}
-          activeTextStyle={{color: '#DEF2F1'}}
-          heading="Mon 12"
-          style = {styles.tabBody}>
+          {this.renderTabs()}
 
-          {this.renderExercises()}
-
-          </Tab>
-          <Tab
-          tabStyle={{backgroundColor: '#17252A'}}
-          activeTabStyle={{backgroundColor: '#17252A'}}
-          activeTextStyle={{color: '#DEF2F1'}}
-          heading="Tues 13"
-          style = {styles.tabBody}>
-            <ExerciseDetail />
-            <ExerciseDetail />
-            <ExerciseDetail />
-            <ExerciseDetail />
-          </Tab>
-          <Tab
-          tabStyle={{backgroundColor: '#17252A'}}
-          activeTabStyle={{backgroundColor: '#17252A'}}
-          activeTextStyle={{color: '#DEF2F1'}}
-          heading="Wed 14">
-            <SmallInputBox />
-          </Tab>
-          <Tab
-          tabStyle={{backgroundColor: '#17252A'}}
-          activeTabStyle={{backgroundColor: '#17252A'}}
-          activeTextStyle={{color: '#DEF2F1'}}
-          heading="Thurs 15"
-          >
-            <InputBox />
-          </Tab>
-          <Tab
-          tabStyle={{backgroundColor: '#17252A'}}
-          activeTabStyle={{backgroundColor: '#17252A'}}
-          activeTextStyle={{color: '#DEF2F1'}}
-          heading="Fri 16">
-
-          </Tab>
         </Tabs>
       </Container>
     );
