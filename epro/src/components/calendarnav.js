@@ -20,13 +20,13 @@ class CalendarNav extends Component {
        currentDate: new Date()
        }
   }
-
+//'https://epro-fitness-api.herokuapp.com/users/2/workouts/03-05-18'
   async componentWillMount(){
     this.getDaysInMonth()
     let currentDate = new Date()
     let currentTab = parseInt(currentDate.toISOString().slice(8,10))-1
 
-    const response = await fetch('https://epro-fitness-api.herokuapp.com/users/2/workouts/03-05-18', {
+    const response = await fetch('https://localhost:3001/users/2/workouts/03-05-18', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -58,7 +58,6 @@ class CalendarNav extends Component {
 
   renderTabs(){
     return this.state.dateTabs.map(tab => {
-      console.log("tab ===",tab);
       let stringTab = tab.toString()
       let tabName = stringTab.substr(0, 10)
       return <Tab
