@@ -22,7 +22,10 @@ class CalendarNav extends Component {
   }
 
   async componentWillMount(){
-    console.log("get to days in month => ",this.getDaysInMonth())
+    this.getDaysInMonth()
+    let currentDate = new Date()
+    let currentTab = parseInt(currentDate.toISOString().slice(8,10))-1
+
     const response = await fetch('https://epro-fitness-api.herokuapp.com/users/2/workouts/03-05-18', {
       method: 'GET',
       headers: {
@@ -31,10 +34,10 @@ class CalendarNav extends Component {
       }
     })
     const responseJson = await response.json()
-    console.log("RESPONSEJSON",responseJson);
+
     this.setState({exercises: responseJson[0].exercises})
 
-    setTimeout(this._tabs.goToPage.bind(this._tabs,2))
+    setTimeout(this._tabs.goToPage.bind(this._tabs,currentTab))
   }
 
   getDaysInMonth () {
@@ -46,7 +49,7 @@ class CalendarNav extends Component {
      let days = []
      while (date.getMonth() === currentMonth) {
        let dateElement = new Date(date)
-        days.push(dateElement.toISOString().slice(0,10))
+        days.push(dateElement)
         date.setDate(date.getDate() + 1)
      }
      this.setState({dateTabs:days})
@@ -55,13 +58,16 @@ class CalendarNav extends Component {
 
   renderTabs(){
     return this.state.dateTabs.map(tab => {
-      let tabName = tab.substring(5,10)
+      console.log("tab ===",tab);
+      let stringTab = tab.toString()
+      let tabName = stringTab.substr(0, 10)
       return <Tab
               tabStyle={{backgroundColor: '#17252A'}}
               activeTabStyle={{backgroundColor: '#17252A'}}
               activeTextStyle={{color: '#DEF2F1'}}
               heading={`${tabName}`}
               style = {styles.tabBody}>
+
               </Tab>
     })
   }
