@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, AsyncStorage, TouchableOpacity } from 'react-native';
-import { Container, Text, Header, Footer, Content, ListItem, Radio, Right } from 'native-base';
+import { Container, Text, Header, Footer, Content, ListItem, Radio, Right, Toast } from 'native-base';
 import HeaderSignIn from '../components/headersignin';
 import Submit from '../components/submit';
 import InputBox from '../components/inputbox';
@@ -32,7 +32,7 @@ class SignUp2 extends Component {
        email: propsNav.email,
        password: propsNav.password,
        chosenDate: new Date(),
-       chosenCycleLength: 25,
+       chosenCycleLength: 28,
        chosenBCType:"",
        age: 0,
        weight: 0,
@@ -41,6 +41,31 @@ class SignUp2 extends Component {
        userId: null
        }
      this.setDate = this.setDate.bind(this);
+     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(){
+    if (this.state.chosenBCType === ""){
+      return Toast.show({
+        text: 'Please choose a birth control type',
+        position: 'bottom',
+        buttonText: 'Okay'
+      })
+    }
+    if (this.state.age === 0){
+      return Toast.show({
+        text: 'Please enter your age',
+        position: 'bottom',
+        buttonText: 'Okay'
+      })
+    }
+    if (this.state.weight === 0){
+      return Toast.show({
+        text: 'Please enter your estimated weight',
+        position: 'bottom',
+        buttonText: 'Okay'
+      })
+    }
   }
 
   setDate(newDate) {
@@ -52,6 +77,7 @@ class SignUp2 extends Component {
   }
 
   signUpUser = async () => {
+    this.handleSubmit();
     const response = await fetch('https://epro-fitness-api.herokuapp.com/users/', {
       method: 'POST',
       headers: {
