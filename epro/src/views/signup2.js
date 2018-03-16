@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Container, Text, Header, Footer, Content, ListItem, Radio, Right } from 'native-base';
+import { View, StyleSheet, AsyncStorage, TouchableOpacity } from 'react-native';
+import { Container, Text, Header, Footer, Content, ListItem, Radio, Right, Toast } from 'native-base';
 import HeaderSignIn from '../components/headersignin';
 import Submit from '../components/submit';
 import InputBox from '../components/inputbox';
@@ -32,13 +32,40 @@ class SignUp2 extends Component {
        email: propsNav.email,
        password: propsNav.password,
        chosenDate: new Date(),
-       chosenCycleLength: 25,
+       chosenCycleLength: 28,
        chosenBCType:"",
        age: 0,
        weight: 0,
        token: "hoorah!",
+       loggedIn: false,
+       userId: null
        }
      this.setDate = this.setDate.bind(this);
+     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(){
+    if (this.state.chosenBCType === ""){
+      return Toast.show({
+        text: 'Please choose a birth control type',
+        position: 'bottom',
+        buttonText: 'Okay'
+      })
+    }
+    if (this.state.age === 0){
+      return Toast.show({
+        text: 'Please enter your age',
+        position: 'bottom',
+        buttonText: 'Okay'
+      })
+    }
+    if (this.state.weight === 0){
+      return Toast.show({
+        text: 'Please enter your estimated weight',
+        position: 'bottom',
+        buttonText: 'Okay'
+      })
+    }
   }
 
   setDate(newDate) {
@@ -50,6 +77,7 @@ class SignUp2 extends Component {
   }
 
   signUpUser = async () => {
+    this.handleSubmit();
     const response = await fetch('https://epro-fitness-api.herokuapp.com/users/', {
       method: 'POST',
       headers: {
@@ -72,6 +100,36 @@ class SignUp2 extends Component {
     })
     const responseJson = await response.json()
     console.log("CREATE USER RESPONSE = ",responseJson)
+
+    const loginResponse = await fetch('https://epro-fitness-api.herokuapp.com/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email:this.state.email,
+        password:this.state.password
+      }),
+    })
+    const loginJson = await loginResponse.json()
+    if (loginJson.token) {
+      try {
+        await AsyncStorage.setItem('token', loginJson.token)
+      }
+      catch (error){
+        console.log(error);
+      }
+    }
+    const token = await AsyncStorage.getItem('token')
+    this.setState({
+      loggedIn: true,
+      userId: loginJson.claim.user_id,
+    })
+
+    this.props.navigation.navigate("Home",{
+      userId: this.state.userId
+      })
   }
 
   showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
