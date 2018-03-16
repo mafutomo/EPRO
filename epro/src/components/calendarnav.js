@@ -85,6 +85,7 @@ class CalendarNav extends Component {
                 style = {styles.tabBody}>
                   {this.renderExercises()}
                 </Tab>
+                
           } else {
 
             return <Tab
@@ -92,7 +93,18 @@ class CalendarNav extends Component {
                     activeTabStyle={{backgroundColor: '#17252A'}}
                     activeTextStyle={{color: '#DEF2F1'}}
                     heading={`${tabName}`}
-                    style = {styles.tabBody}>
+                    style = {styles.tabBody}
+                    >
+
+                    <TouchableOpacity
+                    style={styles.iconContainer}
+                    onPress={()=>{this.toggleEditModalVisible()}}>
+                      <Icon
+                        active name="add-circle"
+                        size={45}
+                        color={'#FFBA49'}
+                      />
+                    </TouchableOpacity>
 
                     </Tab>
           }
@@ -185,15 +197,7 @@ class CalendarNav extends Component {
           {this.renderTabs()}
         </Tabs>
 
-        <TouchableOpacity
-        style={styles.iconContainer}
-        onPress={()=>{this.toggleEditModalVisible()}}>
-          <Icon
-            active name="add-circle"
-            size={45}
-            color={'#FFBA49'}
-          />
-        </TouchableOpacity>
+
 
         //Add Exercise Modal
           <Modal
@@ -327,6 +331,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     height: 500,
   },
+
 });
 
 
