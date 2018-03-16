@@ -32,7 +32,6 @@ const ExerciseDetail = (props) => {
                 <Icon
                   name="create"
                   color={'#501F3A'}/>
-
               </Left>
 
               <Table style={styles.table} borderStyle={{borderWidth: 0, borderColor: 'black'}}>
