@@ -74,7 +74,7 @@ class CalendarNav extends Component {
 
 
       if(tab.toISOString().split('T')[0] === comparisonDate){
-    
+
         return <Tab
                 tabStyle={{backgroundColor: '#17252A'}}
                 activeTabStyle={{backgroundColor: '#17252A'}}
@@ -154,7 +154,6 @@ class CalendarNav extends Component {
         onChangeTab={(i) => {this.setCurrentTabState(i)}}
         >
           {this.renderTabs()}
-
         </Tabs>
       </Container>
     );
