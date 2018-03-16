@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput } from 'react-native';
-import { Container, Header, Footer, Content } from 'native-base';
+import { Container, Header, Footer, Content, Toast } from 'native-base';
 import HeaderSignIn from '../components/headersignin';
 import Submit from '../components/submit';
 import InputBox from '../components/inputbox';
@@ -22,6 +22,67 @@ class SignUp extends Component {
        placeholderPassword: "password",
        placeholderRetypePassword: "Retype password",
        }
+
+       this.handleSubmit=this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(){
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (this.state.firstName === ""){
+      return Toast.show({
+        text: 'Please enter your first name',
+        position: 'bottom',
+        buttonText: 'Okay'
+      })
+    }
+    if (this.state.lastName === ""){
+      return Toast.show({
+        text: 'Please enter your last name',
+        position: 'bottom',
+        buttonText: 'Okay'
+      })
+    }
+    if (this.state.email === "" || !re.test(this.state.email)){
+      return Toast.show({
+        text: 'Please enter a valid email address',
+        position: 'bottom',
+        buttonText: 'Okay'
+      })
+    }
+    if (this.state.password === ""){
+      return Toast.show({
+        text: 'Please enter a password',
+        position: 'bottom',
+        buttonText: 'Okay'
+      })
+    }
+    if (this.state.passwordRetype === ""){
+      return Toast.show({
+        text: 'Please re-enter your password',
+        position: 'bottom',
+        buttonText: 'Okay'
+      })
+    }
+    if (this.state.passwordRetype !== "" && this.state.password !== this.state.passwordRetype){
+      this.setState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        passwordRetype: ""
+      })
+      return Toast.show({
+        text: 'Password does not match',
+        position: 'bottom',
+        buttonText: 'Okay'
+      })
+    }
+    this.props.navigation.navigate("SignUp2",{
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      password: this.state.password
+      })
   }
 
   render() {
@@ -35,18 +96,27 @@ class SignUp extends Component {
           <LoginProgress
           progress={0.5}/>
 
-          <InputBox
-          value={this.state.firstName}
-          placeholder={this.state.placeholderFirstName}
-          onChangeText={(text) => this.setState({firstName:text})}/>
-          <InputBox
-          value={this.state.lastName}
-          placeholder={this.state.placeholderLastName}
-          onChangeText={(text) => this.setState({lastName:text})}/>
-          <InputBox
-          value={this.state.email}
-          placeholder={this.state.placeholderEmail}
-          onChangeText={(text) => this.setState({email:text})}/>
+          <TextInput
+            secureTextEntry={false}
+            style = {styles.inputStyle}
+            autoCapitalize = "none"
+            value={this.state.firstName}
+            placeholder={this.state.placeholderFirstName}
+            onChangeText={(text) => this.setState({firstName:text})}/>
+          <TextInput
+            secureTextEntry={false}
+            style = {styles.inputStyle}
+            autoCapitalize = "none"
+            value={this.state.lastName}
+            placeholder={this.state.placeholderLastName}
+            onChangeText={(text) => this.setState({lastName:text})}/>
+          <TextInput
+            secureTextEntry={false}
+            style = {styles.inputStyle}
+            autoCapitalize = "none"
+            value={this.state.email}
+            placeholder={this.state.placeholderEmail}
+            onChangeText={(text) => this.setState({email:text})}/>
           <TextInput
             secureTextEntry={true}
             style = {styles.inputStyle}
@@ -64,12 +134,7 @@ class SignUp extends Component {
 
           <Submit
             buttonName = {this.state.buttonName}
-            onPress={() => this.props.navigation.navigate("SignUp2",{
-              firstName: this.state.firstName,
-              lastName: this.state.lastName,
-              email: this.state.email,
-              password: this.state.password
-              })}
+            onPress={this.handleSubmit}
             />
             </Content>
 
