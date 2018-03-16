@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import {View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Container, Header, Tab, Tabs, ScrollableTab, Content, Card, CardItem, Text, Body, Title, Right, Left, CheckBox, Button } from 'native-base';
 import Spinner from './spinner';
 import InputBox from './inputbox';
@@ -7,6 +7,7 @@ import SmallInputBox from './smallinputbox';
 import ExerciseDetail from '../components/exercisedetail';
 import Icon from 'react-native-ionicons';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import Modal from "react-native-modal";
 
 class CalendarNav extends Component {
 
@@ -18,6 +19,7 @@ class CalendarNav extends Component {
        usersCurrentTab:'',
        dateTabs:[],
        selectedExercises:[],
+       isEditModalVisible: false,
        }
   }
 //'https://epro-fitness-api.herokuapp.com/users/2/workouts/03-05-18'
@@ -84,7 +86,7 @@ class CalendarNav extends Component {
                   {this.renderExercises()}
                 </Tab>
           } else {
-            console.log("This is the else");
+
             return <Tab
                     tabStyle={{backgroundColor: '#17252A'}}
                     activeTabStyle={{backgroundColor: '#17252A'}}
@@ -99,7 +101,6 @@ class CalendarNav extends Component {
 
 //render the exercise cards based on the this.state.exercises
   renderExercises() {
-    console.log("from renderExercises()",this.state.selectedExercises);
     return this.state.selectedExercises.map( exercise => {
       return <ExerciseDetail
       key = {exercise.exercise_id}
@@ -112,7 +113,6 @@ class CalendarNav extends Component {
   setCurrentTabState(params) {
     //get the chosen date in ISO format based on the index of the tab user clicked on
     //'params' passes the tab index user clicked on
-    console.log("PARAMS = ",params);
     let newState = `${this.state.todayDate.getMonth()+1}-${params.i+1}-${this.state.todayDate.getFullYear()}`
 
     this.setState({usersCurrentTab:newState})
@@ -122,8 +122,7 @@ class CalendarNav extends Component {
         return response.json()
       })
       .then(responseJson => {
-
-
+        console.log("RESPONSEJSON",responseJson);
           if(responseJson.length === 0) {
             this.setState({
               todayDate:new Date(newState),
@@ -134,14 +133,44 @@ class CalendarNav extends Component {
             todayDate: new Date(newState),
             selectedExercises:responseJson[0].exercises})
           }
-
-
       })
+  }
 
+//for modal visibility
+  toggleEditModalVisible = () => {
+    this.setState({ isEditModalVisible: !this.state.isEditModalVisible })
+  }
+
+//for creating a new exercise in the current tab
+  addExercise = () => {
+    fetch(`http://localhost:3001/users/1/workouts/03-16-2018`,{
+      method:'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body : JSON.stringify({
+        name:"Pull Ups",
+        sets:1,
+        reps:3,
+        weight:0,
+        time:"01:00",
+      })
+    })
+    .then( response => {
+      return response.json()
+    })
+    .then(responseJson => {
+      console.log(responseJson[0]);
+      var newState = this.state.selectedExercises.slice()
+      newState.push(responseJson[0])
+      this.setState({ selectedExercises: newState })
+    })
+    this.setState({isEditModalVisible:false})
   }
 
   render() {
-
+    console.log(this.state.selectedExercises);
     return (
       <Container>
         <Header hasTabs
@@ -155,6 +184,68 @@ class CalendarNav extends Component {
         >
           {this.renderTabs()}
         </Tabs>
+
+        <TouchableOpacity
+        style={styles.iconContainer}
+        onPress={()=>{this.toggleEditModalVisible()}}>
+          <Icon
+            active name="add-circle"
+            size={45}
+            color={'#FFBA49'}
+          />
+        </TouchableOpacity>
+
+        //Add Exercise Modal
+          <Modal
+          isVisible={this.state.isEditModalVisible}
+          >
+            <View
+            style={{ flex: 1 }}
+            style={styles.modalContent}>
+              <Text
+              style={styles.modalTitle}>Create an Exercise</Text>
+
+            <InputBox/>
+            <InputBox/>
+            <View style = {{flexDirection: 'row'}}>
+            <View style = {{flexDirection:'column',alignItems:'center',paddingRight:15}}>
+            <Text>Sets</Text>
+            <SmallInputBox/>
+            </View>
+            <View style = {{flexDirection:'column',alignItems:'center'}}>
+            <Text>Weight</Text>
+            <SmallInputBox/>
+            </View>
+            </View>
+
+            <View style = {{flexDirection: 'row'}}>
+            <View style = {{flexDirection:'column',alignItems:'center',paddingRight:15}}>
+              <Text>Reps</Text>
+              <SmallInputBox/>
+            </View>
+            <View style = {{flexDirection:'column',alignItems:'center'}}>
+            <Text>Time</Text>
+            <SmallInputBox/>
+            </View>
+            </View>
+
+            <View style = {{flexDirection: 'row'}}>
+              <TouchableOpacity onPress={this.toggleEditModalVisible}>
+                <Text
+                onPress = {() => this.setState({ isEditModalVisible: false })}
+                >Cancel</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={this.toggleEditModalVisible}>
+                <Text
+                onPress = {
+                  this.addExercise
+                }
+                >Save</Text>
+              </TouchableOpacity>
+            </View>
+            </View>
+          </Modal>
       </Container>
     );
   }
@@ -217,7 +308,25 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     color: '#17252A'
-  }
+  },
+  iconContainer:{
+    width: '95%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 22,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+    borderColor: "rgba(0, 0, 0, 0.1)",
+    marginBottom: 200,
+    marginTop: 200,
+    textAlign: "center",
+    height: 500,
+  },
 });
 
 
