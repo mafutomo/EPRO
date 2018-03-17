@@ -20,10 +20,16 @@ class CalendarNav extends Component {
        dateTabs:[],
        selectedExercises:[],
        isEditModalVisible: false,
+       inputExerciseName:'',
+       inputDescription:"",
+       inputRep:0,
+       inputSet:0,
+       inputWeight:0,
+       inputTime:'00:00',
        }
   }
 //'https://epro-fitness-api.herokuapp.com/users/2/workouts/03-05-18'
-  async componentWillMount(){
+  async componentDidMount(){
 
     //create the array of dates
     this.getDateTabsArray()
@@ -31,6 +37,14 @@ class CalendarNav extends Component {
     //create the value to fetch for exercises on current date
     let currentISODate = this.state.todayDate.toISOString().split('T')[0]
     this.setState({todayISODate:currentISODate})
+    console.log('currentISO date ==', currentISODate);
+
+    //have tab automatically navigate to the current date
+
+    //CHANGE THIS TO -1 LATER
+    let currentDayTabIndex = parseInt(this.state.todayDate.toISOString().slice(8,10))
+    console.log("currentDayTabIndex==",currentDayTabIndex)
+    setTimeout(this._tabs.goToPage.bind(this._tabs,currentDayTabIndex))
 
     const response = await fetch(`http://localhost:3001/users/1/workouts/${currentISODate}`, {
       method: 'GET',
@@ -40,13 +54,9 @@ class CalendarNav extends Component {
       }
     })
     const responseJson = await response.json()
-
     //set execises state with today's workouts
     this.setState({selectedExercises: responseJson[0].exercises})
 
-    //have tab automatically navigate to the current date
-    let currentDayTabIndex = parseInt(this.state.todayDate.toISOString().slice(8,10))-1
-    setTimeout(this._tabs.goToPage.bind(this._tabs,currentDayTabIndex))
   }
 
 //to create an array of all the days of current month
@@ -74,18 +84,18 @@ class CalendarNav extends Component {
       let splitDate = usersCurrentTab.split('-')
       let comparisonDate = `${splitDate[2]}-${splitDate[0].padStart(2,0)}-${splitDate[1]}`
 
-
       if(tab.toISOString().split('T')[0] === comparisonDate){
 
         return <Tab
+                style = {styles.tabContainer}
                 tabStyle={{backgroundColor: '#17252A'}}
                 activeTabStyle={{backgroundColor: '#17252A'}}
                 activeTextStyle={{color: '#DEF2F1'}}
                 heading={`${tabName}`}
-                style = {styles.tabBody}>
+                >
                   {this.renderExercises()}
                 </Tab>
-                
+
           } else {
 
             return <Tab
@@ -93,32 +103,63 @@ class CalendarNav extends Component {
                     activeTabStyle={{backgroundColor: '#17252A'}}
                     activeTextStyle={{color: '#DEF2F1'}}
                     heading={`${tabName}`}
-                    style = {styles.tabBody}
+                    style = {styles.tabEmpty}
                     >
-
-                    <TouchableOpacity
-                    style={styles.iconContainer}
-                    onPress={()=>{this.toggleEditModalVisible()}}>
-                      <Icon
-                        active name="add-circle"
-                        size={45}
-                        color={'#FFBA49'}
-                      />
-                    </TouchableOpacity>
 
                     </Tab>
           }
-    })
-  }
+        })
+      }
+
 
 //render the exercise cards based on the this.state.exercises
   renderExercises() {
+
     return this.state.selectedExercises.map( exercise => {
+
       return <ExerciseDetail
       key = {exercise.exercise_id}
       exerciseName= {exercise.name}
-      data = {[[exercise.sets,exercise.reps,exercise.weight,exercise.time]]}/>
+      data = {[[exercise.sets,exercise.reps,exercise.weight,exercise.time]]}
+      onPress ={() => {this.deleteExercise(exercise)}}
+      />
     })
+  }
+
+  deleteExercise(data){
+    let workoutExerciseID = data.id
+    let exerciseID = data.exercise_id
+    fetch(`http://localhost:3001/exercises/${workoutExerciseID}/${exerciseID}/`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => {
+      return response.json()
+    })
+    .then( responseJson => {
+      console.log(responseJson)
+    })
+
+    let currentTabDate = this.state.usersCurrentTab
+
+    fetch(`http://localhost:3001/users/1/workouts/${currentTabDate}`,{
+      method:'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+    .then( response => {
+      return response.json()
+    })
+    .then(responseJson => {
+
+        this.setState({ selectedExercises: responseJson[0].exercises })
+    })
+
   }
 
 //initiated by onChangeTab, this updates the state tracking date user is currently viewing
@@ -153,27 +194,42 @@ class CalendarNav extends Component {
     this.setState({ isEditModalVisible: !this.state.isEditModalVisible })
   }
 
+  hideMondalOmitState = () => {
+    this.setState({
+      inputExerciseName:"",
+      inputDescription:"",
+      inputRep:0,
+      inputWeight:0,
+      inputSet:0,
+      inputTime:'00:00',
+      isEditModalVisible: false
+    })
+
+  }
+
 //for creating a new exercise in the current tab
   addExercise = () => {
-    fetch(`http://localhost:3001/users/1/workouts/03-16-2018`,{
+    let currentTabDate = this.state.usersCurrentTab
+    fetch(`http://localhost:3001/users/1/workouts/${currentTabDate}`,{
       method:'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body : JSON.stringify({
-        name:"Pull Ups",
-        sets:1,
-        reps:3,
-        weight:0,
-        time:"01:00",
+        name:this.state.inputExerciseName,
+        description:this.state.inputDescription,
+        sets:this.state.inputSet,
+        reps:this.state.inputRep,
+        weight:this.state.inputWeight,
+        time:this.state.inputTime,
       })
     })
     .then( response => {
       return response.json()
     })
     .then(responseJson => {
-      console.log(responseJson[0]);
+      console.log(responseJson[0])
       var newState = this.state.selectedExercises.slice()
       newState.push(responseJson[0])
       this.setState({ selectedExercises: newState })
@@ -181,8 +237,9 @@ class CalendarNav extends Component {
     this.setState({isEditModalVisible:false})
   }
 
+//Main Render
   render() {
-    console.log(this.state.selectedExercises);
+
     return (
       <Container>
         <Header hasTabs
@@ -192,12 +249,23 @@ class CalendarNav extends Component {
         tabBarUnderlineStyle = {{backgroundColor: '#CB2D6F'}}
         renderTabBar={()=> <ScrollableTab tabsContainerStyle={{color: '#DEF2F1'}}/>}
         ref={component => this._tabs = component}
-        onChangeTab={(i) => {this.setCurrentTabState(i)}}
+        onChangeTab= {(i) => {this.setCurrentTabState(i)}}
         >
+
           {this.renderTabs()}
+
         </Tabs>
 
 
+        <TouchableOpacity
+        style={styles.iconContainer}
+        onPress={()=>{this.toggleEditModalVisible()}}>
+          <Icon
+            active name="add-circle"
+            size={45}
+            color={'#FFBA49'}
+          />
+        </TouchableOpacity>
 
         //Add Exercise Modal
           <Modal
@@ -209,38 +277,44 @@ class CalendarNav extends Component {
               <Text
               style={styles.modalTitle}>Create an Exercise</Text>
 
-            <InputBox/>
-            <InputBox/>
+            <InputBox
+            onChangeText={(text) => this.setState({inputExerciseName:text})}/>
+            <InputBox
+            onChangeText={(text) => this.setState({inputDescription:text})}/>
             <View style = {{flexDirection: 'row'}}>
             <View style = {{flexDirection:'column',alignItems:'center',paddingRight:15}}>
             <Text>Sets</Text>
-            <SmallInputBox/>
+            <SmallInputBox
+            onChangeText={(text) => this.setState({inputSet:text})}/>
             </View>
             <View style = {{flexDirection:'column',alignItems:'center'}}>
             <Text>Weight</Text>
-            <SmallInputBox/>
+            <SmallInputBox
+            onChangeText={(text) => this.setState({inputWeight:text})}/>
             </View>
             </View>
 
             <View style = {{flexDirection: 'row'}}>
             <View style = {{flexDirection:'column',alignItems:'center',paddingRight:15}}>
               <Text>Reps</Text>
-              <SmallInputBox/>
+              <SmallInputBox
+              onChangeText={(text) => this.setState({inputRep:text})}/>
             </View>
             <View style = {{flexDirection:'column',alignItems:'center'}}>
             <Text>Time</Text>
-            <SmallInputBox/>
+            <SmallInputBox
+            onChangeText={(text) => this.setState({inputTime:text})}/>
             </View>
             </View>
 
             <View style = {{flexDirection: 'row'}}>
-              <TouchableOpacity onPress={this.toggleEditModalVisible}>
+              <TouchableOpacity onPress = {this.hideMondalOmitState}>
                 <Text
-                onPress = {() => this.setState({ isEditModalVisible: false })}
+
                 >Cancel</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={this.toggleEditModalVisible}>
+              <TouchableOpacity>
                 <Text
                 onPress = {
                   this.addExercise
@@ -256,12 +330,12 @@ class CalendarNav extends Component {
 }
 
 const styles = StyleSheet.create({
+  tabContainer: {
+    alignItems:'center',
+  },
   body:{
     backgroundColor: '#17252A',
     height: 20,
-  },
-  tabBody:  {
-    flexWrap:'wrap',
   },
   card: {
     backgroundColor: '#FEFFFF',
