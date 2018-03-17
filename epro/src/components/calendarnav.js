@@ -26,6 +26,7 @@ class CalendarNav extends Component {
        inputSet:0,
        inputWeight:0,
        inputTime:'00:00',
+       userId: this.props.userId,
        }
   }
 //'https://epro-fitness-api.herokuapp.com/users/2/workouts/03-05-18'
@@ -46,7 +47,7 @@ class CalendarNav extends Component {
     console.log("currentDayTabIndex==",currentDayTabIndex)
     setTimeout(this._tabs.goToPage.bind(this._tabs,currentDayTabIndex))
 
-    const response = await fetch(`http://localhost:3001/users/1/workouts/${currentISODate}`, {
+    const response = await fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${currentISODate}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -145,7 +146,7 @@ class CalendarNav extends Component {
 
     let currentTabDate = this.state.usersCurrentTab
 
-    fetch(`http://localhost:3001/users/1/workouts/${currentTabDate}`,{
+    fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${currentTabDate}`,{
       method:'GET',
       headers: {
         'Accept': 'application/json',
@@ -170,7 +171,7 @@ class CalendarNav extends Component {
 
     this.setState({usersCurrentTab:newState})
 
-      fetch(`http://localhost:3001/users/1/workouts/${newState}`)
+      fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${newState}`)
       .then(response => {
         return response.json()
       })
@@ -210,7 +211,7 @@ class CalendarNav extends Component {
 //for creating a new exercise in the current tab
   addExercise = () => {
     let currentTabDate = this.state.usersCurrentTab
-    fetch(`http://localhost:3001/users/1/workouts/${currentTabDate}`,{
+    fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${currentTabDate}`,{
       method:'POST',
       headers: {
         'Accept': 'application/json',

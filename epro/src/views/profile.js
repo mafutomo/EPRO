@@ -147,6 +147,7 @@ class Profile extends Component {
           </Right>
         </Header>
           <Content>
+          //to pass state
           { this.state.isUpdated ?
             <Banner
               bannerText = {this.state.bannerText}
