@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
       backgroundColor: '#FEFFFF',
       justifyContent: 'center',
       alignItems: 'center',
-      height: 70,
       paddingTop: 15,
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2},
@@ -116,9 +115,6 @@ const styles = StyleSheet.create({
     marginTop: 200,
     textAlign: "center",
     height: 500,
-    },
-    verticalBox:{
-      flexDirection: 'row',
     },
 
   });

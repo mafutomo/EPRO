@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Text, Body, Title, Right, Left, CheckBox, Button } from 'native-base';
-import Icon from 'react-native-ionicons'
+import Icon from 'react-native-ionicons';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
 const ExerciseDetail = (props) => {
@@ -9,11 +9,21 @@ const ExerciseDetail = (props) => {
   const tableHead = ['Sets', 'Reps', 'Weight', 'Time'];
 
 
+
     return (
 
           <Card style={styles.card}>
 
+          <TouchableOpacity
+          onPress = {props.onPress}
+          style = {styles.trashIcon}>
+            <Icon
+              name="close"
+              color={'#501F3A'}/>
+          </TouchableOpacity>
+
           {/* Exercise Label */}
+          <View style={styles.cardBody}>
             <CardItem>
               <Text style={styles.subText}>{props.exerciseName}</Text>
             </CardItem>
@@ -45,15 +55,18 @@ const ExerciseDetail = (props) => {
                 <CheckBox checked={true} style={{alignSelf: 'center'}}
                 color={'#501F3A'}/>
               </Right>
-
             </CardItem>
-
+            </View>
          </Card>
+
     );
   }
 
 
 const styles = StyleSheet.create({
+  content:{
+
+  },
   card: {
     backgroundColor: '#FEFFFF',
     color: '#17252A',
@@ -66,7 +79,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
-
+    height:50,
   },
   titleText: {
     fontSize: 18,
@@ -77,6 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     padding: 0,
     margin: 0,
+    marginBottom: 20,
     // fontFamily: 'Montserrat',
   },
   table: {
@@ -98,11 +112,26 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     padding: 0,
     margin: 0,
-
   },
   text: {
     textAlign: 'center',
     color: '#17252A'
+  },
+  iconContainer:{
+    width: '95%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  trashIcon:{
+    alignSelf: 'flex-end',
+    marginRight: 15,
+    marginTop: 25,
+
+  },
+  cardBody:{
+    alignItems:'center',
+    marginBottom: 55,
   }
 });
 

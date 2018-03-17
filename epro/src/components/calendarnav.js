@@ -26,8 +26,6 @@ class CalendarNav extends Component {
        inputSet:0,
        inputWeight:0,
        inputTime:'00:00',
-       // initialPage: 1,
-       // activeTab: 1,
        }
   }
 //'https://epro-fitness-api.herokuapp.com/users/2/workouts/03-05-18'
@@ -42,13 +40,11 @@ class CalendarNav extends Component {
     console.log('currentISO date ==', currentISODate);
 
     //have tab automatically navigate to the current date
-    let currentDayTabIndex = parseInt(this.state.todayDate.toISOString().slice(8,10))-1
+
+    //CHANGE THIS TO -1 LATER
+    let currentDayTabIndex = parseInt(this.state.todayDate.toISOString().slice(8,10))
     console.log("currentDayTabIndex==",currentDayTabIndex)
     setTimeout(this._tabs.goToPage.bind(this._tabs,currentDayTabIndex))
-    // this.setState({
-    //   initialPage:currentDayTabIndex,
-    //   activeTab:currentDayTabIndex,
-    // })
 
     const response = await fetch(`http://localhost:3001/users/1/workouts/${currentISODate}`, {
       method: 'GET',
@@ -60,7 +56,6 @@ class CalendarNav extends Component {
     const responseJson = await response.json()
     //set execises state with today's workouts
     this.setState({selectedExercises: responseJson[0].exercises})
-
 
   }
 
@@ -89,15 +84,15 @@ class CalendarNav extends Component {
       let splitDate = usersCurrentTab.split('-')
       let comparisonDate = `${splitDate[2]}-${splitDate[0].padStart(2,0)}-${splitDate[1]}`
 
-
       if(tab.toISOString().split('T')[0] === comparisonDate){
 
         return <Tab
+                style = {styles.tabContainer}
                 tabStyle={{backgroundColor: '#17252A'}}
                 activeTabStyle={{backgroundColor: '#17252A'}}
                 activeTextStyle={{color: '#DEF2F1'}}
                 heading={`${tabName}`}
-                style = {styles.tabBody}>
+                >
                   {this.renderExercises()}
                 </Tab>
 
@@ -113,17 +108,58 @@ class CalendarNav extends Component {
 
                     </Tab>
           }
-    })
-  }
+        })
+      }
+
 
 //render the exercise cards based on the this.state.exercises
   renderExercises() {
+
     return this.state.selectedExercises.map( exercise => {
+
       return <ExerciseDetail
       key = {exercise.exercise_id}
       exerciseName= {exercise.name}
-      data = {[[exercise.sets,exercise.reps,exercise.weight,exercise.time]]}/>
+      data = {[[exercise.sets,exercise.reps,exercise.weight,exercise.time]]}
+      onPress ={() => {this.deleteExercise(exercise)}}
+      />
     })
+  }
+
+  deleteExercise(data){
+    let workoutExerciseID = data.id
+    let exerciseID = data.exercise_id
+    fetch(`http://localhost:3001/exercises/${workoutExerciseID}/${exerciseID}/`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => {
+      return response.json()
+    })
+    .then( responseJson => {
+      console.log(responseJson)
+    })
+
+    let currentTabDate = this.state.usersCurrentTab
+
+    fetch(`http://localhost:3001/users/1/workouts/${currentTabDate}`,{
+      method:'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+    .then( response => {
+      return response.json()
+    })
+    .then(responseJson => {
+
+        this.setState({ selectedExercises: responseJson[0].exercises })
+    })
+
   }
 
 //initiated by onChangeTab, this updates the state tracking date user is currently viewing
@@ -201,6 +237,7 @@ class CalendarNav extends Component {
     this.setState({isEditModalVisible:false})
   }
 
+//Main Render
   render() {
 
     return (
@@ -212,9 +249,9 @@ class CalendarNav extends Component {
         tabBarUnderlineStyle = {{backgroundColor: '#CB2D6F'}}
         renderTabBar={()=> <ScrollableTab tabsContainerStyle={{color: '#DEF2F1'}}/>}
         ref={component => this._tabs = component}
-        // initialPage={this.state.initialPage} page={this.state.activeTab}
         onChangeTab= {(i) => {this.setCurrentTabState(i)}}
         >
+
           {this.renderTabs()}
 
         </Tabs>
@@ -293,12 +330,12 @@ class CalendarNav extends Component {
 }
 
 const styles = StyleSheet.create({
+  tabContainer: {
+    alignItems:'center',
+  },
   body:{
     backgroundColor: '#17252A',
     height: 20,
-  },
-  tabBody:  {
-    flexWrap:'wrap',
   },
   card: {
     backgroundColor: '#FEFFFF',
@@ -368,9 +405,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     height: 500,
   },
-  tabEmpty:{
-
-  }
 
 });
 
