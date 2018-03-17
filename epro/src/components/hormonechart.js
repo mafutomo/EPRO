@@ -56,6 +56,7 @@ class HormoneChart extends Component {
        data: [],
        contraceptive: "non_hormonal",
        cycleLength: 28,
+       firstDayLastPeriod: "",
        userId: this.props.userId
      }
      this.createBarChart = this.createBarChart.bind(this);
@@ -64,7 +65,6 @@ class HormoneChart extends Component {
 
    //get the user info
    async componentDidMount() {
-      console.log(this.state.userId);
        const response = await fetch(`https://epro-fitness-api.herokuapp.com/users/${this.state.userId}`, {
        method: 'GET',
        headers: {
@@ -77,6 +77,7 @@ class HormoneChart extends Component {
      this.setState({
        contraceptive: user.birth_control_type,
        cycleLength: user.cycle_length,
+       firstDayLastPeriod: user.last_day
      })
 
      const hormoneResponse = await fetch(`https://epro-fitness-api.herokuapp.com/hormones/${user.birth_control_type}`, {
@@ -187,7 +188,6 @@ class HormoneChart extends Component {
 
     const maxEstrogen = max(data, d => d.estrogen)
     const maxProgesterone = max(data, d => d.progesterone)
-    console.log(maxProgesterone);
 
     const y0 = d3.scale.scaleLinear()
             .rangeRound([height, 0])
@@ -230,7 +230,7 @@ class HormoneChart extends Component {
     const hormones = ["estrogen", "progesterone"]
 
     return (
-        <View>
+        <View style={styles.chartView}>
         <Surface style={styles.container} width={screen.width} height={screen.height}>
           <Group style={styles.legend}>
             <Shape d={new Transform().rotate(-90[50,50])}/>
@@ -338,6 +338,9 @@ class HormoneChart extends Component {
 };
 
 const styles = StyleSheet.create({
+  chartView:{
+    marginBottom:-350,
+  },
   container: {
     // margin: 20,
     alignItems: 'center',
