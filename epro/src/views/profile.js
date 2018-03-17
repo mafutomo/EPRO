@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as Progress from 'react-native-progress';
 import { Text, View, StyleSheet, AsyncStorage, TouchableOpacity } from 'react-native';
-import { Container, Header, Footer, Content, Left, Button, Icon, Body, Title, Right } from 'native-base';
+import { Container, Header, Footer, Content, Left, Button, Icon, Body, Title, Right, Tabs, Tab } from 'native-base';
 import TopNav from '../components/topnav';
 import Banner from '../components/banner';
 import HormoneChart from '../components/hormonechart';
@@ -23,7 +23,9 @@ class Profile extends Component {
        phase: null,
        progress: null,
        bannerText: '',
-       isModalVisible: false
+       isModalVisible: false,
+       exerciseText: '',
+       nutritionText: ''
      }
   }
 
@@ -106,6 +108,19 @@ class Profile extends Component {
         bannerText: 'You are in your Rest Phase'
       })
     }
+
+    const phaseResponse = await fetch(`https://epro-fitness-api.herokuapp.com/phase_tips/${this.state.phase}`, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+  })
+    const phaseJson = await phaseResponse.json();
+    this.setState({
+      exerciseText: phaseJson[0].exercise_tip,
+      nutritionText: phaseJson[0].nutrition_tip
+    })
   }
 
   toggleModal = () =>{
@@ -166,24 +181,48 @@ class Profile extends Component {
             </TouchableOpacity>
             <Modal
             isVisible={this.state.isModalVisible}
-            >
-            <View
             style={{ flex: 1 }}
-            style={styles.modalContent}>
-              <Text
-              style={styles.modalTitle}>What is Performance Phase?</Text>
-              <Text
-              style={styles.modalDescription}
-              >
-              Hello!
-              </Text>
-              <TouchableOpacity onPress={this.toggleModal}>
-                <Text
-                onPress = {() => this.setState({ isModalVisible: false })}
-                >Exit</Text>
-              </TouchableOpacity>
-            </View>
-          </Modal>
+            style={styles.modalContent}
+            >
+              <Tabs initialPage={1}
+                tabBarUnderlineStyle = {{backgroundColor: '#501F3A'}}>
+                <Tab heading="Exercise Tips"
+                  tabStyle={{backgroundColor: "white"}}
+                  activeTextStyle={{color: "#501F3A"}}>
+                  <View>
+                    <Text
+                    style={styles.modalDescription}
+                    >
+                    {this.state.exerciseText}
+                    </Text>
+                    <TouchableOpacity onPress={this.toggleModal}>
+                      <Text
+                        style={styles.exitText}
+                      onPress = {() => this.setState({ isModalVisible: false })}
+                      >Exit</Text>
+                    </TouchableOpacity>
+                  </View>
+                </Tab>
+                <Tab heading="Nutrition Tips"
+                  tabStyle={{backgroundColor: "white"}}
+                  textStyle={{fontFamily: 'Montserrat'}}
+                  activeTextStyle={{color: "#501F3A"}}>
+                  <View>
+                    <Text
+                    style={styles.modalDescription}
+                    >
+                    {this.state.nutritionText}
+                    </Text>
+                    <TouchableOpacity onPress={this.toggleModal}>
+                      <Text
+                        style={styles.exitText}
+                      onPress = {() => this.setState({ isModalVisible: false })}
+                      >Exit</Text>
+                    </TouchableOpacity>
+                  </View>
+                </Tab>
+              </Tabs>
+            </Modal>
           </Content>
         </Container>
       )
@@ -247,11 +286,24 @@ const styles = StyleSheet.create({
       alignItems: "center",
       borderRadius: 4,
       borderColor: "rgba(0, 0, 0, 0.1)",
-      marginBottom: 200,
-      marginTop: 200,
       textAlign: "center",
-      height: 500,
-      },
+      height: 400,
+    },
+    modalTabs: {
+      backgroundColor: "white",
+    },
+    modalDescription: {
+      paddingTop: 30,
+      fontSize: 16,
+      fontFamily: 'Montserrat',
+    },
+    exitText: {
+      textAlign: 'center',
+      paddingTop: 30,
+      fontSize: 16,
+      fontFamily: 'Montserrat',
+      fontWeight: "600",
+    }
   });
 
 
