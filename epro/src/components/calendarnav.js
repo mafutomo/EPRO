@@ -224,6 +224,7 @@ class CalendarNav extends Component {
 
 //for creating a new exercise in the current tab
   addExercise = () => {
+    console.log("addingexercise!!");
     let currentTabDate = this.state.usersCurrentTab
     fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${currentTabDate}`,{
       method:'POST',
