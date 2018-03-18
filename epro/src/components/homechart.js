@@ -65,6 +65,7 @@ class HomeChart extends Component {
       userId: this.props.userId,
       data: [],
       days: [],
+      isLoading: true
     }
 
   this.createBarChart = this.createBarChart.bind(this);
@@ -76,6 +77,7 @@ class HomeChart extends Component {
     let weekISODates = [];
     let exerciseArr = [];
     let daysArr = [];
+    let obj = {}
 
     for (let i = 0; i <= 6; i++){
       let day = moment().add(i, 'days').format('L')
@@ -83,12 +85,13 @@ class HomeChart extends Component {
       weekISODates.push(altDay);
       let calDate = moment().add(i, 'days').format("MMM Do");
       daysArr.push(calDate)
+      // console.log(daysArr);
       this.setState({
         days: daysArr,
       })
     }
 
-    for(let i=0; i < weekISODates.length; i++){
+    for(let i = 0; i < weekISODates.length; i++){
       let response = await fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${weekISODates[i]}`, {
         method: 'GET',
         headers: {
@@ -98,14 +101,16 @@ class HomeChart extends Component {
       })
       const json = await response.json()
       (json[0] === undefined) ? exerciseArr.push([]) : exerciseArr.push(json[0].exercises);
-      let numArr = exerciseArr.map(el => {
-        return el.length;
-      })
-      this.setState({
-        data: numArr,
-        isUpdated: true
-      })
     }
+    console.log("this is happening");
+    let numArr = exerciseArr.map((el, i)=> {
+      console.log(daysArr[i]);
+      return obj[daysArr[i]] = el.length;
+    })
+    this.setState({
+      data: numArr,
+      isLoading: false
+    })
   }
 
   drawLine(startPoint, endPoint) {
@@ -121,6 +126,11 @@ class HomeChart extends Component {
   }
 
   render () {
+    if (this.state.isLoading === true) {
+            return (
+                <Spinner  />
+            );
+        }
     console.log("dis da data", this.state.data);
     const screen = Dimensions.get('window');
     const margin = {top: 75, right: 35, bottom: 400, left: 35}
