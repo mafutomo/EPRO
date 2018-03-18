@@ -118,16 +118,16 @@ export default {
 
   // Footer
   footerHeight: isIphoneX ? 89 : 55,
-  footerDefaultBg: "#3F51B5",
+  footerDefaultBg: "#17252A",
   footerPaddingBottom: isIphoneX ? 34 : 0,
 
   // FooterTab
   tabBarTextColor: "#fff",
   tabBarTextSize: 11,
-  activeTab: "#fff",
+  activeTab: "#17252A",
   sTabBarActiveTextColor: "#007aff",
   tabBarActiveTextColor: "#fff",
-  tabActiveBgColor: "#2B7A78",
+  tabActiveBgColor: "#17252A",
 
   // Header
   toolbarBtnColor: "#fff",

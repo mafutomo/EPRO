@@ -5,6 +5,7 @@ import SignUp2 from '../views/signup2';
 import { StackNavigator } from "react-navigation";
 import DrawerRouter from './drawerrouter';
 
+
 const SignUpRouter = StackNavigator (
 
   {
@@ -14,6 +15,7 @@ const SignUpRouter = StackNavigator (
     Home: { screen: DrawerRouter }
   },
   {
+    initialRouteName: 'Login',
     headerMode: 'none',
   }
 );

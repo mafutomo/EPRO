@@ -6,6 +6,8 @@ import Workout from '../views/workout';
 import History from '../views/history';
 import Profile from '../views/profile';
 import DrawerRouter from './drawerrouter';
+import getTheme from '../../native-base-theme/components';
+import material from '../../native-base-theme/variables/material';
 
 import { TabNavigator } from "react-navigation";
 import {
@@ -15,7 +17,8 @@ import {
   Item,
   Footer,
   FooterTab,
-  Label
+  Label,
+  StyleProvider,
 } from "native-base";
 
 
@@ -32,10 +35,13 @@ const TabRouter = TabNavigator(
     tabBarComponent: props => {
       return (
 
-          <Footer style={styles.container}
-          tabActiveBgColor = '#e91e63'>
+          <Footer
+          style = {styles.container}
+          >
+              <StyleProvider style ={getTheme(material)}>
             <FooterTab>
               <Button
+              style = {styles.container}
               active={props.navigationState.index === 0}
               onPress={() => props.navigation.navigate("Home")}
               >
@@ -43,6 +49,7 @@ const TabRouter = TabNavigator(
               </Button>
 
               <Button
+              style = {styles.container}
               active={props.navigationState.index === 1}
               onPress={() => props.navigation.navigate("Workout")}
               >
@@ -50,6 +57,7 @@ const TabRouter = TabNavigator(
               </Button>
 
               <Button
+              style = {styles.container}
               active={props.navigationState.index === 2}
               onPress={() => props.navigation.navigate("History")}
               >
@@ -57,12 +65,14 @@ const TabRouter = TabNavigator(
               </Button>
 
               <Button
+              style = {styles.container}
               active={props.navigationState.index === 3}
               onPress={() => props.navigation.navigate("Profile")}
               >
                 <Icon name="person" style={styles.icons}/>
               </Button>
             </FooterTab>
+            </StyleProvider>
           </Footer>
 
         )

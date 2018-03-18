@@ -127,7 +127,7 @@ export default {
   activeTab: platform === "ios" ? "#007aff" : "#fff",
   sTabBarActiveTextColor: "#007aff",
   tabBarActiveTextColor: platform === "ios" ? "#2874F0" : "#fff",
-  tabActiveBgColor: platform === "ios" ? "#2B7A78" : "#2B7A78",
+  tabActiveBgColor: platform === "ios" ? "transparent" : "transparent",
 
   // Header
   toolbarBtnColor: platform === "ios" ? "#007aff" : "#fff",
