@@ -52,15 +52,25 @@ export default class Home extends Component {
       })
     })
     const responseJson = await response.json();
+
+    const user = await fetch(`https://epro-fitness-api.herokuapp.com/users/${responseJson.userId}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    const userJson = await user.json()
     this.setState({
       userId: responseJson.userId,
+      bannerText: `Hello ${userJson[0].first_name}`,
       isUpdated: true
     })
   }
 
   render() {
     return (
-        <Container>
+      <Container style={styles.body}>
         <Header style={styles.header}>
           <Left>
             <Button
@@ -77,23 +87,27 @@ export default class Home extends Component {
             </Button>
           </Right>
         </Header>
-        { this.state.isUpdated ?
-          <Banner
-            userId={this.state.userId}
-          /> : null
-          }
-        { this.state.isUpdated ?
-          <PersonalRecords
-            userId={this.state.userId}
-          /> : null
-          }
-        { this.state.isUpdated ?
-          <HomeChart
-            userId={this.state.userId}
-          /> : null
-          }
-          <Submit />
-        </Container>
+            { this.state.isUpdated ?
+              <Banner
+                userId={this.state.userId}
+                bannerText={this.state.bannerText}
+              /> : null
+              }
+          <Content contentContainerStyle={{justifyContent: 'center', backgroundColor: '#FEFFFF'}}>
+            { this.state.isUpdated ?
+              <PersonalRecords
+                userId={this.state.userId}
+              /> : null
+              }
+              <Title style={styles.titleText}>Your Activity</Title>
+            { this.state.isUpdated ?
+              <HomeChart
+                userId={this.state.userId}
+              /> : null
+              }
+            </Content>
+            </Container>
+
       )
   }
 
@@ -104,7 +118,6 @@ const styles = StyleSheet.create({
       backgroundColor: '#FEFFFF',
       justifyContent: 'center',
       alignItems: 'center',
-      height: 70,
       paddingTop: 15,
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2},
@@ -118,7 +131,19 @@ const styles = StyleSheet.create({
       fontSize: 22,
       alignSelf: 'center',
     },
+    body:{
+      height: '100%',
+    },
     headerIcon: {
       color: '#17252A',
+    },
+    titleText: {
+      backgroundColor: '#FEFFFF',
+      marginTop: -550,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    chart: {
+      marginTop: -200
     }
   });

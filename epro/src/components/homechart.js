@@ -133,7 +133,7 @@ class HomeChart extends Component {
     const emptySpace = "";
 
     return (
-      <View>
+      <Container style={styles.container}>
       <Surface style={styles.container} width={screen.width} height={screen.height}>
         <Group x={margin.left} y={margin.top}>
                   <Group x={0} y={height}>
@@ -182,7 +182,7 @@ class HomeChart extends Component {
                               <TouchableWithoutFeedback key={i} >
                                   <Shape
                                       d={this.createBarChart(x(d.day), y(d.number) - height, x.bandwidth(), height - y(d.number))}
-                                      fill={'#DEF2F1'}
+                                      fill={'#EF5B5B'}
                                       >
                                   </Shape>
                               </TouchableWithoutFeedback>
@@ -193,7 +193,7 @@ class HomeChart extends Component {
               </Group>
 
         </Surface>
-      </View>
+      </Container>
 
     )
   }
@@ -201,7 +201,7 @@ class HomeChart extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    // margin: 20,
+    backgroundColor: '#FEFFFF',
     alignItems: 'center',
     justifyContent: 'center',
   },
