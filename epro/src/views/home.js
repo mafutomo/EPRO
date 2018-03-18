@@ -18,6 +18,8 @@ import HistoryTable from '../components/historytable';
 import DatePicker from '../components/dropdown';
 import LoginProgress from '../components/loginprogress';
 
+var moment = require('moment');
+
 export default class Home extends Component {
 
   constructor(props) {
@@ -26,7 +28,9 @@ export default class Home extends Component {
        bannerText: "Hello Ali",
        token: null,
        userId: null,
-       isUpdated: false
+       isUpdated: false,
+       todayDate: new Date(),
+       data: [],
        }
   }
 
@@ -52,15 +56,55 @@ export default class Home extends Component {
       })
     })
     const responseJson = await response.json();
+
+    const user = await fetch(`https://epro-fitness-api.herokuapp.com/users/${responseJson.userId}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    const userJson = await user.json()
     this.setState({
       userId: responseJson.userId,
+      bannerText: `Hello ${userJson[0].first_name}`,
       isUpdated: true
     })
+
+    // let currentISODate = this.state.todayDate.toISOString().split('T')[0]
+    // let weekISODates = [];
+    // let exerciseArr = [];
+    //
+    // for (let i = 0; i <= 6; i++){
+    //   let day = moment().add(i, 'days').format('L')
+    //   let altDay = day.replace(/\//g, "-");
+    //   weekISODates.push(altDay);
+    // }
+    //
+    // for(let i=0; i < weekISODates.length; i++){
+    //   let response = await fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${weekISODates[i]}`, {
+    //     method: 'GET',
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //   })
+    //   const json = await response.json()
+    //   (json[0] === undefined) ? exerciseArr.push([]) : exerciseArr.push(json[0].exercises);
+    //   let numArr = exerciseArr.map(el => {
+    //     return el.length;
+    //   })
+	  //   this.setState({
+    //     data: numArr,
+    //     isUpdated: true
+    //   })
+    // }
+    // console.log(this.state);
   }
 
   render() {
     return (
-        <Container>
+      <Container style={styles.body}>
         <Header style={styles.header}>
           <Left>
             <Button
@@ -77,23 +121,28 @@ export default class Home extends Component {
             </Button>
           </Right>
         </Header>
-        { this.state.isUpdated ?
-          <Banner
-            userId={this.state.userId}
-          /> : null
-          }
-        { this.state.isUpdated ?
-          <PersonalRecords
-            userId={this.state.userId}
-          /> : null
-          }
-        { this.state.isUpdated ?
-          <HomeChart
-            userId={this.state.userId}
-          /> : null
-          }
-          <Submit />
-        </Container>
+            { this.state.isUpdated ?
+              <Banner
+                userId={this.state.userId}
+                bannerText={this.state.bannerText}
+              /> : null
+              }
+          <Content contentContainerStyle={{justifyContent: 'center', backgroundColor: '#FEFFFF'}}>
+            { this.state.isUpdated ?
+              <PersonalRecords
+                userId={this.state.userId}
+              /> : null
+              }
+              <Title style={styles.titleText}>Your Activity</Title>
+            { this.state.isUpdated ?
+              <HomeChart
+                userId={this.state.userId}
+                data={this.state.data}
+              /> : null
+              }
+            </Content>
+            </Container>
+
       )
   }
 
@@ -104,7 +153,6 @@ const styles = StyleSheet.create({
       backgroundColor: '#FEFFFF',
       justifyContent: 'center',
       alignItems: 'center',
-      height: 70,
       paddingTop: 15,
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2},
@@ -118,7 +166,19 @@ const styles = StyleSheet.create({
       fontSize: 22,
       alignSelf: 'center',
     },
+    body:{
+      height: '100%',
+    },
     headerIcon: {
       color: '#17252A',
+    },
+    titleText: {
+      backgroundColor: '#FEFFFF',
+      marginTop: -550,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    chart: {
+      marginTop: -200
     }
   });

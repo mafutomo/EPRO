@@ -27,6 +27,8 @@ import * as format from 'd3-format';
 import * as axis from 'd3-axis';
 import * as path from 'd3-path';
 
+const moment = require('moment');
+
 const d3 = {
     scale,
     shape,
@@ -60,11 +62,50 @@ class HomeChart extends Component {
     super(props)
     this.state = {
       path: '',
+      userId: this.props.userId,
+      data: [],
+      days: [],
     }
-
 
   this.createBarChart = this.createBarChart.bind(this);
   this.drawLine = this.drawLine.bind(this);
+  }
+
+  async componentDidMount() {
+
+    let weekISODates = [];
+    let exerciseArr = [];
+    let daysArr = [];
+
+    for (let i = 0; i <= 6; i++){
+      let day = moment().add(i, 'days').format('L')
+      let altDay = day.replace(/\//g, "-");
+      weekISODates.push(altDay);
+      let calDate = moment().add(i, 'days').format("MMM Do");
+      daysArr.push(calDate)
+      this.setState({
+        days: daysArr,
+      })
+    }
+
+    for(let i=0; i < weekISODates.length; i++){
+      let response = await fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${weekISODates[i]}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+      const json = await response.json()
+      (json[0] === undefined) ? exerciseArr.push([]) : exerciseArr.push(json[0].exercises);
+      let numArr = exerciseArr.map(el => {
+        return el.length;
+      })
+      this.setState({
+        data: numArr,
+        isUpdated: true
+      })
+    }
   }
 
   drawLine(startPoint, endPoint) {
@@ -79,20 +120,8 @@ class HomeChart extends Component {
       return path;
   }
 
-  // createAreaChart() {
-  //   var area = d3.shape.area()
-  //       .x(function(d) { return x(d.day); })
-  //       .y0(height)
-  //       .y1(function(d) { return y(d.number); })
-  //       .curve(d3.shape.curveNatural)
-  //       (data)
-  //
-  //   console.debug(`area: ${JSON.stringify(area)}`);
-  //
-  //   return { path : area };
-  // }
-
   render () {
+    console.log("dis da data", this.state.data);
     const screen = Dimensions.get('window');
     const margin = {top: 75, right: 35, bottom: 400, left: 35}
     const width = screen.width - margin.left - margin.right
@@ -133,7 +162,7 @@ class HomeChart extends Component {
     const emptySpace = "";
 
     return (
-      <View>
+      <Container style={styles.container}>
       <Surface style={styles.container} width={screen.width} height={screen.height}>
         <Group x={margin.left} y={margin.top}>
                   <Group x={0} y={height}>
@@ -182,7 +211,7 @@ class HomeChart extends Component {
                               <TouchableWithoutFeedback key={i} >
                                   <Shape
                                       d={this.createBarChart(x(d.day), y(d.number) - height, x.bandwidth(), height - y(d.number))}
-                                      fill={'#DEF2F1'}
+                                      fill={'#EF5B5B'}
                                       >
                                   </Shape>
                               </TouchableWithoutFeedback>
@@ -193,7 +222,7 @@ class HomeChart extends Component {
               </Group>
 
         </Surface>
-      </View>
+      </Container>
 
     )
   }
@@ -201,7 +230,7 @@ class HomeChart extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    // margin: 20,
+    backgroundColor: '#FEFFFF',
     alignItems: 'center',
     justifyContent: 'center',
   },
