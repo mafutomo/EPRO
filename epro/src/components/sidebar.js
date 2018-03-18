@@ -11,12 +11,13 @@ const SideBar = (props) => {
       <Header style = {styles.header}>
         </Header>
         <Content style={styles.body}>
-          <List>
+          <List
+          style={{marginTop: 15}}>
                 <ListItem
                   button
                   style={{borderBottomWidth: 0}}
                   onPress={() => this.props.navigation.navigate("About E/Pro")}>
-                  <Icon name='arrow-back'
+                  <Icon name='information-circle'
                   style ={styles.iconStyle} />
                   <Text
                   style={styles.textStyle}>About E/Pro</Text>
@@ -26,7 +27,7 @@ const SideBar = (props) => {
                   button
                   style={{borderBottomWidth: 0}}
                   onPress={() => this.props.navigation.navigate("Logout")}>
-                  <Icon name='arrow-back'
+                  <Icon name='exit'
                   style ={styles.iconStyle} />
                   <Text
                   style={styles.textStyle}>Log out</Text>
@@ -40,20 +41,20 @@ const SideBar = (props) => {
 
 const styles = StyleSheet.create({
   body: {
-    backgroundColor: '#FEFFFF',
-
+    backgroundColor: '#3AAFA9',
   },
   textStyle: {
     fontFamily:'DidactGothic-Regular',
-    color: '#17252A',
-    fontSize:20,
+    color: '#FEFFFF',
+    fontSize:17,
   },
   header: {
     height: 130,
-    backgroundColor: '#DEF2F1',
+    backgroundColor: '#17252A',
   },
   iconStyle:{
-
+    marginRight: 20,
+    color:'#FEFFFF',
   }
 })
 
