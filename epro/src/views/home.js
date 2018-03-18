@@ -18,6 +18,8 @@ import HistoryTable from '../components/historytable';
 import DatePicker from '../components/dropdown';
 import LoginProgress from '../components/loginprogress';
 
+var moment = require('moment');
+
 export default class Home extends Component {
 
   constructor(props) {
@@ -26,7 +28,9 @@ export default class Home extends Component {
        bannerText: "Hello Ali",
        token: null,
        userId: null,
-       isUpdated: false
+       isUpdated: false,
+       todayDate: new Date(),
+       data: [],
        }
   }
 
@@ -66,6 +70,36 @@ export default class Home extends Component {
       bannerText: `Hello ${userJson[0].first_name}`,
       isUpdated: true
     })
+
+    // let currentISODate = this.state.todayDate.toISOString().split('T')[0]
+    // let weekISODates = [];
+    // let exerciseArr = [];
+    //
+    // for (let i = 0; i <= 6; i++){
+    //   let day = moment().add(i, 'days').format('L')
+    //   let altDay = day.replace(/\//g, "-");
+    //   weekISODates.push(altDay);
+    // }
+    //
+    // for(let i=0; i < weekISODates.length; i++){
+    //   let response = await fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${weekISODates[i]}`, {
+    //     method: 'GET',
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //   })
+    //   const json = await response.json()
+    //   (json[0] === undefined) ? exerciseArr.push([]) : exerciseArr.push(json[0].exercises);
+    //   let numArr = exerciseArr.map(el => {
+    //     return el.length;
+    //   })
+	  //   this.setState({
+    //     data: numArr,
+    //     isUpdated: true
+    //   })
+    // }
+    // console.log(this.state);
   }
 
   render() {
@@ -103,6 +137,7 @@ export default class Home extends Component {
             { this.state.isUpdated ?
               <HomeChart
                 userId={this.state.userId}
+                data={this.state.data}
               /> : null
               }
             </Content>
