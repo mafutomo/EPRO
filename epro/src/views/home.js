@@ -5,7 +5,6 @@ import Submit from '../components/submit';
 import InputBox from '../components/inputbox';
 import SmallInputBox from '../components/smallinputbox';
 import SliderVal from  '../components/slider';
-import Head from  '../components/header';
 import Banner from  '../components/banner';
 import TopNav from '../components/topnav';
 import BottomNav from '../components/bottomnav';
