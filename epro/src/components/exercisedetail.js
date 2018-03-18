@@ -73,13 +73,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'DidactGothic-Regular',
     width: '95%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    // alignSelf: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
-    height:300,
   },
   titleText: {
     fontSize: 18,
@@ -91,7 +87,6 @@ const styles = StyleSheet.create({
     padding: 0,
     margin: 0,
     marginBottom: 20,
-    // fontFamily: 'Montserrat',
   },
   table: {
     width: '75%',
@@ -127,7 +122,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginRight: 15,
     marginTop: 25,
-
   },
   cardBody:{
     alignItems:'center',
