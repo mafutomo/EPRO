@@ -75,11 +75,11 @@ const styles = StyleSheet.create({
     width: '95%',
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center',
+    // alignSelf: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
-    height:50,
+    height:300,
   },
   titleText: {
     fontSize: 18,

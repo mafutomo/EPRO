@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Container, Header, Tab, Tabs, ScrollableTab, Content, Card, CardItem, Text, Body, Title, Right, Left, CheckBox, Button } from 'native-base';
-import Spinner from './spinner';
 import InputBox from './inputbox';
 import SmallInputBox from './smallinputbox';
 import ExerciseDetail from '../components/exercisedetail';
 import Icon from 'react-native-ionicons';
+import Spinner from './spinner';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import Modal from "react-native-modal";
 
@@ -27,6 +27,7 @@ class CalendarNav extends Component {
        inputWeight:0,
        inputTime:'00:00',
        userId: this.props.userId,
+       isLoading:true,
        }
   }
 //'https://epro-fitness-api.herokuapp.com/users/2/workouts/03-05-18'
@@ -56,7 +57,9 @@ class CalendarNav extends Component {
     })
     const responseJson = await response.json()
     //set execises state with today's workouts
-    this.setState({selectedExercises: responseJson[0].exercises})
+    this.setState({
+      selectedExercises: responseJson[0].exercises
+    })
 
   }
 
@@ -84,6 +87,18 @@ class CalendarNav extends Component {
       let usersCurrentTab = this.state.usersCurrentTab
       let splitDate = usersCurrentTab.split('-')
       let comparisonDate = `${splitDate[2]}-${splitDate[0].padStart(2,0)}-${splitDate[1]}`
+
+      if(this.state.isLoading){
+        return <Tab
+                style = {styles.tabContainer}
+                tabStyle={{backgroundColor: '#17252A'}}
+                activeTabStyle={{backgroundColor: '#17252A'}}
+                activeTextStyle={{color: '#DEF2F1'}}
+                heading={`${tabName}`}
+                >
+                  <Spinner/>
+                </Tab>
+      }
 
       if(tab.toISOString().split('T')[0] === comparisonDate){
 
@@ -131,11 +146,7 @@ class CalendarNav extends Component {
     let workoutExerciseID = data.id
     let exerciseID = data.exercise_id
     fetch(`http://localhost:3001/exercises/${workoutExerciseID}/${exerciseID}/`, {
-      method: 'DELETE',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }
+      method: 'DELETE'
     })
     .then(response => {
       return response.json()
@@ -157,7 +168,6 @@ class CalendarNav extends Component {
       return response.json()
     })
     .then(responseJson => {
-
         this.setState({ selectedExercises: responseJson[0].exercises })
     })
 
@@ -167,6 +177,8 @@ class CalendarNav extends Component {
   setCurrentTabState(params) {
     //get the chosen date in ISO format based on the index of the tab user clicked on
     //'params' passes the tab index user clicked on
+
+    this.setState({isLoading:true})
     let newState = `${this.state.todayDate.getMonth()+1}-${params.i+1}-${this.state.todayDate.getFullYear()}`
 
     this.setState({usersCurrentTab:newState})
@@ -176,14 +188,16 @@ class CalendarNav extends Component {
         return response.json()
       })
       .then(responseJson => {
-        console.log("RESPONSEJSON",responseJson);
+
           if(responseJson.length === 0) {
             this.setState({
+              isLoading:false,
               todayDate:new Date(newState),
               selectedExercises:[],
             })
           } else {
             this.setState({
+            isLoading:false,
             todayDate: new Date(newState),
             selectedExercises:responseJson[0].exercises})
           }
@@ -241,17 +255,21 @@ class CalendarNav extends Component {
 //Main Render
   render() {
 
+
     return (
       <Container>
+        <Content>
         <Header hasTabs
         style = {styles.body}
         />
+
         <Tabs
         tabBarUnderlineStyle = {{backgroundColor: '#CB2D6F'}}
         renderTabBar={()=> <ScrollableTab tabsContainerStyle={{color: '#DEF2F1'}}/>}
         ref={component => this._tabs = component}
         onChangeTab= {(i) => {this.setCurrentTabState(i)}}
         >
+
 
           {this.renderTabs()}
 
@@ -267,6 +285,7 @@ class CalendarNav extends Component {
             color={'#FFBA49'}
           />
         </TouchableOpacity>
+        </Content>
 
         //Add Exercise Modal
           <Modal
@@ -389,6 +408,8 @@ const styles = StyleSheet.create({
     color: '#17252A'
   },
   iconContainer:{
+    marginTop: 15,
+    marginBottom: 15,
     width: '95%',
     justifyContent: 'center',
     alignItems: 'center',
