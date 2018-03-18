@@ -28,6 +28,7 @@ class CalendarNav extends Component {
        inputTime:'00:00',
        userId: this.props.userId,
        isLoading:true,
+       language: "js",
        }
   }
 //'https://epro-fitness-api.herokuapp.com/users/2/workouts/03-05-18'
@@ -39,28 +40,28 @@ class CalendarNav extends Component {
     //create the value to fetch for exercises on current date
     let currentISODate = this.state.todayDate.toISOString().split('T')[0]
     this.setState({todayISODate:currentISODate})
-    console.log('currentISO date ==', currentISODate);
 
     //have tab automatically navigate to the current date
 
     //CHANGE THIS TO -1 LATER
     let currentDayTabIndex = parseInt(this.state.todayDate.toISOString().slice(8,10))
-    console.log("currentDayTabIndex==",currentDayTabIndex)
     setTimeout(this._tabs.goToPage.bind(this._tabs,currentDayTabIndex))
 
-    const response = await fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${currentISODate}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }
-    })
-    const responseJson = await response.json()
-    //set execises state with today's workouts
-    this.setState({
-      selectedExercises: responseJson[0].exercises
-    })
 
+    //     const response = await fetch(`http://localhost:3001/users/${this.state.userId}/workout
+    //
+    // s/${currentISODate}`, {
+    //       method: 'GET',
+    //       headers: {
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json',
+    //       }
+    //     })
+    //     const responseJson = await response.json()
+    //     //set execises state with today's workouts
+    //     this.setState({
+    //       selectedExercises: responseJson[0].exercises
+    //    })
   }
 
 //to create an array of all the days of current month
@@ -110,6 +111,18 @@ class CalendarNav extends Component {
                 heading={`${tabName}`}
                 >
                   {this.renderExercises()}
+                  <TouchableOpacity
+                  style={styles.iconContainer}
+                  onPress={ () => {this.toggleEditModalVisible()}}>
+                    <Icon
+                      active name="add-circle"
+                      size={45}
+                      color={'#FFBA49'}
+                    />
+                  </TouchableOpacity>
+
+
+
                 </Tab>
 
           } else {
@@ -121,6 +134,17 @@ class CalendarNav extends Component {
                     heading={`${tabName}`}
                     style = {styles.tabEmpty}
                     >
+
+
+                    <TouchableOpacity
+                    style={styles.soleIconContainer}
+                    onPress={this.toggleEditModalVisible}>
+                      <Icon
+                        active name="add-circle"
+                        size={45}
+                        color={'#FFBA49'}
+                      />
+                    </TouchableOpacity>
 
                     </Tab>
           }
@@ -182,6 +206,7 @@ class CalendarNav extends Component {
     let newState = `${this.state.todayDate.getMonth()+1}-${params.i+1}-${this.state.todayDate.getFullYear()}`
 
     this.setState({usersCurrentTab:newState})
+        console.log("newState", newState);
 
       fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${newState}`)
       .then(response => {
@@ -206,10 +231,10 @@ class CalendarNav extends Component {
 
 //for modal visibility
   toggleEditModalVisible = () => {
-    this.setState({ isEditModalVisible: !this.state.isEditModalVisible })
+    this.setState({ isEditModalVisible: true })
   }
 
-  hideMondalOmitState = () => {
+  hideMondalOmitState = () =>{
     this.setState({
       inputExerciseName:"",
       inputDescription:"",
@@ -224,7 +249,7 @@ class CalendarNav extends Component {
 
 //for creating a new exercise in the current tab
   addExercise = () => {
-    console.log("addingexercise!!");
+
     let currentTabDate = this.state.usersCurrentTab
     fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${currentTabDate}`,{
       method:'POST',
@@ -259,7 +284,7 @@ class CalendarNav extends Component {
 
     return (
       <Container>
-        <Content>
+      <Content style={styles.contentBody}>
         <Header hasTabs
         style = {styles.body}
         />
@@ -270,23 +295,9 @@ class CalendarNav extends Component {
         ref={component => this._tabs = component}
         onChangeTab= {(i) => {this.setCurrentTabState(i)}}
         >
-
-
           {this.renderTabs()}
 
         </Tabs>
-
-
-        <TouchableOpacity
-        style={styles.iconContainer}
-        onPress={()=>{this.toggleEditModalVisible()}}>
-          <Icon
-            active name="add-circle"
-            size={45}
-            color={'#FFBA49'}
-          />
-        </TouchableOpacity>
-        </Content>
 
         //Add Exercise Modal
           <Modal
@@ -329,7 +340,7 @@ class CalendarNav extends Component {
             </View>
 
             <View style = {{flexDirection: 'row'}}>
-              <TouchableOpacity onPress = {this.hideMondalOmitState}>
+              <TouchableOpacity onPress = { () => {this.hideMondalOmitState()}}>
                 <Text
 
                 >Cancel</Text>
@@ -337,14 +348,15 @@ class CalendarNav extends Component {
 
               <TouchableOpacity>
                 <Text
-                onPress = {
-                  this.addExercise
+                onPress = { () =>
+                  {this.addExercise()}
                 }
                 >Save</Text>
               </TouchableOpacity>
             </View>
             </View>
           </Modal>
+        </Content>
       </Container>
     );
   }
@@ -363,7 +375,6 @@ const styles = StyleSheet.create({
     color: '#17252A',
     fontSize: 18,
     fontFamily: 'DidactGothic-Regular',
-    width: '95%',
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -402,19 +413,25 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     padding: 0,
     margin: 0,
-
   },
   text: {
     textAlign: 'center',
     color: '#17252A'
   },
   iconContainer:{
-    marginTop: 15,
-    marginBottom: 15,
+    marginTop: 25,
+    marginBottom: 25,
     width: '95%',
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
+  },
+  soleIconContainer:{
+    paddingTop: 500,
+    width: '95%',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // alignSelf: 'center',
   },
   modalContent: {
     backgroundColor: "white",
@@ -428,6 +445,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     height: 500,
   },
+  contentBody: {
+      backgroundColor: '#FEFFFF',
+  },
+  tabEmpty: {
+    justifyContent: "center",
+    alignItems: "center"
+  }
 
 });
 

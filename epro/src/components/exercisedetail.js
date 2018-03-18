@@ -64,18 +64,15 @@ const ExerciseDetail = (props) => {
 
 
 const styles = StyleSheet.create({
-  content:{
-
-  },
   card: {
     backgroundColor: '#FEFFFF',
     color: '#17252A',
     fontSize: 18,
     fontFamily: 'DidactGothic-Regular',
-    width: '95%',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
+    width: "98%",
   },
   titleText: {
     fontSize: 18,
@@ -126,6 +123,7 @@ const styles = StyleSheet.create({
   cardBody:{
     alignItems:'center',
     marginBottom: 55,
+    marginTop: -30,
   }
 });
 
