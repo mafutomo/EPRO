@@ -49,13 +49,13 @@ const colors = {
     progesterone: '#FFBA49'
 }
 
-const data = [
-  {day: "Monday", number: 0},
-  {day: "Tuesday", number: 10},
-  {day: "Wednesday", number: 0},
-  {day: "Thursday", number: 6},
-  {day: "Friday", number: 10},
-];
+// const data = [
+//   {day: "Monday", number: 0},
+//   {day: "Tuesday", number: 10},
+//   {day: "Wednesday", number: 0},
+//   {day: "Thursday", number: 6},
+//   {day: "Friday", number: 10},
+// ];
 
 class HomeChart extends Component {
   constructor(props) {
@@ -65,6 +65,7 @@ class HomeChart extends Component {
       userId: this.props.userId,
       data: [],
       days: [],
+      isLoading: true
     }
 
   this.createBarChart = this.createBarChart.bind(this);
@@ -76,6 +77,8 @@ class HomeChart extends Component {
     let weekISODates = [];
     let exerciseArr = [];
     let daysArr = [];
+    let numArr = [];
+    let obj = {}
 
     for (let i = 0; i <= 6; i++){
       let day = moment().add(i, 'days').format('L')
@@ -88,7 +91,7 @@ class HomeChart extends Component {
       })
     }
 
-    for(let i=0; i < weekISODates.length; i++){
+    for(let i = 0; i < weekISODates.length; i++){
       let response = await fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${weekISODates[i]}`, {
         method: 'GET',
         headers: {
@@ -97,15 +100,24 @@ class HomeChart extends Component {
         },
       })
       const json = await response.json()
+      console.log(json);
       (json[0] === undefined) ? exerciseArr.push([]) : exerciseArr.push(json[0].exercises);
-      let numArr = exerciseArr.map(el => {
-        return el.length;
-      })
-      this.setState({
-        data: numArr,
-        isUpdated: true
-      })
     }
+    console.log("this is the ex arr", exerciseArr);
+
+    for (let i = 0; i < exerciseArr.length; i++) {
+      obj = {
+        day: daysArr[i],
+        number: exerciseArr[i].length
+      }
+      numArr.push(obj);
+    }
+    console.log("this is the num arr", numArr);
+
+    this.setState({
+      data: numArr,
+      isLoading: false
+    })
   }
 
   drawLine(startPoint, endPoint) {
@@ -121,6 +133,11 @@ class HomeChart extends Component {
   }
 
   render () {
+    if (this.state.isLoading === true) {
+            return (
+                <Spinner  />
+            );
+        }
     console.log("dis da data", this.state.data);
     const screen = Dimensions.get('window');
     const margin = {top: 75, right: 35, bottom: 400, left: 35}
@@ -130,17 +147,17 @@ class HomeChart extends Component {
     const x = d3.scale.scaleBand()
             .rangeRound([0, width])
             .padding(0.1)
-            .domain(data.map(d => d.day))
+            .domain(this.state.data.map(d => d.day))
 
-    const maxVolume = max(data, d => d.number)
+    const maxVolume = max(this.state.data, d => d.number)
 
     const y = d3.scale.scaleLinear()
             .rangeRound([height, 0])
             .domain([0, maxVolume])
 
-    const firstDay = x(data[0].day)
-    const secondDay = x(data[1].day)
-    const lastDay = x(data[data.length - 1].day)
+    const firstDay = x(this.state.data[0].day)
+    const secondDay = x(this.state.data[1].day)
+    const lastDay = x(this.state.data[this.state.data.length - 1].day)
     const labelDx = (secondDay - firstDay) / 2
 
     const bottomAxis = [firstDay- labelDx, lastDay + labelDx]
@@ -169,7 +186,7 @@ class HomeChart extends Component {
                       <Group key={-1}>
                           <Shape d={bottomAxisD} stroke={colors.black} key="-1"/>
                             {
-                              data.map((d, i) =>(
+                              this.state.data.map((d, i) =>(
                                 <Group
                                     x={x(d.day) + labelDx}
                                     y={0}
@@ -207,7 +224,7 @@ class HomeChart extends Component {
                           }
                       </Group>
                       {
-                          data.map((d, i) => (
+                          this.state.data.map((d, i) => (
                               <TouchableWithoutFeedback key={i} >
                                   <Shape
                                       d={this.createBarChart(x(d.day), y(d.number) - height, x.bandwidth(), height - y(d.number))}
