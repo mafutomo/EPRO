@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Text, Body, Title, Right, Left, CheckBox, Button } from 'native-base';
+import WorkoutButton from './workoutbutton';
 import Icon from 'react-native-ionicons';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
@@ -38,10 +39,11 @@ const ExerciseDetail = (props) => {
             {/* Row */}
             <CardItem>
               <Left>
-              {/* Edit Icon */}
-                <Icon
-                  name="create"
-                  color={'#501F3A'}/>
+              {/* Edit Icon
+                 <Icon
+                   name="create"
+                   color={'#501F3A'}/>
+                */}
               </Left>
 
               <Table style={styles.table} borderStyle={{borderWidth: 0, borderColor: 'black'}}>
@@ -51,11 +53,17 @@ const ExerciseDetail = (props) => {
               </Table>
 
               <Right>
-                {/* Done Icon */}
+                {/* Done Icon
                 <CheckBox checked={true} style={{alignSelf: 'center'}}
                 color={'#501F3A'}/>
+                */}
               </Right>
+
             </CardItem>
+              <WorkoutButton
+              buttonName = "Done"
+              onPress = />
+
             </View>
          </Card>
 
@@ -67,30 +75,31 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: '#FEFFFF',
     color: '#17252A',
-    fontSize: 18,
+    fontSize: 17,
     fontFamily: 'DidactGothic-Regular',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
     width: "98%",
+    height:300,
   },
   titleText: {
-    fontSize: 18,
     padding: 0,
     margin: 0,
   },
   subText: {
-    fontSize: 16,
+    fontSize: 18,
     padding: 0,
     margin: 0,
     marginBottom: 20,
   },
   table: {
-    width: '75%',
+    width: '85%',
     backgroundColor: '#FEFFFF',
     borderWidth: 0,
     padding: 0,
     margin: 5,
+    fontSize:17,
   },
   head: {
     height: 30,
@@ -124,6 +133,10 @@ const styles = StyleSheet.create({
     alignItems:'center',
     marginBottom: 55,
     marginTop: -30,
+  },
+  button:{
+    paddingTop: -50,
+    backgroundColor:'#FFBA49',
   }
 });
 

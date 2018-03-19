@@ -41,41 +41,23 @@ class CalendarNav extends Component {
     let currentISODate = this.state.todayDate.toISOString().split('T')[0]
     this.setState({todayISODate:currentISODate})
 
-    //have tab automatically navigate to the current date
+    setTimeout(this._tabs.goToPage.bind(this._tabs,4))
 
-    //CHANGE THIS TO -1 LATER
-    let currentDayTabIndex = parseInt(this.state.todayDate.toISOString().slice(8,10))
-    setTimeout(this._tabs.goToPage.bind(this._tabs,currentDayTabIndex))
-
-
-    //     const response = await fetch(`http://localhost:3001/users/${this.state.userId}/workout
-    //
-    // s/${currentISODate}`, {
-    //       method: 'GET',
-    //       headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json',
-    //       }
-    //     })
-    //     const responseJson = await response.json()
-    //     //set execises state with today's workouts
-    //     this.setState({
-    //       selectedExercises: responseJson[0].exercises
-    //    })
   }
 
 //to create an array of all the days of current month
   getDateTabsArray () {
-    let currentMonth = this.state.todayDate.getMonth()
-    let currentYear = this.state.todayDate.getFullYear()
 
-     let date = new Date(currentYear, currentMonth, 1)
+    let currentDate = new Date()
+    let date = new Date(2018, 2, currentDate.getDate()+1)
      let days = []
-     while (date.getMonth() === currentMonth) {
-       let dateElement = new Date(date)
-        days.push(dateElement)
-        date.setDate(date.getDate() + 1)
+
+     for(let i = -4; i < 5; i++){
+       let currentDate = new Date()
+       let date = new Date(2018, 2, currentDate.getDate()+i)
+       days.push(date)
      }
+
      this.setState({dateTabs:days})
      return days
    }
@@ -83,7 +65,6 @@ class CalendarNav extends Component {
 //to render tabs showing all dates in the dateTabs array as individual tabs
   renderTabs(){
     return this.state.dateTabs.map(tab => {
-
       let tabName = tab.toString().substr(0, 10)
       let usersCurrentTab = this.state.usersCurrentTab
       let splitDate = usersCurrentTab.split('-')
@@ -201,9 +182,14 @@ class CalendarNav extends Component {
   setCurrentTabState(params) {
     //get the chosen date in ISO format based on the index of the tab user clicked on
     //'params' passes the tab index user clicked on
+    let dayIndex = params.i
+    let dateArray = this.state.dateTabs
+    let dateValue = dateArray[dayIndex].toString()
 
+    let dayDate = dateValue.substring(8,10)
     this.setState({isLoading:true})
-    let newState = `${this.state.todayDate.getMonth()+1}-${params.i+1}-${this.state.todayDate.getFullYear()}`
+    let newState = `${this.state.todayDate.getMonth()+1}-${dayDate}-${this.state.todayDate.getFullYear()}`
+
 
     this.setState({usersCurrentTab:newState})
         console.log("newState", newState);
@@ -213,7 +199,7 @@ class CalendarNav extends Component {
         return response.json()
       })
       .then(responseJson => {
-
+        console.log("responseJson", responseJson);
           if(responseJson.length === 0) {
             this.setState({
               isLoading:false,
@@ -270,7 +256,6 @@ class CalendarNav extends Component {
       return response.json()
     })
     .then(responseJson => {
-      console.log(responseJson[0])
       var newState = this.state.selectedExercises.slice()
       newState.push(responseJson[0])
       this.setState({ selectedExercises: newState })
@@ -280,7 +265,6 @@ class CalendarNav extends Component {
 
 //Main Render
   render() {
-
 
     return (
       <Container>
@@ -370,56 +354,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#17252A',
     height: 20,
   },
-  card: {
-    backgroundColor: '#FEFFFF',
-    color: '#17252A',
-    fontSize: 18,
-    fontFamily: 'DidactGothic-Regular',
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2},
-    shadowOpacity: 0.2,
-
-  },
-  titleText: {
-    fontSize: 18,
-    padding: 0,
-    margin: 0,
-  },
-  subText: {
-    fontSize: 16,
-    padding: 0,
-    margin: 0,
-    // fontFamily: 'Montserrat',
-  },
-  table: {
-    width: '75%',
-    backgroundColor: '#FEFFFF',
-    borderWidth: 0,
-    padding: 0,
-    margin: 5,
-  },
-  head: {
-    height: 30,
-    backgroundColor: '#DEF2F1',
-    borderWidth: 0,
-    padding: 0,
-    margin: 0,
-  },
-  row: {
-    height: 35,
-    borderWidth: 0,
-    padding: 0,
-    margin: 0,
-  },
-  text: {
-    textAlign: 'center',
-    color: '#17252A'
-  },
   iconContainer:{
-    marginTop: 25,
+    marginTop: 40,
     marginBottom: 25,
     width: '95%',
     justifyContent: 'center',
@@ -429,9 +365,7 @@ const styles = StyleSheet.create({
   soleIconContainer:{
     paddingTop: 500,
     width: '95%',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // alignSelf: 'center',
+
   },
   modalContent: {
     backgroundColor: "white",
