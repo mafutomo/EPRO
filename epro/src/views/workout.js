@@ -27,7 +27,7 @@ class Workout extends Component {
 
        }
   }
-  //index 0 - Performance Phase, 1 - Power, 2 - Endurance, 3 - Rest
+
 
   async componentDidMount() {
 
@@ -60,7 +60,6 @@ class Workout extends Component {
       isUpdated: true
     })
 
-    //add here
     const userResponse = await fetch(`https://epro-fitness-api.herokuapp.com/users/${responseJson.userId}`, {
     method: 'GET',
     headers: {
@@ -73,15 +72,15 @@ class Workout extends Component {
     const daysAgo = Math.floor(( Date.parse(new Date()) - Date.parse(user.last_day)) / 86400000) % user.cycle_length;
     const currentCycleDay = daysAgo%user.cycle_length;
     const phase = user.cycle_length / 4;
-
+  //index 0 - Performance Phase, 1 - Power, 2 - Endurance, 3 - Rest
     if (currentCycleDay >= 0 && currentCycleDay <= phase) {
       this.setState({
-        phase: 1,
+        phase: 2,
         bannerText: 'You are in your Power Phase'
       })
     } else if (currentCycleDay > phase && currentCycleDay <= phase * 2) {
       this.setState({
-        phase: 2,
+        phase: 1,
         bannerText: 'You are in your Performance Phase'
       })
     } else if (currentCycleDay > phase * 2 && currentCycleDay <= phase * 3) {
@@ -102,7 +101,7 @@ class Workout extends Component {
   }
 
   render() {
-    console.log("USER ID",this.state.userId)
+    console.log("phase index",this.state.phase);
     return (
         <Container>
             <Header style={styles.header}>
@@ -140,11 +139,11 @@ class Workout extends Component {
           style={{ flex: 1 }}
           style={styles.modalContent}>
             <Text
-            style={styles.modalTitle}>What is Performance Phase?</Text>
+            style={styles.modalTitle}>What is --------?</Text>
             <Text
             style={styles.modalDescription}
             >
-            {this.state.phaseDescription[0]}
+            {this.state.phaseDescription[this.state.phase]}
             </Text>
             <TouchableOpacity onPress={this.toggleModal}>
               <Text
