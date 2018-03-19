@@ -142,12 +142,13 @@ class CalendarNav extends Component {
       key = {exercise.exercise_id}
       exerciseName= {exercise.name}
       data = {[[exercise.sets,exercise.reps,exercise.weight,exercise.time]]}
-      onPress ={() => {this.deleteExercise(exercise)}}
+      onPress ={() => this.deleteExercise(exercise)}
       />
     })
   }
 
   deleteExercise(data){
+    console.log("woo!");
     let workoutExerciseID = data.id
     let exerciseID = data.exercise_id
     fetch(`http://localhost:3001/exercises/${workoutExerciseID}/${exerciseID}/`, {
@@ -192,7 +193,7 @@ class CalendarNav extends Component {
 
 
     this.setState({usersCurrentTab:newState})
-        console.log("newState", newState);
+
 
       fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${newState}`)
       .then(response => {

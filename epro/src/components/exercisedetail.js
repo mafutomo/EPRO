@@ -9,20 +9,21 @@ const ExerciseDetail = (props) => {
 
   const tableHead = ['Sets', 'Reps', 'Weight', 'Time'];
 
-
-
     return (
 
           <Card style={styles.card}>
 
+          <View
+          hitSlop={{bottom: 40, left: 10, right: 10}}>
           <TouchableOpacity
           onPress = {props.onPress}
-          style = {styles.trashIcon}>
+          style = {styles.trashIcon}
+          >
             <Icon
               name="close"
               color={'#501F3A'}/>
           </TouchableOpacity>
-
+          </View>
           {/* Exercise Label */}
           <View style={styles.cardBody}>
             <CardItem>
@@ -126,8 +127,8 @@ const styles = StyleSheet.create({
   },
   trashIcon:{
     alignSelf: 'flex-end',
-    marginRight: 15,
-    marginTop: 25,
+    paddingRight: 15,
+    paddingTop: 25,
   },
   cardBody:{
     alignItems:'center',
