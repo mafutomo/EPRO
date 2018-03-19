@@ -366,7 +366,7 @@ const styles = StyleSheet.create({
   },
   body:{
     backgroundColor: '#17252A',
-    height: 20,
+    height: 25,
   },
   iconContainer:{
     marginTop: 40,
@@ -413,7 +413,8 @@ const styles = StyleSheet.create({
   modalTitle:{
     fontSize: 20,
     paddingBottom: 20,
-  }
+  },
+  
 
 });
 

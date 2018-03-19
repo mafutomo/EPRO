@@ -26,10 +26,10 @@ class Workout extends Component {
        phase: null,
        phaseDescription:
        [
-         "After the first few days of bleeding, the rising levels of estrogen in your body will help you feel more social, positive, and extroverted than you felt the week prior to your period. This is the week that you’ll likely feel your best physically, energetically, and emotionally.",
-         "As estrogen rises throughout this week, your best days to train hard start two or three days after your period begins up until a couple days before ovulation. Focus your workouts this week on resistance training and power, as rising estrogen levels will help you build more muscle and build it faster.",
-         "Muscle growth and maintenance is especially difficult during this time, and you may find it harder to perform at your max. On the upside, you’re burning up to 30% more fat when you exercise thanks to the combination of estrogen and progesterone making your body more efficient at using fat for fuel. Bonus: Exercising reduces hormone-triggered water retention by helping you sweat out excess fluid.",
-         "Some women experience little to no PMS symptoms during this time, while others have such a hard time during these days that they can’t even get out of bed. These symptoms can also vary month-to-month and depend greatly on factors such as diet, stress levels, and your body’s personal sensitivity to hormones. If you feel well enough to exercise, make sure you’re taking it easy and listening to your body. This may be a great time of the month to take a few days off and let your body recover as it prepares for menstruation."
+         "After the first few days of bleeding, the rising levels of estrogen in your body will help you feel more social, positive, and extroverted than you felt the week prior to your period. \n \nThis is the week that you’ll likely feel your best physically, energetically, and emotionally.",
+         "As estrogen rises throughout this week, your best days to train hard start two or three days after your period begins up until a couple days before ovulation. \n \nFocus your workouts this week on resistance training and power, as rising estrogen levels will help you build more muscle and build it faster.",
+         `Muscle growth and maintenance is especially difficult during this time, and you may find it harder to perform at your max. \n \nOn the upside, you’re burning up to 30% more fat when you exercise thanks to the combination of estrogen and progesterone making your body more efficient at using fat for fuel. \n \nBonus: Exercising reduces hormone-triggered water retention by helping you sweat out excess fluid.`,
+         "Some women experience little to no PMS symptoms during this time, while others have such a hard time during these days that they can’t even get out of bed. \n \nThese symptoms can also vary month-to-month and depend greatly on factors such as diet, stress levels, and your body’s personal sensitivity to hormones. \n \nIf you feel well enough to exercise, make sure you’re taking it easy and listening to your body. This may be a great time of the month to take a few days off and let your body recover as it prepares for menstruation."
        ],
 
        }
@@ -156,8 +156,11 @@ class Workout extends Component {
             >
             {this.state.phaseDescription[this.state.phase]}
             </Text>
-            <TouchableOpacity onPress={this.toggleModal}>
+            <TouchableOpacity
+            onPress={this.toggleModal}
+            style = {styles.exitModalButton}>
               <Text
+              style = {styles.exitModalText}
               onPress = {() => this.setState({ isModalVisible: false })}
               >Exit</Text>
             </TouchableOpacity>
@@ -198,12 +201,43 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 4,
     borderColor: "rgba(0, 0, 0, 0.1)",
-    marginBottom: 200,
-    marginTop: 200,
     textAlign: "center",
+    marginTop: -100,
     height: 500,
     },
-
+    modalTitle:{
+      fontSize: 18,
+      fontFamily: 'Montserrat',
+      fontWeight: '700',
+      textAlign: 'center',
+      paddingBottom: 35,
+    },
+    modalDescription:{
+      fontSize: 16,
+      fontFamily: 'Montserrat',
+      marginBottom: 20,
+    },
+    exitModalText: {
+      alignSelf: 'center',
+      color: '#FEFFFF',
+      fontSize: 15,
+      fontFamily: 'Montserrat',
+    },
+    exitModalButton: {
+      width: '30%',
+      alignSelf: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#3AAFA9',
+      padding: 8,
+      borderRadius: 27,
+      borderColor: '#3AAFA9',
+      borderWidth: 1,
+      marginTop: 5,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2},
+      shadowOpacity: 0.2,
+    }
   });
 
 
