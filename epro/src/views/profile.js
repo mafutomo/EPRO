@@ -134,7 +134,7 @@ class Profile extends Component {
 
   render() {
     return (
-        <Container>
+        <Container style={{backgroundColor: '#FEFFFF'}}>
         <Header style={styles.header}>
           <Left>
             <Button
@@ -312,6 +312,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 50,
+        marginTop: 0,
+        paddingTop: 0
     },
     textStyle: {
       alignSelf: 'center',

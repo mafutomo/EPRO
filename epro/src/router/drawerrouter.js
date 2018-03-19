@@ -13,6 +13,7 @@ const DrawerRouter = DrawerNavigator(
   },
   {
     initialRouteName: 'Home',
+    drawerWidth: 325,
     contentComponent: props => <SideBar {...props} />
   }
 )
