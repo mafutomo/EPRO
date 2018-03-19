@@ -29,9 +29,7 @@ export default class Home extends Component {
        token: null,
        userId: null,
        isUpdated: false,
-       todayDate: new Date(),
-       data: [],
-       }
+      }
   }
 
   async componentDidMount() {
@@ -107,7 +105,6 @@ export default class Home extends Component {
             { this.state.isUpdated ?
               <HomeChart
                 userId={this.state.userId}
-                data={this.state.data}
               /> : null
               }
             </Content>
