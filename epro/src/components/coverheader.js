@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Subtitle } from 'native-base';
+import Background from '../components/backgroundimage';
 
 const CoverHeader = (props) => {
 
     return (
       <Container>
-        <Header style = {styles.header}>
+        <Background />
+        {/* <Header style = {styles.header}>
           <Left>
 
           </Left>
@@ -16,7 +18,7 @@ const CoverHeader = (props) => {
           </Body>
           <Right>
           </Right>
-        </Header>
+        </Header> */}
 
       </Container>
     );

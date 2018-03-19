@@ -44,7 +44,7 @@ import {
 const colors = {
     black: 'black',
     estrogen: '#501F3A',
-    progesterone: '#FFBA49'
+    progesterone: '#CB2D6F'
 }
 
 class HormoneChart extends Component {

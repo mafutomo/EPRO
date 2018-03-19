@@ -6,7 +6,7 @@ import InputBox from '../components/inputbox';
 import Submit from '../components/submit';
 import { StackNavigator } from "react-navigation";
 import PasswordInputText from 'react-native-hide-show-password-input';
-// import Toast from 'react-native-simple-toast';
+import Background from '../components/backgroundimage';
 
 export default class Login extends React.Component {
 
@@ -76,7 +76,8 @@ export default class Login extends React.Component {
   render() {
     return (
         <Container style = {styles.background}>
-          <CoverHeader />
+          <Background />
+          {/* <CoverHeader /> */}
           <Content style = {styles.contentStyle}>
             <TextInput
               secureTextEntry={false}
@@ -126,7 +127,7 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: '#f9f9f9',
+    // backgroundColor: '#f9f9f9',
   },
   viewStyle: {
     justifyContent: 'center',
@@ -146,6 +147,7 @@ const styles = StyleSheet.create({
   },
   contentStyle:{
     paddingTop: 25,
+    marginTop: 350,
   },
   inputStyle: {
     backgroundColor: '#FEFFFF',

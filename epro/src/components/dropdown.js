@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Picker } from 'react-native';
 import { View, Container } from 'native-base';
 import { Dropdown } from 'react-native-material-dropdown';
+
 export default class DatePicker extends Component {
   render() {
     let data = [{
