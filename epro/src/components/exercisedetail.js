@@ -15,7 +15,7 @@ const ExerciseDetail = (props) => {
           hitSlop={{bottom: 40, left: 10, right: 10}}>
           <TouchableOpacity
           onPress = {props.onPress}
-          style = {styles.trashIcon}
+          style = {styles.deleteIcon}
           >
             <Icon
               name="close"
@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
     width: "98%",
-    height:300,
   },
   titleText: {
     padding: 0,
@@ -120,10 +119,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
   },
-  trashIcon:{
+  deleteIcon:{
     alignSelf: 'flex-end',
-    paddingRight: 15,
-    paddingTop: 25,
+    paddingRight: 20,
+    paddingTop: 15,
   },
   cardBody:{
     alignItems:'center',

@@ -91,18 +91,17 @@ class CalendarNav extends Component {
                 activeTextStyle={{color: '#DEF2F1'}}
                 heading={`${tabName}`}
                 >
+                <TouchableOpacity
+                style={styles.iconContainer}
+                onPress={ () => {this.toggleEditModalVisible()}}>
+                  <Icon
+                    active name="add-circle"
+                    size={45}
+                    color={'#FFBA49'}
+                  />
+                </TouchableOpacity>
+
                   {this.renderExercises()}
-                  <TouchableOpacity
-                  style={styles.iconContainer}
-                  onPress={ () => {this.toggleEditModalVisible()}}>
-                    <Icon
-                      active name="add-circle"
-                      size={45}
-                      color={'#FFBA49'}
-                    />
-                  </TouchableOpacity>
-
-
 
                 </Tab>
 
@@ -115,7 +114,6 @@ class CalendarNav extends Component {
                     heading={`${tabName}`}
                     style = {styles.tabEmpty}
                     >
-
 
                     <TouchableOpacity
                     style={styles.soleIconContainer}
@@ -369,16 +367,18 @@ const styles = StyleSheet.create({
     height: 25,
   },
   iconContainer:{
-    marginTop: 40,
-    marginBottom: 25,
+    marginTop: 15,
+    marginBottom: 10,
     width: '95%',
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
   },
   soleIconContainer:{
-    paddingTop: 500,
     width: '95%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
 
   },
   modalContent: {
@@ -398,7 +398,7 @@ const styles = StyleSheet.create({
   },
   tabEmpty: {
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   cancelButton: {
     fontSize: 18,
@@ -414,7 +414,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingBottom: 20,
   },
-  
+
 
 });
 
