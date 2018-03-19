@@ -177,7 +177,7 @@ class HormoneChart extends Component {
         }
     const data = this.state.data;
     const screen = Dimensions.get('window');
-    const margin = {top: 50, right: 35, bottom: 350, left: 35}
+    const margin = {top: 35, right: 35, bottom: 400, left: 35}
     const width = screen.width - margin.left - margin.right
     const height = screen.height - margin.top - margin.bottom
 
@@ -340,6 +340,7 @@ class HormoneChart extends Component {
 const styles = StyleSheet.create({
   chartView:{
     marginBottom:-350,
+    backgroundColor: '#FEFFFF'
   },
   container: {
     // margin: 20,

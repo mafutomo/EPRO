@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as Progress from 'react-native-progress';
 import { Text, View, StyleSheet, AsyncStorage, TouchableOpacity } from 'react-native';
-import { Container, Header, Footer, Content, Left, Button, Icon, Body, Title, Right, Tabs, Tab } from 'native-base';
+import { Container, Header, Footer, Content, Left, Button, Icon, Body, Title, Right, Tabs, Tab, Grid, Col, Row, Badge } from 'native-base';
 import TopNav from '../components/topnav';
 import Banner from '../components/banner';
 import HormoneChart from '../components/hormonechart';
@@ -24,6 +24,7 @@ class Profile extends Component {
        progress: null,
        bannerText: '',
        isModalVisible: false,
+       phaseText: '',
        exerciseText: '',
        nutritionText: ''
      }
@@ -78,6 +79,7 @@ class Profile extends Component {
         dayCurrCycle: currentCycleDay,
         phase: 1,
         progress: currentCycleDay/user.cycle_length,
+        phaseText: "Power Phase",
         bannerText: 'You are in your Power Phase'
       })
     } else if (currentCycleDay > phase && currentCycleDay <= phase * 2) {
@@ -87,6 +89,7 @@ class Profile extends Component {
         dayCurrCycle: currentCycleDay,
         phase: 2,
         progress: currentCycleDay/user.cycle_length,
+        phaseText: "Performance Phase",
         bannerText: 'You are in your Performance Phase'
       })
     } else if (currentCycleDay > phase * 2 && currentCycleDay <= phase * 3) {
@@ -96,6 +99,7 @@ class Profile extends Component {
         dayCurrCycle: currentCycleDay,
         phase: 3,
         progress: currentCycleDay/user.cycle_length,
+        phaseText: "Endurance Phase",
         bannerText: 'You are in your Endurance Phase'
       })
     } else {
@@ -105,6 +109,7 @@ class Profile extends Component {
         dayCurrCycle: currentCycleDay,
         phase: 4,
         progress: currentCycleDay/user.cycle_length,
+        phaseText: "Rest Phase",
         bannerText: 'You are in your Rest Phase'
       })
     }
@@ -129,7 +134,7 @@ class Profile extends Component {
 
   render() {
     return (
-        <Container>
+        <Container style={{backgroundColor: '#FEFFFF'}}>
         <Header style={styles.header}>
           <Left>
             <Button
@@ -147,20 +152,46 @@ class Profile extends Component {
           </Right>
         </Header>
           <Content>
-          //to pass state
           { this.state.isUpdated ?
             <Banner
-              bannerText = {this.state.bannerText}
+              bannerText = "Cycle Overview"
               userId={this.state.userId}
             /> : null
             }
             <View>
-          { this.state.isUpdated ?
-            <HormoneChart
-              userId={this.state.userId}
-            /> : null
-            }
+              <Grid >
+                  <Col
+                    style={{paddingLeft: 10, paddingTop: 5}}
+                    size={1} backgroundColor={'#FEFFFF'}>
+                    <Icon name="square" isActive={true} style={{color: '#501F3A', fill: '#501F3A', fontSize: 12}}/>
+                  </Col>
+                  <Col
+                    style={{paddingTop: 5}}
+                    size={3}
+                    backgroundColor={'#FEFFFF'}>
+                    <Text style={{fontSize: 14, fontFamily: 'DidactGothic-Regular'}}>Estrogen(pg/ml)</Text>
+                  </Col>
+                  <Col
+                    style={{paddingTop: 5}}
+                    size={1}
+                    backgroundColor={'#FEFFFF'}>
+                    <Icon name="square" isActive={true} style={{color: '#CB2D6F', fontSize: 12 }}/>
+                  </Col>
+                  <Col
+                    style={{paddingRight: 10, paddingTop: 5}}
+                    size={3}
+                    backgroundColor={'#FEFFFF'}>
+                    <Text>Progesterone(ng/ml)</Text>
+                  </Col>
+              </Grid>
             </View>
+          { this.state.isUpdated ?
+            <View>
+              <HormoneChart
+                userId={this.state.userId}
+              />
+            </View> : null
+            }
             <View style={styles.container}>
               <Progress.Bar
                 progress={this.state.progress}
@@ -169,7 +200,10 @@ class Profile extends Component {
                 color={'#FFBA49'}
                 borderWidth={0.5}
               />
-              <Text>Day: {this.state.dayCurrCycle}</Text>
+              <Text style={styles.progressText}>Day: {this.state.dayCurrCycle}</Text>
+            </View>
+            <View>
+              <Title style={styles.titleText}>{this.state.bannerText}</Title>
             </View>
             <TouchableOpacity
               style={styles.buttonStyle}
@@ -192,13 +226,15 @@ class Profile extends Component {
                   activeTextStyle={{color: "#501F3A"}}>
                   <View>
                     <Text
+                    style={styles.modalTitle}>{this.state.phaseText}</Text>
+                    <Text
                     style={styles.modalDescription}
                     >
                     {this.state.exerciseText}
                     </Text>
-                    <TouchableOpacity onPress={this.toggleModal}>
+                    <TouchableOpacity style={styles.exitModalButton} onPress={this.toggleModal}>
                       <Text
-                        style={styles.exitText}
+                        style={styles.exitModalText}
                       onPress = {() => this.setState({ isModalVisible: false })}
                       >Exit</Text>
                     </TouchableOpacity>
@@ -210,13 +246,15 @@ class Profile extends Component {
                   activeTextStyle={{color: "#501F3A"}}>
                   <View>
                     <Text
+                    style={styles.modalTitle}>{this.state.phaseText}</Text>
+                    <Text
                     style={styles.modalDescription}
                     >
                     {this.state.nutritionText}
                     </Text>
-                    <TouchableOpacity onPress={this.toggleModal}>
+                    <TouchableOpacity style={styles.exitModalButton} onPress={this.toggleModal}>
                       <Text
-                        style={styles.exitText}
+                        style={styles.exitModalText}
                       onPress = {() => this.setState({ isModalVisible: false })}
                       >Exit</Text>
                     </TouchableOpacity>
@@ -249,6 +287,25 @@ const styles = StyleSheet.create({
       fontSize: 22,
       alignSelf: 'center',
     },
+    titleText: {
+      backgroundColor: "#FEFFFF",
+      width: '100%',
+      color: '#17252A',
+      fontFamily: 'Montserrat',
+      fontSize: 18,
+      textAlign: 'center',
+      alignSelf: 'center',
+      paddingTop: 5,
+      paddingBottom: 10,
+      fontWeight: '600',
+    },
+    progressText: {
+      color: '#17252A',
+      fontFamily: 'Montserrat',
+      fontSize: 18,
+      alignSelf: 'center',
+      paddingTop: 5,
+    },
     headerIcon: {
       color: '#17252A',
     },
@@ -256,12 +313,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 50,
+        marginTop: -40,
+        paddingTop: 0
     },
     textStyle: {
       alignSelf: 'center',
       color: 'white',
-      fontSize: 16,
+      fontSize: 18,
       fontFamily: 'Montserrat',
+      fontWeight: "700",
     },
     buttonStyle: {
       width: '68%',
@@ -288,22 +348,52 @@ const styles = StyleSheet.create({
       borderRadius: 4,
       borderColor: "rgba(0, 0, 0, 0.1)",
       textAlign: "center",
-      height: 400,
+      height: 350,
     },
     modalTabs: {
       backgroundColor: "white",
     },
     modalDescription: {
-      paddingTop: 30,
+      paddingTop: 25,
       fontSize: 16,
       fontFamily: 'Montserrat',
     },
     exitText: {
       textAlign: 'center',
+      alignSelf: 'center',
+      color: 'white',
       paddingTop: 30,
       fontSize: 16,
       fontFamily: 'Montserrat',
       fontWeight: "600",
+    },
+    modalTitle: {
+      fontSize: 18,
+      fontFamily: 'Montserrat',
+      fontWeight: '700',
+      textAlign: 'center',
+      paddingTop: 25,
+    },
+    exitModalText: {
+      alignSelf: 'center',
+      color: '#FEFFFF',
+      fontSize: 15,
+      fontFamily: 'Montserrat',
+    },
+    exitModalButton: {
+      width: '30%',
+      alignSelf: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#3AAFA9',
+      padding: 8,
+      borderRadius: 27,
+      borderColor: '#3AAFA9',
+      borderWidth: 1,
+      marginTop: 5,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2},
+      shadowOpacity: 0.2,
     }
   });
 

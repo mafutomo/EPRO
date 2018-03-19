@@ -1,6 +1,7 @@
 import React from "react";
 import { AppRegistry, StyleSheet, Image, StatusBar, View } from "react-native";
 import { Container, Content, Text, List, ListItem, Header, Icon } from "native-base";
+import SideBackground from '../components/sidebackground';
 const routes = ["ABOUT E/PRO", "LOGOUT"];
 const icons = ["information-circle", "exit"]
 
@@ -10,7 +11,8 @@ const SideBar = (props) => {
       <Container>
       <Header style = {styles.header}>
         </Header>
-        <Content style={styles.body}>
+        <SideBackground />
+        {/* <Content style={styles.body}> */}
           <List
           style={{marginTop: 15}}>
                 <ListItem
@@ -33,7 +35,7 @@ const SideBar = (props) => {
                   style={styles.textStyle}>Log out</Text>
                 </ListItem>
           </List>
-        </Content>
+        {/* </Content> */}
       </Container>
     );
 
