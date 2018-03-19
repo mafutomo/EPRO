@@ -13,7 +13,8 @@ class History extends Component {
      this.state = {
        token: null,
        userId: null,
-       isUpdated: false
+       isUpdated: false,
+       bannerText: null,
      }
   }
 
@@ -40,14 +41,27 @@ class History extends Component {
       })
     })
     const responseJson = await response.json();
-    console.log(responseJson);
+
     this.setState({
       userId: responseJson.userId,
       isUpdated: true
     })
+    /// start
+    const user = await fetch(`https://epro-fitness-api.herokuapp.com/users/${responseJson.userId}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    const userJson = await user.json()
+    this.setState({
+      bannerText: `Hello ${userJson[0].first_name}`
+    })
   }
 
   render() {
+    console.log("banner text",this.state.bannerText);
     return (
         <Container>
             <Header style={styles.header}>
@@ -69,6 +83,7 @@ class History extends Component {
           { this.state.isUpdated ?
             <Banner
               userId={this.state.userId}
+              bannerText={"Hello Stephanie"}
             /> : null
             }
           <Content>
@@ -80,7 +95,8 @@ class History extends Component {
             { this.state.isUpdated ?
               <HistoryTable
                 userId={this.state.userId}
-              /> : null
+              />
+               : null
               }
           </Content>
         </Container>

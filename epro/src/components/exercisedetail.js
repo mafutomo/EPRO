@@ -10,9 +10,7 @@ const ExerciseDetail = (props) => {
   const tableHead = ['Sets', 'Reps', 'Weight', 'Time'];
 
     return (
-
           <Card style={styles.card}>
-
           <View
           hitSlop={{bottom: 40, left: 10, right: 10}}>
           <TouchableOpacity
@@ -54,10 +52,7 @@ const ExerciseDetail = (props) => {
               </Table>
 
               <Right>
-                {/* Done Icon
-                <CheckBox checked={true} style={{alignSelf: 'center'}}
-                color={'#501F3A'}/>
-                */}
+
               </Right>
 
             </CardItem>

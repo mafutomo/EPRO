@@ -18,7 +18,7 @@ const Banner = (props) => {
 
 const styles = {
   bannerStyle: {
-      backgroundColor: '#3AAFA9',
+      backgroundColor: '#2B7A78',
       justifyContent: 'center',
       alignItems: 'center',
       height: 53,

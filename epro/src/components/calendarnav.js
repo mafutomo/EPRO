@@ -295,47 +295,60 @@ class CalendarNav extends Component {
               style={styles.modalTitle}>Create an Exercise</Text>
 
             <InputBox
-            onChangeText={(text) => this.setState({inputExerciseName:text})}/>
+            placeholder="Name"
+            onChangeText={(text) => this.setState({inputExerciseName:text})}
+            />
             <InputBox
-            onChangeText={(text) => this.setState({inputDescription:text})}/>
-            <View style = {{flexDirection: 'row'}}>
+            placeholder="Description"
+            onChangeText={(text) => this.setState({inputDescription:text})}
+            />
+
+            <View style = {{flexDirection: 'row', paddingTop:20}}>
+
             <View style = {{flexDirection:'column',alignItems:'center',paddingRight:15}}>
             <Text>Sets</Text>
             <SmallInputBox
+            placeholder="0"
             onChangeText={(text) => this.setState({inputSet:text})}/>
             </View>
+
             <View style = {{flexDirection:'column',alignItems:'center'}}>
             <Text>Weight</Text>
             <SmallInputBox
+            placeholder="0 Ibs"
             onChangeText={(text) => this.setState({inputWeight:text})}/>
             </View>
+
             </View>
 
-            <View style = {{flexDirection: 'row'}}>
+            <View style = {{flexDirection: 'row', paddingTop: 10}}>
             <View style = {{flexDirection:'column',alignItems:'center',paddingRight:15}}>
               <Text>Reps</Text>
               <SmallInputBox
+              placeholder="0"
               onChangeText={(text) => this.setState({inputRep:text})}/>
             </View>
             <View style = {{flexDirection:'column',alignItems:'center'}}>
             <Text>Time</Text>
             <SmallInputBox
+            placeholder="00:00"
             onChangeText={(text) => this.setState({inputTime:text})}/>
             </View>
             </View>
 
-            <View style = {{flexDirection: 'row'}}>
+            <View style = {{flexDirection: 'row', paddingTop: 25}}>
               <TouchableOpacity onPress = { () => {this.hideMondalOmitState()}}>
                 <Text
-
+                style = {styles.cancelButton}
                 >Cancel</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity>
+              <TouchableOpacity onPress = { () =>
+                {this.addExercise()}
+              }>
                 <Text
-                onPress = { () =>
-                  {this.addExercise()}
-                }
+                style = {styles.saveButton}
+
                 >Save</Text>
               </TouchableOpacity>
             </View>
@@ -386,6 +399,20 @@ const styles = StyleSheet.create({
   tabEmpty: {
     justifyContent: "center",
     alignItems: "center"
+  },
+  cancelButton: {
+    fontSize: 18,
+    fontFamily: 'DidactGothic-Regular',
+    paddingRight: 15,
+  },
+  saveButton:{
+    fontSize: 18,
+    fontFamily: 'DidactGothic-Regular',
+    paddingLeft: 15,
+  },
+  modalTitle:{
+    fontSize: 20,
+    paddingBottom: 20,
   }
 
 });

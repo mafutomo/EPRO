@@ -11,7 +11,8 @@ const SmallInputBox = (props) => {
       <TextInput
       style = {styles.inputStyle}
       autoCapitalize = "none"
-      onChangeText={props.onChangeText}/>
+      onChangeText={props.onChangeText}
+      placeholder = {props.placeholder}/>
     </View>
   )
 

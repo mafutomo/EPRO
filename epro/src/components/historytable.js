@@ -4,17 +4,24 @@ import { Container, Header, Content, Card, CardItem, Text, Body, Title, Icon, Ri
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 export default class HistoryTable extends Component {
   render() {
-    const tableHead = ['Exercise Description'];
+    const tableHead = ['Romanian Deadlift'];
     const tableTitle = ['Date', 'Sets', 'Reps', 'Weight', 'Time'];
     const tableData = [
-      ['1/1', '3', '1', '6lbs', '10s'],
-      ['1/2', '3', '1', '8lbs', '10s'],
+      ['3/18', '3', '10', '150 lbs', '00:00'],
+      ['3/19', '3', '8', '160 lbs', '00:00'],
+      ['3/20', '3', '10', '165 lbs', '00:00'],
+    ];
+    const tableHead2 = ['One Arm Hangs w/ Assistance'];
+    const tableData2 = [
+      ['3/05', '1', '3', '25 lbs', '00:10'],
+      ['3/12', '1', '3', '20 lbs', '00:10'],
+      ['3/19', '1', '3', '10 lbs', '00:10'],
     ];
     return (
         <Content>
           <Card style={styles.card}>
             <CardItem header>
-                <Text>Exercise</Text>
+                <Text>Deadlift</Text>
             </CardItem>
             <CardItem>
               <Table style={styles.table} borderStyle={{borderWidth: 0, borderColor: 'black'}}>
@@ -22,6 +29,21 @@ export default class HistoryTable extends Component {
                 <Row data={tableTitle} style={styles.title} heightArr={[28,28]} textStyle={styles.subText}/>
                 <TableWrapper style={{flexDirection: 'row', alignItems: 'center'}}>
                   <Rows data={tableData} flexArr={[1, 1, 1, 1, 1]} style={styles.row} textStyle={styles.text}/>
+                </TableWrapper>
+              </Table>
+            </CardItem>
+          </Card>
+
+          <Card style={styles.card}>
+            <CardItem header>
+                <Text>One Arm Hangs</Text>
+            </CardItem>
+            <CardItem>
+              <Table style={styles.table} borderStyle={{borderWidth: 0, borderColor: 'black'}}>
+                <Row data={tableHead2} style={styles.head} textStyle={styles.text}/>
+                <Row data={tableTitle} style={styles.title} heightArr={[28,28]} textStyle={styles.subText}/>
+                <TableWrapper style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Rows data={tableData2} flexArr={[1, 1, 1, 1, 1]} style={styles.row} textStyle={styles.text}/>
                 </TableWrapper>
               </Table>
             </CardItem>
@@ -55,7 +77,7 @@ const styles = StyleSheet.create({
   },
   table: {
     width: '100%',
-    height: '80%',
+    height: '70%',
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
@@ -63,6 +85,7 @@ const styles = StyleSheet.create({
   head: {
     height: 40,
     backgroundColor: '#DEF2F1',
+    fontSize: 23,
   },
   title: {
     flex: 1,

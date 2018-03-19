@@ -19,7 +19,7 @@ const WorkoutButton = (props) => {
 const styles = {
   textStyle: {
     alignSelf: 'center',
-    color: 'white',
+    color: '#17252A',
     fontSize: 15,
     fontFamily: 'Montserrat',
   },
@@ -28,10 +28,10 @@ const styles = {
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#3AAFA9',
+    backgroundColor: '#DEF2F1',
     padding: 8,
     borderRadius: 27,
-    borderColor: '#3AAFA9',
+    borderColor: '#DEF2F1',
     borderWidth: 1,
     marginTop: 5,
     marginLeft: 20,
