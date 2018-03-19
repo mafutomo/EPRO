@@ -304,6 +304,7 @@ const styles = StyleSheet.create({
       fontFamily: 'Montserrat',
       fontSize: 18,
       alignSelf: 'center',
+      paddingTop: 5,
     },
     headerIcon: {
       color: '#17252A',
@@ -312,7 +313,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 50,
-        marginTop: 0,
+        marginTop: -40,
         paddingTop: 0
     },
     textStyle: {
