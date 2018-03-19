@@ -62,7 +62,7 @@ const ExerciseDetail = (props) => {
             </CardItem>
               <WorkoutButton
               buttonName = "Done"
-              onPress = />
+              />
 
             </View>
          </Card>
