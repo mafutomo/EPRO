@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppRegistry, View, StyleSheet, ScrollView, Text } from 'react-native';
+import { AppRegistry, View, StyleSheet, ScrollView, Text, StatusBar } from 'react-native';
 import { Container, List, ListItem, Header, Content, Footer, FooterTab, Button, Icon, Root } from 'native-base';
 import SideBar from './src/components/sidebar'
 import Home from './src/views/home';
@@ -13,12 +13,14 @@ import DrawerRouter from './src/router/drawerrouter';
 import TabRouter from './src/router/tabrouter';
 import SignUpRouter from './src/router/signuprouter';
 
-
 const App = () => {
     return (
+
       <Root>
+        <StatusBar hidden={true} />
         <SignUpRouter />
       </Root>
+
     )
 }
 
