@@ -310,6 +310,10 @@ class CalendarNav extends Component {
             onChangeText={(text) => this.setState({inputSet:text})}/>
             </View>
 
+            <View
+            style={styles.boxSpacing}>
+            </View>
+
             <View style = {{flexDirection:'column',alignItems:'center'}}>
             <Text>Weight</Text>
             <SmallInputBox
@@ -326,6 +330,10 @@ class CalendarNav extends Component {
               placeholder="0"
               onChangeText={(text) => this.setState({inputRep:text})}/>
             </View>
+            <View
+            style={styles.boxSpacing}
+            >
+            </View>
             <View style = {{flexDirection:'column',alignItems:'center'}}>
             <Text>Time</Text>
             <SmallInputBox
@@ -334,19 +342,26 @@ class CalendarNav extends Component {
             </View>
             </View>
 
-            <View style = {{flexDirection: 'row', paddingTop: 25}}>
-              <TouchableOpacity onPress = { () => {this.hideMondalOmitState()}}>
+            <View style = {{flexDirection: 'row', paddingTop: 30, paddingBottom: 25}}>
+              <TouchableOpacity
+              style = {styles.cancelModalButton}
+              onPress = { () => {this.hideMondalOmitState()}}
+              >
                 <Text
-                style = {styles.cancelButton}
+              style = {styles.cancelModalText}
                 >Cancel</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress = { () =>
-                {this.addExercise()}
-              }>
-                <Text
-                style = {styles.saveButton}
+              <View
+              style = {styles.buttonSpace}>
+              </View>
 
+              <TouchableOpacity
+              style = {styles.submitModalButton}
+              onPress = { () => {this.addExercise()}}
+              >
+                <Text
+                style = {styles.submitModalText}
                 >Save</Text>
               </TouchableOpacity>
             </View>
@@ -364,7 +379,7 @@ const styles = StyleSheet.create({
   },
   body:{
     backgroundColor: '#17252A',
-    height: 25,
+      height: 25,
   },
   iconContainer:{
     marginTop: 15,
@@ -379,19 +394,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-
   },
   modalContent: {
     backgroundColor: "white",
-    padding: 22,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
     borderColor: "rgba(0, 0, 0, 0.1)",
-    marginBottom: 200,
-    marginTop: 200,
     textAlign: "center",
-    height: 500,
+    height: 550,
   },
   contentBody: {
       backgroundColor: '#FEFFFF',
@@ -412,9 +423,57 @@ const styles = StyleSheet.create({
   },
   modalTitle:{
     fontSize: 20,
-    paddingBottom: 20,
+    paddingBottom: 30,
+    fontFamily: 'Montserrat',
   },
-
+  submitModalText: {
+        alignSelf: 'center',
+        color: '#FEFFFF',
+        fontSize: 15,
+        fontFamily: 'Montserrat',
+      },
+  submitModalButton: {
+    width: '30%',
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#3AAFA9',
+    padding: 8,
+    borderRadius: 27,
+    borderColor: '#3AAFA9',
+    borderWidth: 1,
+    marginTop: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2},
+    shadowOpacity: 0.2,
+  },
+  cancelModalText: {
+        alignSelf: 'center',
+        color: '#FEFFFF',
+        fontSize: 15,
+        fontFamily: 'Montserrat',
+      },
+  cancelModalButton: {
+    width: '30%',
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#EF5B5B',
+    padding: 8,
+    borderRadius: 27,
+    borderColor: '#EF5B5B',
+    borderWidth: 1,
+    marginTop: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2},
+    shadowOpacity: 0.2,
+  },
+  buttonSpace:{
+    padding:18,
+  },
+  boxSpacing:{
+    padding:10,
+  }
 
 });
 

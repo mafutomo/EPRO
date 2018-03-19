@@ -38,11 +38,6 @@ const ExerciseDetail = (props) => {
             {/* Row */}
             <CardItem>
               <Left>
-              {/* Edit Icon
-                 <Icon
-                   name="create"
-                   color={'#501F3A'}/>
-                */}
               </Left>
 
               <Table style={styles.table} borderStyle={{borderWidth: 0, borderColor: 'black'}}>
@@ -52,7 +47,6 @@ const ExerciseDetail = (props) => {
               </Table>
 
               <Right>
-
               </Right>
 
             </CardItem>
@@ -76,7 +70,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
-    width: "98%",
+    width: "95%",
   },
   titleText: {
     padding: 0,
