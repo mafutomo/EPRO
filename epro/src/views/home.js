@@ -106,6 +106,7 @@ export default class Home extends Component {
                 userId={this.state.userId}
               /> : null
               }
+              <Submit />
             </Content>
             </Container>
 
@@ -134,6 +135,7 @@ const styles = StyleSheet.create({
     },
     body:{
       height: '100%',
+      backgroundColor: '#FEFFFF',
     },
     headerIcon: {
       color: '#17252A',

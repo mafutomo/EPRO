@@ -49,14 +49,6 @@ const colors = {
     progesterone: '#FFBA49'
 }
 
-// const data = [
-//   {day: "Monday", number: 0},
-//   {day: "Tuesday", number: 10},
-//   {day: "Wednesday", number: 0},
-//   {day: "Thursday", number: 6},
-//   {day: "Friday", number: 10},
-// ];
-
 class HomeChart extends Component {
   constructor(props) {
     super(props)
@@ -100,10 +92,9 @@ class HomeChart extends Component {
         },
       })
       const json = await response.json()
-      console.log(json);
+      console.log("json", json);
       (json[0] === undefined) ? exerciseArr.push([]) : exerciseArr.push(json[0].exercises);
     }
-    console.log("this is the ex arr", exerciseArr);
 
     for (let i = 0; i < exerciseArr.length; i++) {
       obj = {
@@ -112,8 +103,6 @@ class HomeChart extends Component {
       }
       numArr.push(obj);
     }
-    console.log("this is the num arr", numArr);
-
     this.setState({
       data: numArr,
       isLoading: false
@@ -138,7 +127,6 @@ class HomeChart extends Component {
                 <Spinner  />
             );
         }
-    console.log("dis da data", this.state.data);
     const screen = Dimensions.get('window');
     const margin = {top: 75, right: 35, bottom: 400, left: 35}
     const width = screen.width - margin.left - margin.right
@@ -167,7 +155,7 @@ class HomeChart extends Component {
                             .y(() => 0)
                             (bottomAxis)
 
-    const leftAxis = ticks(0, maxVolume, 5)
+    const leftAxis = ticks(0, maxVolume, 4)
 
     const leftAxisD = d3.shape.line()
                         .x(() => bottomAxis[0] + labelDx)
@@ -179,7 +167,7 @@ class HomeChart extends Component {
     const emptySpace = "";
 
     return (
-      <Container style={styles.container}>
+      // <Container style={styles.container}>
       <Surface style={styles.container} width={screen.width} height={screen.height}>
         <Group x={margin.left} y={margin.top}>
                   <Group x={0} y={height}>
@@ -194,9 +182,10 @@ class HomeChart extends Component {
                                 >
                                     <Shape d={this.drawLine(0, notch)} y2={notch} stroke={colors.black}/>
                                     <Text
+                                      style={{textAlign: 'center'}}
                                       y={labelDistance}
                                       fill={colors.black}
-                                      font="10px helvetica"
+                                      font="12px Montserrat"
                                     >
                                       {d.day}
                                     </Text>
@@ -214,7 +203,7 @@ class HomeChart extends Component {
                                           fill={colors.black}
                                           x={-25}
                                           y={-labelDistance}
-                                          font="10px helvetica"
+                                          font="12px Montserrat"
 
                                       >
                                           {d + emptySpace}
@@ -239,7 +228,7 @@ class HomeChart extends Component {
               </Group>
 
         </Surface>
-      </Container>
+      // </Container>
 
     )
   }

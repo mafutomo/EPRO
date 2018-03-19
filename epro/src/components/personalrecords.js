@@ -11,14 +11,15 @@ class PersonalRecords extends Component {
 
   render() {
     return (
-        <Container >
+        <Container
+          backgroundColor={'#FEFFFF'}>
           <Header backgroundColor={'#FEFFFF'}>
-            <Grid>
-              <Col style={{ backgroundColor: '#FEFFFF', height: '100%' }}>
+            <Grid backgroundColor={'#FEFFFF'}>
+              <Col style={{ backgroundColor: '#FEFFFF', height: '100%', borderRight: 'grey' }}>
                 <Text style={styles.text}>My Workouts</Text>
                 <Text style={styles.text}>24</Text>
               </Col>
-              <Col style={{ backgroundColor: '#cccccc', height: '100%' }}>
+              <Col style={{ backgroundColor: '#FEFFFF', height: '100%' }}>
                 <Text style={styles.text}>Personal Records</Text>
                 <Text style={styles.text}>24</Text>
               </Col>
