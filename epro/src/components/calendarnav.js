@@ -149,7 +149,7 @@ class CalendarNav extends Component {
     console.log("woo!");
     let workoutExerciseID = data.id
     let exerciseID = data.exercise_id
-    fetch(`http://localhost:3001/exercises/${workoutExerciseID}/${exerciseID}/`, {
+    fetch(`https://epro-fitness-api.herokuapp.com/exercises/${workoutExerciseID}/${exerciseID}/`, {
       method: 'DELETE'
     })
     .then(response => {
@@ -161,7 +161,7 @@ class CalendarNav extends Component {
 
     let currentTabDate = this.state.usersCurrentTab
 
-    fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${currentTabDate}`,{
+    fetch(`https://epro-fitness-api.herokuapp.com/users/${this.state.userId}/workouts/${currentTabDate}`,{
       method:'GET',
       headers: {
         'Accept': 'application/json',
@@ -193,7 +193,7 @@ class CalendarNav extends Component {
     this.setState({usersCurrentTab:newState})
 
 
-      fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${newState}`)
+      fetch(`https://epro-fitness-api.herokuapp.com/users/${this.state.userId}/workouts/${newState}`)
       .then(response => {
         return response.json()
       })
@@ -236,7 +236,7 @@ class CalendarNav extends Component {
   addExercise = () => {
 
     let currentTabDate = this.state.usersCurrentTab
-    fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${currentTabDate}`,{
+    fetch(`https://epro-fitness-api.herokuapp.com/users/${this.state.userId}/workouts/${currentTabDate}`,{
       method:'POST',
       headers: {
         'Accept': 'application/json',

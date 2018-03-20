@@ -1,7 +1,6 @@
 import React from 'react';
 import { AppRegistry, View, StyleSheet, ScrollView, Text, StatusBar } from 'react-native';
 import { Container, List, ListItem, Header, Content, Footer, FooterTab, Button, Icon, Root } from 'native-base';
-import SideBar from './src/components/sidebar'
 import Home from './src/views/home';
 import History from './src/views/history';
 import Profile from './src/views/profile';

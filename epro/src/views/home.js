@@ -8,7 +8,6 @@ import SliderVal from  '../components/slider';
 import Banner from  '../components/banner';
 import TopNav from '../components/topnav';
 import BottomNav from '../components/bottomnav';
-import SideBar from '../components/sidebar';
 import ExerciseDetail from '../components/exercisedetail';
 import { StackNavigator } from 'react-navigation';
 import PersonalRecords from '../components/personalrecords';

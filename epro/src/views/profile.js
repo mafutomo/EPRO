@@ -159,7 +159,7 @@ class Profile extends Component {
             /> : null
             }
             <View>
-              <Grid >
+              <Grid>
                   <Col
                     style={{paddingLeft: 15, paddingTop: 7}}
                     size={1} backgroundColor={'#FEFFFF'}>
