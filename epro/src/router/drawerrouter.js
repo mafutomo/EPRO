@@ -29,10 +29,9 @@ const DrawerRouter = DrawerNavigator(
             style={{marginTop: 0}}>
                   <ListItem
                     button
-                    style={{borderBottomWidth: 0}}
+                    style={{borderBottomWidth: 0, marginBottom:-10}}
                     onPress={() =>  props.navigation.navigate('Logout')}>
-                    <Icon name='information-circle'
-                    style ={styles.iconStyle} />
+
                     <Text
                     style={styles.textStyle}>About E/Pro</Text>
                   </ListItem>
@@ -41,8 +40,7 @@ const DrawerRouter = DrawerNavigator(
                     button
                     style={{borderBottomWidth: 0}}
                     onPress={() => props.navigation.navigate("Logout")}>
-                    <Icon name='exit'
-                    style ={styles.iconStyle} />
+
                     <Text
                     style={styles.textStyle}>Log out</Text>
                   </ListItem>
@@ -60,14 +58,12 @@ const styles = StyleSheet.create({
     fontFamily:'DidactGothic-Regular',
     color: 'black',
     fontSize:17,
+    marginLeft: 25,
   },
   header: {
-    height: 20,
+    height: 10,
   },
-  iconStyle:{
-    marginRight: 20,
-    color:'#FEFFFF',
-  }
+
 })
 
 export default DrawerRouter;
