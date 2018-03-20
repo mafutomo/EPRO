@@ -100,13 +100,6 @@ export default class Login extends React.Component {
               placeholder={this.state.placeholderPassword}
               onChangeText={(text) => this.setState({password:text})}/>
 
-            <View style={styles.viewStyle}>
-              <Button
-              style={styles.buttonStyle}
-              onPress={this.signUpReroute}>
-              <Text style={styles.textStyle}>{`Don't have an account? Sign up here.`}</Text>
-              </Button>
-            </View>
             { this.state.showToast ?
               <Submit
                 onPress={() => {
@@ -123,6 +116,10 @@ export default class Login extends React.Component {
                 onPress={this.loginUser}
                 />
               }
+              <Submit
+              onPress={this.signUpReroute}
+              buttonName="SIGN UP"
+              />
           </Content>
         </Container>
       )
