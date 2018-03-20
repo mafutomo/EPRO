@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, AsyncStorage, TextInput} from 'react-native';
 import { Container, Header, Footer, Content, Button, Toast } from 'native-base';
-import CoverHeader from '../components/coverheader';
 import InputBox from '../components/inputbox';
 import Submit from '../components/submit';
 import { StackNavigator } from "react-navigation";
 import PasswordInputText from 'react-native-hide-show-password-input';
 import Background from '../components/backgroundimage';
+import SignUp from './signup';
 
 export default class Login extends React.Component {
 
@@ -73,6 +73,10 @@ export default class Login extends React.Component {
     })
   }
 
+  signUpReroute(){
+    this.props.navigation.navigate(<SignUp/>)
+  }
+
   render() {
     return (
         <Container style = {styles.background}>
@@ -99,7 +103,7 @@ export default class Login extends React.Component {
             <View style={styles.viewStyle}>
               <Button
               style={styles.buttonStyle}
-              onPress={() => this.props.navigation.navigate("SignUp")}>
+              onPress={this.signUpReroute}>
               <Text style={styles.textStyle}>{`Don't have an account? Sign up here.`}</Text>
               </Button>
             </View>
