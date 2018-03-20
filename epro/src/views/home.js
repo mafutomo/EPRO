@@ -68,6 +68,10 @@ export default class Home extends Component {
     })
   }
 
+  workoutReroute = () => {
+    this.props.navigation.navigate('Workout')
+  }
+
   render() {
     return (
       <Container style={styles.body}>
@@ -108,8 +112,7 @@ export default class Home extends Component {
               }
               <Submit
                 style={styles.submit}
-                onPress={() => {
-                }}
+                onPress={this.workoutReroute}
                 buttonName = {`Go to today's workout`}
               />
             </Content>
