@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     },
     titleText: {
       backgroundColor: '#FEFFFF',
+      paddingTop: 10,
       marginTop: -600,
       alignItems: 'center',
       justifyContent: 'center',
