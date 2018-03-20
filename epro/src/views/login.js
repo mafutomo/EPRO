@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, AsyncStorage, TextInput} from 'react-native';
 import { Container, Header, Footer, Content, Button, Toast } from 'native-base';
-import CoverHeader from '../components/coverheader';
 import InputBox from '../components/inputbox';
 import Submit from '../components/submit';
 import { StackNavigator } from "react-navigation";
 import PasswordInputText from 'react-native-hide-show-password-input';
 import Background from '../components/backgroundimage';
+import SignUp from './signup';
 
 export default class Login extends React.Component {
 
@@ -73,11 +73,16 @@ export default class Login extends React.Component {
     })
   }
 
+  signUpReroute(){
+    this.props.navigation.navigate(<SignUp/>)
+  }
+
   render() {
     return (
         <Container style = {styles.background}>
           <Background />
-          {/* <CoverHeader /> */}
+          <Text
+          style={styles.titleText}>E/PRO</Text>
           <Content style = {styles.contentStyle}>
             <TextInput
               secureTextEntry={false}
@@ -95,13 +100,6 @@ export default class Login extends React.Component {
               placeholder={this.state.placeholderPassword}
               onChangeText={(text) => this.setState({password:text})}/>
 
-            <View style={styles.viewStyle}>
-              <Button
-              style={styles.buttonStyle}
-              onPress={() => this.props.navigation.navigate("SignUp")}>
-              <Text style={styles.textStyle}>{`Don't have an account? Sign up here.`}</Text>
-              </Button>
-            </View>
             { this.state.showToast ?
               <Submit
                 onPress={() => {
@@ -118,6 +116,10 @@ export default class Login extends React.Component {
                 onPress={this.loginUser}
                 />
               }
+              <Submit
+              onPress={this.signUpReroute}
+              buttonName="SIGN UP"
+              />
           </Content>
         </Container>
       )
@@ -146,8 +148,8 @@ const styles = StyleSheet.create({
     fontFamily: 'DidactGothic-Regular',
   },
   contentStyle:{
-    paddingTop: 25,
-    marginTop: 350,
+    paddingTop: 10,
+    marginTop: 335,
   },
   inputStyle: {
     backgroundColor: '#FEFFFF',
@@ -167,5 +169,16 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
     alignSelf: 'center',
+  },
+  titleText: {
+    fontFamily: 'Montserrat',
+    fontSize: 37,
+    color: 'black',
+    alignSelf: 'center',
+    marginBottom: -35,
+    marginTop: 27,
+    textShadowColor: 'rgba(23,37,42, 0.75)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 3,
   },
 })

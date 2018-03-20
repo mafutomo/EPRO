@@ -10,7 +10,7 @@ const SignUpRouter = StackNavigator (
 
   {
     Login: { screen: Login },
-    SignUp: { screen: SignUp },
+    SignUp: { screen:   SignUp },
     SignUp2: { screen: SignUp2 },
     Home: { screen: DrawerRouter }
   },
