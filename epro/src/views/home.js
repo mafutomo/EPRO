@@ -99,13 +99,19 @@ export default class Home extends Component {
                 userId={this.state.userId}
               /> : null
               }
-              <Title style={styles.titleText}>Your Activity</Title>
+              <Title style={styles.titleText}>Activity</Title>
+              <Text style={{textAlign: 'center', fontFamily: 'DidactGothic-Regular', fontSize: 16, marginBottom: 0}}>Exercise Volume by Day</Text>
             { this.state.isUpdated ?
               <HomeChart
                 userId={this.state.userId}
               /> : null
               }
-              <Submit />
+              <Submit
+                style={styles.submit}
+                onPress={() => {
+                }}
+                buttonName = {`Go to today's workout`}
+              />
             </Content>
             </Container>
 
@@ -141,11 +147,14 @@ const styles = StyleSheet.create({
     },
     titleText: {
       backgroundColor: '#FEFFFF',
-      marginTop: -550,
+      marginTop: -600,
       alignItems: 'center',
       justifyContent: 'center',
     },
     chart: {
+      marginTop: -200
+    },
+    submit: {
       marginTop: -200
     }
   });

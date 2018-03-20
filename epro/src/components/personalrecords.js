@@ -23,10 +23,6 @@ class PersonalRecords extends Component {
                 <Text style={styles.text}>Personal Records</Text>
                 <Text style={styles.text}>24</Text>
               </Col>
-              <Col style={{ backgroundColor: '#FEFFFF', height: '100%' }}>
-                <Text style={styles.text}>Measurements</Text>
-                <Text style={styles.text}>24</Text>
-              </Col>
             </Grid>
         </Header>
         </Container>
