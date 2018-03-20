@@ -96,6 +96,7 @@ class SignUp2 extends Component {
        isTrainer: false,
        isPublic: false,
        birthControlType:this.state.chosenBCType,
+       headerText: "By providing the following information, E/Pro can better analyze your unique cycle and offer exercise and nutrition recommendations specifically tailored to you"
      }),
     })
     const responseJson = await response.json()
@@ -146,12 +147,13 @@ class SignUp2 extends Component {
     return (
         <Container style={styles.background}>
           <HeaderSignIn
+            headerText={"By providing the following information, E/Pro can better analyze your unique cycle"}
           onPress={() => this.props.navigation.goBack()}
           />
           <Content style = {styles.content}>
 
-          <LoginProgress
-          progress={0.90}/>
+          {/* <LoginProgress
+          progress={0.90}/> */}
 
           <Text style={styles.headerText}>Date of Last Period</Text>
           <View style={styles.datePicker}>

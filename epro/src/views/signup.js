@@ -21,6 +21,7 @@ class SignUp extends Component {
        placeholderEmail: "myemail@example.com",
        placeholderPassword: "password",
        placeholderRetypePassword: "Retype password",
+       headerText: "E/Pro is a fitness app that allows users to better understand their own physiology and create tailored workout plans"
        }
 
        this.handleSubmit=this.handleSubmit.bind(this);
@@ -90,11 +91,10 @@ class SignUp extends Component {
         <Container style = {styles.background}>
 
           <HeaderSignIn
-          onPress={() => this.props.navigation.goBack()}
+            headerText={this.state.headerText}
+            onPress={() => this.props.navigation.goBack()}
           />
           <Content style = {styles.content}>
-          <LoginProgress
-          progress={0.5}/>
 
           <TextInput
             secureTextEntry={false}
