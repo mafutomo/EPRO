@@ -16,7 +16,10 @@ export default class BottomNav extends Component {
           <StyleProvider style ={getTheme(material)}>
             <FooterTab>
               <Button
-              onPress={() => this.props.navigation.navigate("Home")}
+              onPress={
+
+                () => this.props.navigation.navigate("Home")
+              }
               >
                 <Icon name="home" style={styles.icons}/>
               </Button>

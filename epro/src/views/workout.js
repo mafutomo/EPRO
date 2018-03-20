@@ -16,6 +16,9 @@ class Workout extends Component {
 
   constructor(props) {
      super(props)
+
+     const propsNav = this.props.navigation.state.params
+   console.log("PROPSNAV screenNum= ",propsNav);
      this.state = {
        bannerText: null,
        isModalVisible: false,
@@ -24,10 +27,11 @@ class Workout extends Component {
        isUpdated: false,
        token: null,
        phase: null,
+       screenNum:propsNav.screenNum,
        phaseDescription:
        [
          `After the first few days of bleeding, the rising levels of estrogen in your body will help you feel more social, positive, and extroverted than you felt the week prior to your period. \n \nThis is the week that you’ll likely feel your best physically, energetically, and emotionally.`,
-         
+
          `As estrogen rises throughout this week, your best days to train hard start two or three days after your period begins up until a couple days before ovulation. \n \nFocus your workouts this week on resistance training and power, as rising estrogen levels will help you build more muscle and build it faster.`,
 
          `Muscle growth and maintenance is especially difficult during this time, and you may find it harder to perform at your max. \n \nOn the upside, you’re burning up to 30% more fat when you exercise thanks to the combination of estrogen and progesterone making your body more efficient at using fat for fuel. \n \nBonus: Exercising reduces hormone-triggered water retention by helping you sweat out excess fluid.`,
@@ -115,7 +119,7 @@ class Workout extends Component {
   }
 
   render() {
-    console.log("phase index",this.state.phase);
+    console.log("this.state.screenNum",this.state.screenNum);
     return (
         <Container>
             <Header style={styles.header}>

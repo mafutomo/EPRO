@@ -43,7 +43,7 @@ const TabRouter = TabNavigator(
               <Button
               style = {styles.container}
               active={props.navigationState.index === 0}
-              onPress={() => props.navigation.navigate("Home")}
+              onPress={() => props.navigation.navigate("Home",{screenNum:1})}
               >
                 <Icon name="home" style={styles.icons}/>
               </Button>
@@ -51,7 +51,7 @@ const TabRouter = TabNavigator(
               <Button
               style = {styles.container}
               active={props.navigationState.index === 1}
-              onPress={() => props.navigation.navigate("Workout")}
+              onPress={() => props.navigation.navigate("Workout",{screenNum:2})}
               >
                 <Icon name="calendar" style={styles.icons}/>
               </Button>

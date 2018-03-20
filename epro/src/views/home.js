@@ -22,11 +22,14 @@ export default class Home extends Component {
 
   constructor(props) {
      super(props)
+       const propsNav = this.props.navigation.state.params
+     console.log("PROPSNAV screenNum = ",propsNav);
      this.state = {
        bannerText: "Hello Ali",
        token: null,
        userId: null,
        isUpdated: false,
+      screenNum:propsNav.screenNum,
       }
   }
 
@@ -73,6 +76,7 @@ export default class Home extends Component {
   }
 
   render() {
+    console.log("this.state.screenNum",this.state.screenNum);
     return (
       <Container style={styles.body}>
         <Header style={styles.header}>

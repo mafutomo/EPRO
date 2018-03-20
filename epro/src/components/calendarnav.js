@@ -13,6 +13,7 @@ class CalendarNav extends Component {
 
   constructor(props) {
      super(props)
+
      this.state = {
        todayDate: new Date(),
        todayISODate:'',
@@ -41,7 +42,7 @@ class CalendarNav extends Component {
     let currentISODate = this.state.todayDate.toISOString().split('T')[0]
     this.setState({todayISODate:currentISODate})
 
-    setTimeout(this._tabs.goToPage.bind(this._tabs,4))
+    setTimeout(this._tabs.goToPage.bind(this._tabs,5))
 
   }
 
@@ -52,7 +53,7 @@ class CalendarNav extends Component {
     let date = new Date(2018, 2, currentDate.getDate()+1)
      let days = []
 
-     for(let i = -4; i < 5; i++){
+     for(let i = -4; i < 7; i++){
        let currentDate = new Date()
        let date = new Date(2018, 2, currentDate.getDate()+i)
        days.push(date)
