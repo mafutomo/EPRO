@@ -161,27 +161,27 @@ class Profile extends Component {
             <View>
               <Grid >
                   <Col
-                    style={{paddingLeft: 10, paddingTop: 5}}
+                    style={{paddingLeft: 15, paddingTop: 7}}
                     size={1} backgroundColor={'#FEFFFF'}>
-                    <Icon name="square" isActive={true} style={{color: '#501F3A', fill: '#501F3A', fontSize: 12}}/>
+                    <Icon name="cog" isActive={true} style={{color: '#501F3A', fill: '#501F3A', fontSize: 18}}/>
                   </Col>
                   <Col
                     style={{paddingTop: 5}}
-                    size={3}
+                    size={5}
                     backgroundColor={'#FEFFFF'}>
-                    <Text style={{fontSize: 14, fontFamily: 'DidactGothic-Regular'}}>Estrogen(pg/ml)</Text>
+                    <Text style={{fontSize: 16, fontFamily: 'DidactGothic-Regular'}}>Estrogen(pg/ml)</Text>
                   </Col>
                   <Col
-                    style={{paddingTop: 5}}
+                    style={{paddingLeft: 5, paddingTop: 7}}
                     size={1}
                     backgroundColor={'#FEFFFF'}>
-                    <Icon name="square" isActive={true} style={{color: '#CB2D6F', fontSize: 12 }}/>
+                    <Icon name="cog" isActive={true} style={{color: '#CB2D6F', fontSize: 18 }}/>
                   </Col>
                   <Col
                     style={{paddingRight: 10, paddingTop: 5}}
-                    size={3}
+                    size={5}
                     backgroundColor={'#FEFFFF'}>
-                    <Text>Progesterone(ng/ml)</Text>
+                    <Text style={{fontSize: 16, fontFamily: 'DidactGothic-Regular'}}>Progesterone(ng/ml)</Text>
                   </Col>
               </Grid>
             </View>
