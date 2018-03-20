@@ -62,6 +62,14 @@ class History extends Component {
 
   render() {
     console.log("banner text",this.state.bannerText);
+    let dropDownOptions = [{
+        value: 'Past 30 days',
+      }, {
+        value: 'Past 3 months',
+      }, {
+        value: 'Past 6 months',
+      }]
+
     return (
         <Container>
             <Header style={styles.header}>
@@ -90,13 +98,8 @@ class History extends Component {
             { this.state.isUpdated ?
               <DatePicker
                 userId={this.state.userId}
-                data={[{
-                    value: 'Past 30 days',
-                  }, {
-                    value: 'Past 3 months',
-                  }, {
-                    value: 'Past 6 months',
-                  }]}
+                data={dropDownOptions}
+                // value = {selectedVal}
               /> : null
               }
             { this.state.isUpdated ?
