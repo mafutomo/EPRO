@@ -336,9 +336,16 @@
 			remoteGlobalIDString = 323A12871E5F266B004975B8;
 			remoteInfo = "ART-tvOS";
 		};
-		8616DAA520604B0800282098 /* PBXContainerItemProxy */ = {
+		8616DB62206074FF00282098 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D1C74375A04E4000B2AD9322 /* LRDRCTSimpleToast.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 15209BEF1D250F63000D0F44;
+			remoteInfo = LRDRCTSimpleToast;
+		};
+		8616DB65206074FF00282098 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81BBFFE105774226B02EEA89 /* LRDRCTSimpleToast.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 15209BEF1D250F63000D0F44;
 			remoteInfo = LRDRCTSimpleToast;
@@ -658,11 +665,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				6D2A91B0DD7B46DD9D55354F /* Resources */,
-<<<<<<< HEAD
 				8616DB35206074FE00282098 /* Recovered References */,
-=======
-				8616DA7820604B0600282098 /* Recovered References */,
->>>>>>> homechart
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -689,11 +692,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
 		8616DB35206074FE00282098 /* Recovered References */ = {
-=======
-		8616DA7820604B0600282098 /* Recovered References */ = {
->>>>>>> homechart
 			isa = PBXGroup;
 			children = (
 				1086635B65F94B52A14D67D1 /* libLRDRCTSimpleToast.a */,
@@ -701,32 +700,18 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
 		8616DB5D206074FF00282098 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				8616DB63206074FF00282098 /* libLRDRCTSimpleToast.a */,
-=======
-		8616DAA020604B0800282098 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8616DAA620604B0800282098 /* libLRDRCTSimpleToast.a */,
->>>>>>> homechart
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
 		8616DB5F206074FF00282098 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				8616DB66206074FF00282098 /* libLRDRCTSimpleToast.a */,
-=======
-		8616DAA220604B0800282098 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8616DAA920604B0800282098 /* libLRDRCTSimpleToast.a */,
->>>>>>> homechart
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -856,19 +841,11 @@
 					ProjectRef = 860DF7EE2054B2830028685F /* ART.xcodeproj */;
 				},
 				{
-<<<<<<< HEAD
 					ProductGroup = 8616DB5D206074FF00282098 /* Products */;
 					ProjectRef = D1C74375A04E4000B2AD9322 /* LRDRCTSimpleToast.xcodeproj */;
 				},
 				{
 					ProductGroup = 8616DB5F206074FF00282098 /* Products */;
-=======
-					ProductGroup = 8616DAA020604B0800282098 /* Products */;
-					ProjectRef = D1C74375A04E4000B2AD9322 /* LRDRCTSimpleToast.xcodeproj */;
-				},
-				{
-					ProductGroup = 8616DAA220604B0800282098 /* Products */;
->>>>>>> homechart
 					ProjectRef = 81BBFFE105774226B02EEA89 /* LRDRCTSimpleToast.xcodeproj */;
 				},
 				{
@@ -1197,7 +1174,6 @@
 			remoteRef = 860DF7F52054B2830028685F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-<<<<<<< HEAD
 		8616DB63206074FF00282098 /* libLRDRCTSimpleToast.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1210,20 +1186,6 @@
 			fileType = archive.ar;
 			path = libLRDRCTSimpleToast.a;
 			remoteRef = 8616DB65206074FF00282098 /* PBXContainerItemProxy */;
-=======
-		8616DAA620604B0800282098 /* libLRDRCTSimpleToast.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libLRDRCTSimpleToast.a;
-			remoteRef = 8616DAA520604B0800282098 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8616DAA920604B0800282098 /* libLRDRCTSimpleToast.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libLRDRCTSimpleToast.a;
-			remoteRef = 8616DAA820604B0800282098 /* PBXContainerItemProxy */;
->>>>>>> homechart
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
