@@ -83,13 +83,20 @@ class History extends Component {
           { this.state.isUpdated ?
             <Banner
               userId={this.state.userId}
-              bannerText={"Hello Stephanie"}
+              bannerText={"Workout History"}
             /> : null
             }
           <Content>
             { this.state.isUpdated ?
               <DatePicker
                 userId={this.state.userId}
+                data={[{
+                    value: 'Past 30 days',
+                  }, {
+                    value: 'Past 3 months',
+                  }, {
+                    value: 'Past 6 months',
+                  }]}
               /> : null
               }
             { this.state.isUpdated ?
