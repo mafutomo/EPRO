@@ -77,7 +77,8 @@ export default class Login extends React.Component {
     return (
         <Container style = {styles.background}>
           <Background />
-          {/* <CoverHeader /> */}
+          <Text
+          style={styles.titleText}>E/PRO</Text>
           <Content style = {styles.contentStyle}>
             <TextInput
               secureTextEntry={false}
@@ -146,8 +147,8 @@ const styles = StyleSheet.create({
     fontFamily: 'DidactGothic-Regular',
   },
   contentStyle:{
-    paddingTop: 25,
-    marginTop: 350,
+    paddingTop: 10,
+    marginTop: 335,
   },
   inputStyle: {
     backgroundColor: '#FEFFFF',
@@ -167,5 +168,16 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
     alignSelf: 'center',
+  },
+  titleText: {
+    fontFamily: 'Montserrat',
+    fontSize: 37,
+    color: 'black',
+    alignSelf: 'center',
+    marginBottom: -35,
+    marginTop: 27,
+    textShadowColor: 'rgba(23,37,42, 0.75)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 3,
   },
 })
