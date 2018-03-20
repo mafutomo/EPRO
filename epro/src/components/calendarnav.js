@@ -325,7 +325,7 @@ class CalendarNav extends Component {
             <View style = {{flexDirection:'column',alignItems:'center'}}>
             <Text>Weight</Text>
             <SmallInputBox
-            placeholder="0 Ibs"
+            placeholder="0 lbs"
             onChangeText={(text) => this.setState({inputWeight:text})}/>
             </View>
 
