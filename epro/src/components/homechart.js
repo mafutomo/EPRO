@@ -84,7 +84,7 @@ class HomeChart extends Component {
     }
 
     for(let i = 0; i < weekISODates.length; i++){
-      let response = await fetch(`http://localhost:3001/users/${this.state.userId}/workouts/${weekISODates[i]}`, {
+      let response = await fetch(`https://epro-fitness-api.herokuapp.com/users/${this.state.userId}/workouts/${weekISODates[i]}`, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',

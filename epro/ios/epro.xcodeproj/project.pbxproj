@@ -336,24 +336,9 @@
 			remoteGlobalIDString = 323A12871E5F266B004975B8;
 			remoteInfo = "ART-tvOS";
 		};
-<<<<<<< HEAD
-		8616DB62206074FF00282098 /* PBXContainerItemProxy */ = {
-=======
 		8616DAA520604B0800282098 /* PBXContainerItemProxy */ = {
->>>>>>> homechart
 			isa = PBXContainerItemProxy;
 			containerPortal = D1C74375A04E4000B2AD9322 /* LRDRCTSimpleToast.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 15209BEF1D250F63000D0F44;
-			remoteInfo = LRDRCTSimpleToast;
-		};
-<<<<<<< HEAD
-		8616DB65206074FF00282098 /* PBXContainerItemProxy */ = {
-=======
-		8616DAA820604B0800282098 /* PBXContainerItemProxy */ = {
->>>>>>> homechart
-			isa = PBXContainerItemProxy;
-			containerPortal = 81BBFFE105774226B02EEA89 /* LRDRCTSimpleToast.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 15209BEF1D250F63000D0F44;
 			remoteInfo = LRDRCTSimpleToast;

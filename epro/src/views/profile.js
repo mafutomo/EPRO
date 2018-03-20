@@ -163,7 +163,7 @@ class Profile extends Component {
                   <Col
                     style={{paddingLeft: 15, paddingTop: 7}}
                     size={1} backgroundColor={'#FEFFFF'}>
-                    <Icon name="cog" isActive={true} style={{color: '#501F3A', fill: '#501F3A', fontSize: 18}}/>
+                    <Icon name="radio-button-on" isActive={true} style={{color: '#501F3A', fill: '#501F3A', fontSize: 18}}/>
                   </Col>
                   <Col
                     style={{paddingTop: 5}}
@@ -175,7 +175,7 @@ class Profile extends Component {
                     style={{paddingLeft: 5, paddingTop: 7}}
                     size={1}
                     backgroundColor={'#FEFFFF'}>
-                    <Icon name="cog" isActive={true} style={{color: '#CB2D6F', fontSize: 18 }}/>
+                    <Icon name="radio-button-on" isActive={true} style={{color: '#CB2D6F', fontSize: 18 }}/>
                   </Col>
                   <Col
                     style={{paddingRight: 10, paddingTop: 5}}
