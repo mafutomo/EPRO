@@ -17,7 +17,7 @@ const HeaderSignIn = (props) => {
           </Left>
           <Body style = {styles.bodyStyle}>
             <Title style={styles.titleText}>E/PRO</Title>
-            <Subtitle style={styles.subTitleText}>Ut labore et dolore roipi mana aliqua. Enim adeop minim veeniam nostruklad</Subtitle>
+            <Subtitle style={styles.subTitleText}>{props.headerText}</Subtitle>
           </Body>
           <Right>
           </Right>
