@@ -11,7 +11,10 @@ import SignUp from './signup';
 export default class Login extends React.Component {
 
     constructor(props) {
+
        super(props)
+
+       console.log("THIS.PROPS = ",this.props);
        this.state = {
            email: "",
            password: "",
@@ -73,8 +76,8 @@ export default class Login extends React.Component {
     })
   }
 
-  signUpReroute(){
-    this.props.navigation.navigate(<SignUp/>)
+  signUpReroute = () => {
+    this.props.navigation.navigate('SignUp')
   }
 
   render() {
