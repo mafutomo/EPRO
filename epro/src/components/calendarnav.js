@@ -259,7 +259,15 @@ class CalendarNav extends Component {
       newState.push(responseJson[0])
       this.setState({ selectedExercises: newState })
     })
-    this.setState({isEditModalVisible:false})
+    this.setState({
+      inputExerciseName:"",
+      inputDescription:"",
+      inputRep:0,
+      inputWeight:0,
+      inputSet:0,
+      inputTime:'00:00',
+      isEditModalVisible: false
+    })
   }
 
 //Main Render
