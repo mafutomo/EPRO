@@ -129,7 +129,7 @@ class HomeChart extends Component {
             );
         }
     const screen = Dimensions.get('window');
-    const margin = {top: 75, right: 35, bottom: 400, left: 35}
+    const margin = {top: 30, right: 35, bottom: 400, left: 35}
     const width = screen.width - margin.left - margin.right
     const height = screen.height - margin.top - margin.bottom
 
@@ -183,7 +183,7 @@ class HomeChart extends Component {
                                 >
                                     <Shape d={this.drawLine(0, notch)} y2={notch} stroke={colors.black}/>
                                     <Text
-                                      x={x(d.day)/16-20}
+                                      x={x(d.day)/20-20}
                                       style={{textAlign: 'left'}}
                                       y={labelDistance}
                                       fill={colors.black}

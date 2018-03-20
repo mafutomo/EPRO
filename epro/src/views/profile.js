@@ -390,7 +390,7 @@ const styles = StyleSheet.create({
       borderRadius: 27,
       borderColor: '#3AAFA9',
       borderWidth: 1,
-      marginTop: 5,
+      marginTop: 15,
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2},
       shadowOpacity: 0.2,
