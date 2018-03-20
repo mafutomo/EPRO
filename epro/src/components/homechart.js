@@ -76,7 +76,8 @@ class HomeChart extends Component {
       let day = moment().add(i, 'days').format('L')
       let altDay = day.replace(/\//g, "-");
       weekISODates.push(altDay);
-      let calDate = moment().add(i, 'days').format("MMM Do");
+      // let calDate = moment().add(i, 'days').format("MMM Do");
+      let calDate = day.slice(0, 5)
       daysArr.push(calDate)
       this.setState({
         days: daysArr,
@@ -182,7 +183,8 @@ class HomeChart extends Component {
                                 >
                                     <Shape d={this.drawLine(0, notch)} y2={notch} stroke={colors.black}/>
                                     <Text
-                                      style={{textAlign: 'center'}}
+                                      x={x(d.day)/16-20}
+                                      style={{textAlign: 'left'}}
                                       y={labelDistance}
                                       fill={colors.black}
                                       font="12px Montserrat"
@@ -239,6 +241,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FEFFFF',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: -375,
   },
   label: {
     fontSize: 15,
