@@ -56,7 +56,7 @@ password: user1
 ### Navigation
 * On the top left navigation icon, users can read more about E/Pro as an application or Log Out.
 
-## Build With
+## Built With
 * React Native
 * Native Base
 * D3.js
@@ -66,10 +66,11 @@ password: user1
 * Express
 * PostgreSQL
 
-## Authors:
+## Authors
 Melissa Utomo
 * [Github Profile](https://github.com/mafutomo)
 * [Professional Portfolio](http://melissautomo.com/)
+
 Stephanie Marvez
 * [Github Profile](https://github.com/smarvez)
 * [Professional Portfolio](http://stephaniemarvez.surge.sh/)
