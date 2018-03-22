@@ -2,6 +2,8 @@
 
 E/Pro is a training and nutrition mobile app that analyzes a woman’s unique cycle and birth control method. With this information, users can also schedule and track their own daily exercises.
 
+![Intro Image](./README_Images/epro-headerimage.jpeg "epro-headerimage.jpeg")
+
 The app breaks down the average woman’s cycle into four distinct phases based on fluctuating estrogen and progesterone levels which have direct implications on athletic performance. These phases are Performance, Strength, Endurance, and Rest.
 
 With this information users can better understand their own physiology and use the app to tailor workout plans based on where they are in their cycle.
