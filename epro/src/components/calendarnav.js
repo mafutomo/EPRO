@@ -42,7 +42,7 @@ class CalendarNav extends Component {
     let currentISODate = this.state.todayDate.toISOString().split('T')[0]
     this.setState({todayISODate:currentISODate})
 
-    setTimeout(this._tabs.goToPage.bind(this._tabs,5))
+    setTimeout(this._tabs.goToPage.bind(this._tabs,4))
 
   }
 
@@ -446,10 +446,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#3AAFA9',
+    backgroundColor: '#2B7A78',
     padding: 8,
     borderRadius: 27,
-    borderColor: '#3AAFA9',
+    borderColor: '#2B7A78',
     borderWidth: 1,
     marginTop: 5,
     shadowColor: '#000',

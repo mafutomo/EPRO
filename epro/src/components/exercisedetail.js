@@ -31,7 +31,7 @@ const ExerciseDetail = (props) => {
             {/* Table Header */}
             <CardItem>
               <Table style={[styles.table,styles.borderStyle]} borderStyle={{borderWidth: 0, borderColor: 'black'}}>
-                <Row data={tableHead} flexArr={[1, 1, 1, 1]} style={styles.head} textStyle={styles.text}/>
+                <Row data={tableHead} flexArr={[1, 1, 1, 1]} style={styles.head} textStyle={styles.textHeader}/>
               </Table>
             </CardItem>
 
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   subText: {
-    fontSize: 18,
+    fontSize: 19,
     padding: 0,
     margin: 0,
     marginBottom: 20,
@@ -103,9 +103,15 @@ const styles = StyleSheet.create({
     padding: 0,
     margin: 0,
   },
+  textHeader:{
+    color:'black',
+    textAlign: 'center',
+    fontSize: 17,
+  },
   text: {
     textAlign: 'center',
-    color: '#17252A'
+    color: '#17252A',
+    fontSize: 16,
   },
   iconContainer:{
     width: '95%',

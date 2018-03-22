@@ -21,7 +21,9 @@ export default class HistoryTable extends Component {
         <Content>
           <Card style={styles.card}>
             <CardItem header>
-                <Text>Deadlift</Text>
+                <Text
+                style = {{fontSize:20}}
+                >Deadlift</Text>
             </CardItem>
             <CardItem>
               <Table style={styles.table} borderStyle={{borderWidth: 0, borderColor: 'black'}}>
@@ -36,7 +38,9 @@ export default class HistoryTable extends Component {
 
           <Card style={styles.card}>
             <CardItem header>
-                <Text>One Arm Hangs</Text>
+                <Text
+                style = {{fontSize:20}}
+                >One Arm Hangs</Text>
             </CardItem>
             <CardItem>
               <Table style={styles.table} borderStyle={{borderWidth: 0, borderColor: 'black'}}>
@@ -89,7 +93,8 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
-    backgroundColor: '#f6f8fa'
+    backgroundColor: '#f6f8fa',
+
   },
   row: {
     height: 35,
@@ -98,12 +103,14 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontFamily: 'DidactGothic-Regular',
-    color: '#17252A'
+    color: '#17252A',
+    fontSize:17
   },
   subText: {
     textAlign: 'center',
     fontFamily: 'DidactGothic-Regular',
     color: '#17252A',
     fontWeight: '600',
+    fontSize: 16,
   }
 })
