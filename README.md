@@ -37,10 +37,14 @@ password: user1
 ### Home Page
 * Once logged in, the user lands on their Home Page, where their current stats and upcoming workout schedule are displayed.
 
+![Home Page](./README_Images/home_mockup.jpeg "home_mockup.jpeg")
+
 * The graph indicates exercise volume by day and the user can choose to press on “Go to today’s workout” to see what they have scheduled for today.
 
 ### Profile Page
 * In the User Profile Page, the user can view their cycle overview based on the information they provided during the registration process.
+
+![Profile Page](./README_Images/hormones_mockup.jpeg "hormones_mockup.jpeg")
 
 * Represented in the graph are the two main hormones we’re concerned about in regards to athletic performance: Estrogen on left and Progesterone on right.
 
@@ -53,10 +57,14 @@ password: user1
 
 * As soon as the user navigates to the workouts page they automatically lands on today's workout schedule.
 
+![Workout Page](./README_Images/workout_mockup.jpeg "workout_mockup.jpeg")
+
 * To add a workout, users can press on the plus button and fill in the necessary information.
 
 ### Navigation
 * On the top left navigation icon, users can read more about E/Pro as an application or Log Out.
+
+![Side Navigation](./README_Images/sidenav_mockup.jpeg "sidenav_mockup.jpeg")
 
 ## Built With
 * React Native
